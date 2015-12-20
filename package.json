@@ -1,0 +1,26 @@
+{
+  "name": "react-dragndrop",
+  "version": "1.0.0",
+  "description": "react module that uses ES2015 and Babel to create drag and drop\u001b[D\b\u0001\u0005\u0005\u0005\u001b[H\u001b[D\u001b[D\u001b[D\u001b[C\u001b[Cfeiffeaf\u001b[C\u001b[C\u001b[C\u001b[Cfeafea\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[Csimple react module that uses ES2015 and Babel to  create a Draggable/Droppable component that registers an event if it is over a DropTarget it is allowed. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/courtneynguyen/react-dragndrop.git"
+  },
+  "keywords": [
+    "react",
+    "drag",
+    "drop",
+    "component",
+    "es2015"
+  ],
+  "author": "courtyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/courtneynguyen/react-dragndrop/issues"
+  },
+  "homepage": "https://github.com/courtneynguyen/react-dragndrop#readme"
+}
