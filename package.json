@@ -22,5 +22,12 @@
   "bugs": {
     "url": "https://github.com/courtneynguyen/react-dragndrop/issues"
   },
-  "homepage": "https://github.com/courtneynguyen/react-dragndrop#readme"
+  "homepage": "https://github.com/courtneynguyen/react-dragndrop#readme",
+  "devDependencies": {
+    "babel-core": "^6.3.21",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "react-loader": "^2.0.0",
+    "webpack": "^1.12.9"
+  }
 }
