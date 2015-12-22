@@ -15,7 +15,8 @@
     "drag",
     "drop",
     "component",
-    "es2015"
+    "es2015",
+    "react-component"
   ],
   "author": "courtyen",
   "license": "ISC",
@@ -29,5 +30,8 @@
     "babel-preset-es2015": "^6.3.13",
     "react-loader": "^2.0.0",
     "webpack": "^1.12.9"
+  },
+  "dependencies": {
+    "react": "^0.14.3"
   }
 }

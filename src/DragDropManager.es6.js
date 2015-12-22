@@ -41,9 +41,16 @@ export default class DragAndDropManager{
 		return this.hoveredDropTarget;
 	}
 
-	releaseDraggableOnDropTarget(draggable, content){
+	releaseDraggableOnDropTarget(draggable){
 		if(draggable.isOverTarget){
 			var y = this.getDropTargetBeingHovered().getRef();
+			var content = '';
+			if(draggable.props.setContentOnDrop){
+				content = draggable.props.setContentOnDrop();
+			}
+			else{
+				content = draggable.props.children.props.children;
+			}
 			y.setContent(content);
 			draggable.hideDraggable();
 		}
