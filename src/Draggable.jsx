@@ -33,10 +33,7 @@ var Draggable = React.createClass({
 		this.setState = this.setState;
 	},
 	componentWillMount: function(){
-		this.currentPosition = {
-			x: this.props.x,
-			y: this.props.y
-		};
+		this.currentPosition = this.props.currentPosition;
 		this.width = this.props.width;
 		this.height = this.props.height;
 		this.style = Object.assign(this.style, {width: this.width, height: this.height});
@@ -54,7 +51,10 @@ var Draggable = React.createClass({
 			"top": this.currentPosition.y
 		};
 		var draggableClone = React.Children.map(this.props.children, function(child){
-			var childStyle = child.props.style || '';
+			var childStyle = '';
+			if(child && child.props && child.props.style){
+				childStyle = child.props.style;
+			}
 			return React.createElement('div',
 			{
 				style: Object.assign({}, this.style, style, childStyle),

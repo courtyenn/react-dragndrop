@@ -1,10 +1,10 @@
 {
   "name": "react-dragndrop",
-  "version": "1.0.0",
-  "description": "react module that uses ES2015 and Babel to create drag and drop\u001b[D\b\u0001\u0005\u0005\u0005\u001b[H\u001b[D\u001b[D\u001b[D\u001b[C\u001b[Cfeiffeaf\u001b[C\u001b[C\u001b[C\u001b[Cfeafea\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[Csimple react module that uses ES2015 and Babel to  create a Draggable/Droppable component that registers an event if it is over a DropTarget it is allowed. ",
-  "main": "index.js",
+  "version": "1.0.9",
+  "description": "First npm module and react component.",
+  "main": "dist/react-dragndrop",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -18,21 +18,25 @@
     "es2015",
     "react-component"
   ],
-  "author": "courtyen",
+  "author": "Courtney Nguyen",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/courtneynguyen/react-dragndrop/issues"
   },
   "homepage": "https://github.com/courtneynguyen/react-dragndrop#readme",
   "devDependencies": {
-    "babel-core": "^6.3.21",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
+    "babel-core": "^5.8.33",
+    "babel-loader": "^5.3.3",
+    "babel-preset-es2015": "^6.1.2",
+    "es6": "0.0.7",
+    "eslint": "^1.9.0",
+    "gulp": "^3.9.0",
+    "jest": "^0.1.40",
     "react-loader": "^2.0.0",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.2"
   },
   "dependencies": {
     "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.1"
   }
 }

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import DraggableStyles from '../styles/Draggable';
-import LineItem from '../LineItem';
-import Immutable from 'immutable';
-
+import LineItem from '../LineItem.es6.js';
 
 export default class Draggable extends Component{
 	constructor(){

@@ -1,4 +1,4 @@
-import boxBoundaryChecking from './boxBoundaryChecking.js';
+import boxBoundaryChecking from './boxBoundaryChecking.es6.js';
 
 export default class DragAndDropManager{
 	constructor(){
