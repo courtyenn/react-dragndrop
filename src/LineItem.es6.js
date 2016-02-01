@@ -7,6 +7,7 @@ import DropTargetModel from './models/DropTarget.es6.js';
 import DragDropManager from './DragDropManager.es6.js';
 import DropTargetStyles from './styles/DropTargetStyles';
 
+// const dragDropManager = new DragDropManager(); was breaking stuff
 const dragDropManager = DragDropManager;
 
 export default class List extends Component{
