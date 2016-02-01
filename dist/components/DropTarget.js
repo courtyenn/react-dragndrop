@@ -1,22 +1,24 @@
-var React = require('react');
+import React, {Component} from 'react';
 
-var DropTarget = React.createClass({
-	getInitialState: function(){
+export default class DropTarget extends Component{
+	constructor(){
+		super();
 		this.mouseIsOverTarget = false;
 		this.style = {};
 		this.content = [];
 		this.wrapper = "";
-	},
-	componentWillMount: function(){
+	}
+	componentWillMount(){
 		this.wrapper = this.props.wrapper || 'div';
 		this.content = this.props.defaultContent;
 		this.style = this.props.style;
 		if(this.props.model){
 			this.props.model.setRef(this);
 		}
-	},
-	render: function(){
-		var style = this.style;
+	}
+
+	render(){
+		let style = this.style;
 		if(this.props.style){
 			style = Object.assign({}, this.style, this.props.style);
 		}
@@ -27,21 +29,25 @@ var DropTarget = React.createClass({
 		<div style={style}>
 			{dropTargetElement}
 		</div>);
-	},
-	setContent: function(content){
+	}
+
+	setContent(content){
 		this.content = content;
 		this.setState({content: this.content});
-	},
-	appendToContent: function(content){
+	}
+
+	appendToContent(content){
 		this.content.push(content);
 		this.setState({content: this.content});
-	},
-	draggableHoveringOverDropTarget: function(){
+	}
+
+	draggableHoveringOverDropTarget(){
 		if(this.props.handleDraggableHoveringOverDropTarget){
 			this.props.handleDraggableHoveringOverDropTarget(this);
 		}
-	},
-	setHoverStyle: function(style){
+	}
+
+	setHoverStyle(style){
 		this.hoveredStyle = style;
 	}
-});
+}

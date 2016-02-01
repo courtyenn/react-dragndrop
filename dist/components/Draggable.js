@@ -1,14 +1,10 @@
-var React = require('react');
-var DraggableStyles = require('../styles/Draggable');
-var LineItem = require('../LineItem');
+import React, {Component} from 'react';
+import DraggableStyles from '../styles/Draggable';
+import LineItem from '../LineItem';
 
-var Draggable = React.createClass({
-	propTypes: {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		currentPosition: React.PropTypes.object.isRequired
-	},
-	getInitialState: function(){
+export default class Draggable extends Component{
+	constructor(){
+		super();
 		this.style = {
 			"position": "absolute",
 			"left": 0,
@@ -31,30 +27,33 @@ var Draggable = React.createClass({
 		this.hoveredDropTarget = null;
 
 		this.setState = this.setState;
-	},
-	componentWillMount: function(){
-		this.currentPosition = this.props.currentPosition;
+	}
+
+	componentWillMount(){
+		this.currentPosition = {
+			x: this.props.x,
+			y: this.props.y
+		};
 		this.width = this.props.width;
 		this.height = this.props.height;
 		this.style = Object.assign(this.style, {width: this.width, height: this.height});
-	},
-	componentDidMount: function(){
+	}
+
+	componentDidMount(){
 		this.dropTargets = this.props.dropTargets;
 
 		if(this.props.manager){
 			this.props.manager.registerDraggable(this);
 		}
-	},
-	render:function(){
-		var style = {
+	}
+
+	render(){
+		let style = {
 			"left": this.currentPosition.x,
 			"top": this.currentPosition.y
 		};
-		var draggableClone = React.Children.map(this.props.children, function(child){
-			var childStyle = '';
-			if(child && child.props && child.props.style){
-				childStyle = child.props.style;
-			}
+		var draggableClone = React.Children.map(this.props.children, (child) => {
+			var childStyle = child.props.style || '';
 			return React.createElement('div',
 			{
 				style: Object.assign({}, this.style, style, childStyle),
@@ -69,8 +68,9 @@ var Draggable = React.createClass({
 				{draggableClone}
 			</div>
 		);
-	},
-	setMousePosition: function(ev){
+	}
+
+	setMousePosition(ev){
 		this.localNextPosition.x = (ev.clientX);
 		this.localNextPosition.y = (ev.clientY);
 
@@ -96,16 +96,18 @@ var Draggable = React.createClass({
 				currentPosition: this.localNextPosition
 			});
 		}
-	},
-	handleMouseDown: function(ev){
+	}
+
+	handleMouseDown(ev){
 		this.clicked = true;
 		this.dragging = true;
 
 		if(this.props.handleMouseDown){
 			this.props.handleMouseDown(ev);
 		}
-	},
-	handleMouseUp: function(ev){
+	}
+
+	handleMouseUp(ev){
 		this.clicked = false;
 		if(this.props.handleMouseUp){
 			this.props.handleMouseUp(ev);
@@ -113,11 +115,13 @@ var Draggable = React.createClass({
 		if(this.props.manager){
 			this.props.manager.releaseDraggableOnDropTarget(this, this.props.droppedDraggable);
 		}
-	},
-	hideDraggable: function(){
+	}
+
+	hideDraggable(){
 		this.style = Object.assign(this.style, {visibility: 'hidden'});
 		this.setState({style: this.style});
 	}
-});
+}
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
+Draggable.prototype.localOriginPosition = {x: 0, y: 0};

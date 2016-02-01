@@ -1,0 +1,3 @@
+/usr/local/bin/extDiff: line 2: syntax error near unexpected token `;&'
+/usr/local/bin/extDiff: line 2: `[ $# -eq 7 ] &amp;&amp; /usr/local/bin/extMerge "$2" "$5"'
+fatal: external diff died, stopping at .npmignore
