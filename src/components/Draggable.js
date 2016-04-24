@@ -10,10 +10,7 @@ export default class Draggable extends Component{
 			"left": 0,
 			"top": 0
 		};
-
-		// var html = document.getElementsByTagName('html')[0];
-		// html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
-
+		
 		this.currentPosition = {x: 0, y: 0};
 		this.clicked = false;
 		this.dragging = false;
