@@ -2,7 +2,8 @@ var path = require('path');
 module.exports = {
     entry: {
 		"./dist/react-dragndrop": "./src/index",
-		"./examples/app": "./examples/app.es6"
+		"./examples/simple/app": "./examples/simple/app.es6",
+		"./examples/small_game/app": "./examples/small_game/app.es6"
 	},
     module: {
 		debug: true,
@@ -14,7 +15,8 @@ module.exports = {
                loader: "babel",
 					include: [
 						path.resolve(__dirname, 'src'),
-						path.resolve(__dirname, 'examples')
+						path.resolve(__dirname, 'examples/simple'),
+						path.resolve(__dirname, 'examples/small_game')
 					]
             }
         ]

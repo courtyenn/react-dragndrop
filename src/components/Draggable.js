@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import DraggableStyles from '../styles/Draggable';
-import LineItem from '../LineItem.es6.js';
 
 export default class Draggable extends Component{
 	constructor(){
@@ -10,7 +9,10 @@ export default class Draggable extends Component{
 			"left": 0,
 			"top": 0
 		};
-		
+
+		var html = document.getElementsByTagName('html')[0];
+		html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
+
 		this.currentPosition = {x: 0, y: 0};
 		this.clicked = false;
 		this.dragging = false;
@@ -108,11 +110,12 @@ export default class Draggable extends Component{
 
 	handleMouseUp(ev){
 		this.clicked = false;
+		this.dragging = false;
 		if(this.props.handleMouseUp){
 			this.props.handleMouseUp(ev);
 		}
 		if(this.props.manager){
-			this.props.manager.releaseDraggableOnDropTarget(this, this.props.droppedDraggable);
+			this.props.manager.releaseDraggableOnDropTarget(this);
 		}
 	}
 

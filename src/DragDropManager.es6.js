@@ -50,7 +50,7 @@ export default class DragAndDropManager{
 			else{
 				content = draggable.props.children.props.children;
 			}
-			y.setContent(content);
+			y.appendToContent(content);
 			draggable.hideDraggable();
 		}
 	}

@@ -10,7 +10,7 @@ export default class DropTarget extends Component{
 	}
 	componentWillMount(){
 		this.wrapper = this.props.wrapper || 'div';
-		this.content = this.props.defaultContent;
+		this.content = this.props.defaultContent || [];
 		this.style = this.props.style;
 		if(this.props.model){
 			this.props.model.setRef(this);

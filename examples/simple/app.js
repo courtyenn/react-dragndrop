@@ -46,29 +46,21 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	var _react = __webpack_require__(2);
 
-	var _Draggable = __webpack_require__(1);
+	var _react2 = _interopRequireDefault(_react);
 
-	Object.defineProperty(exports, 'Draggable', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_Draggable).default;
-	  }
-	});
+	var _reactDom = __webpack_require__(161);
 
-	var _DropTarget = __webpack_require__(160);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	Object.defineProperty(exports, 'DropTarget', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_DropTarget).default;
-	  }
-	});
+	var _mainEs = __webpack_require__(162);
+
+	var _mainEs2 = _interopRequireDefault(_mainEs);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	_reactDom2.default.render(_react2.default.createElement(_mainEs2.default, null), document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -19866,7 +19858,17 @@
 	module.exports = DraggableStyle;
 
 /***/ },
-/* 160 */
+/* 160 */,
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(4);
+
+
+/***/ },
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19881,6 +19883,18 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Draggable = __webpack_require__(1);
+
+	var _Draggable2 = _interopRequireDefault(_Draggable);
+
+	var _DragDropManagerEs = __webpack_require__(163);
+
+	var _DragDropManagerEs2 = _interopRequireDefault(_DragDropManagerEs);
+
+	var _DropTargetEs = __webpack_require__(165);
+
+	var _DropTargetEs2 = _interopRequireDefault(_DropTargetEs);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19889,75 +19903,224 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var DropTarget = function (_Component) {
-		_inherits(DropTarget, _Component);
+	var App = function (_React$Component) {
+		_inherits(App, _React$Component);
 
-		function DropTarget() {
+		function App() {
+			_classCallCheck(this, App);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
+		}
+
+		_createClass(App, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement('div', null);
+			}
+		}]);
+
+		return App;
+	}(_react2.default.Component);
+
+	exports.default = App;
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _boxBoundaryCheckingEs = __webpack_require__(164);
+
+	var _boxBoundaryCheckingEs2 = _interopRequireDefault(_boxBoundaryCheckingEs);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var DragAndDropManager = function () {
+		function DragAndDropManager() {
+			_classCallCheck(this, DragAndDropManager);
+
+			this.draggables = [];
+			this.dropTargets = [];
+			this.hoveredDropTarget = null;
+		}
+
+		_createClass(DragAndDropManager, [{
+			key: 'registerDraggable',
+			value: function registerDraggable(model) {
+				this.draggables.push(model);
+			}
+		}, {
+			key: 'registerDropTarget',
+			value: function registerDropTarget(model) {
+				this.dropTargets.push(model);
+			}
+		}, {
+			key: 'getDropTargets',
+			value: function getDropTargets() {
+				return this.dropTargets;
+			}
+		}, {
+			key: 'draggableIsOverDropTarget',
+			value: function draggableIsOverDropTarget(draggable) {
+				var _iteratorNormalCompletion = true;
+				var _didIteratorError = false;
+				var _iteratorError = undefined;
+
+				try {
+					for (var _iterator = this.dropTargets[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+						var dropTarget = _step.value;
+
+						var draggableDimensions = {
+							width: draggable.width,
+							height: draggable.height,
+							x: draggable.currentPosition.x,
+							y: draggable.currentPosition.y
+						};
+						draggable.isOverTarget = (0, _boxBoundaryCheckingEs2.default)(draggableDimensions, dropTarget);
+						if (draggable.isOverTarget) {
+							this.hoveredDropTarget = dropTarget;
+							break;
+						}
+					}
+				} catch (err) {
+					_didIteratorError = true;
+					_iteratorError = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion && _iterator.return) {
+							_iterator.return();
+						}
+					} finally {
+						if (_didIteratorError) {
+							throw _iteratorError;
+						}
+					}
+				}
+
+				return draggable.isOverTarget;
+			}
+		}, {
+			key: 'getDropTargetBeingHovered',
+			value: function getDropTargetBeingHovered() {
+				return this.hoveredDropTarget;
+			}
+		}, {
+			key: 'releaseDraggableOnDropTarget',
+			value: function releaseDraggableOnDropTarget(draggable) {
+				if (draggable.isOverTarget) {
+					var y = this.getDropTargetBeingHovered().getRef();
+					var content = '';
+					if (draggable.props.setContentOnDrop) {
+						content = draggable.props.setContentOnDrop();
+					} else {
+						content = draggable.props.children.props.children;
+					}
+					y.appendToContent(content);
+					draggable.hideDraggable();
+				}
+			}
+		}]);
+
+		return DragAndDropManager;
+	}();
+
+	exports.default = DragAndDropManager;
+
+/***/ },
+/* 164 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	// Checks a box boundary with another box boundary
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = checkBoundaries;
+	function checkBoundaries(origin, target) {
+		return origin.x >= target.x && origin.x <= target.x + target.width && origin.y >= target.y && origin.y <= target.y + target.height || origin.x + origin.width >= target.x && origin.x + origin.width <= target.x + target.width && origin.y + origin.height >= target.y && origin.y + origin.height <= target.y + target.height;
+	}
+
+/***/ },
+/* 165 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var DropTarget = function () {
+		function DropTarget(id, x, y, width, height) {
 			_classCallCheck(this, DropTarget);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DropTarget).call(this));
-
-			_this.mouseIsOverTarget = false;
-			_this.style = {};
-			_this.content = [];
-			_this.wrapper = "";
-			return _this;
+			this.id = id;
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+			this.ref = null;
+			this.baseStyle = '';
+			this.hoverStyle = '';
+			this.draggableHoveringOverDropTargetStyle = '';
+			this.wrapperElement = '';
+			this.title = '';
 		}
 
 		_createClass(DropTarget, [{
-			key: 'componentWillMount',
-			value: function componentWillMount() {
-				this.wrapper = this.props.wrapper || 'div';
-				this.content = this.props.defaultContent || [];
-				this.style = this.props.style;
-				if (this.props.model) {
-					this.props.model.setRef(this);
-				}
+			key: 'getCurrentPosition',
+			value: function getCurrentPosition() {
+				return { x: this.x, y: this.y };
 			}
 		}, {
-			key: 'render',
-			value: function render() {
-				var style = this.style;
-				if (this.props.style) {
-					style = Object.assign({}, this.style, this.props.style);
-				}
-
-				var dropTargetElement = _react2.default.createElement(this.wrapper, style, this.content);
-
-				return _react2.default.createElement(
-					'div',
-					{ style: style },
-					dropTargetElement
-				);
+			key: 'getDimensions',
+			value: function getDimensions() {
+				return { width: this.width, height: this.height };
 			}
 		}, {
-			key: 'setContent',
-			value: function setContent(content) {
-				this.content = content;
-				this.setState({ content: this.content });
+			key: 'getId',
+			value: function getId() {
+				return this.id;
 			}
 		}, {
-			key: 'appendToContent',
-			value: function appendToContent(content) {
-				this.content.push(content);
-				this.setState({ content: this.content });
+			key: 'setRef',
+			value: function setRef(ref) {
+				this.ref = ref;
 			}
 		}, {
-			key: 'draggableHoveringOverDropTarget',
-			value: function draggableHoveringOverDropTarget() {
-				if (this.props.handleDraggableHoveringOverDropTarget) {
-					this.props.handleDraggableHoveringOverDropTarget(this);
-				}
+			key: 'getRef',
+			value: function getRef() {
+				return this.ref;
 			}
 		}, {
-			key: 'setHoverStyle',
-			value: function setHoverStyle(style) {
-				this.hoveredStyle = style;
+			key: 'setBaseStyle',
+			value: function setBaseStyle(style) {
+				this.baseStyle = style;
+			}
+		}, {
+			key: 'getBaseStyle',
+			value: function getBaseStyle() {
+				return this.baseStyle;
 			}
 		}]);
 
 		return DropTarget;
-	}(_react.Component);
+	}();
 
 	exports.default = DropTarget;
 
