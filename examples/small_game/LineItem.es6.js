@@ -70,9 +70,7 @@ export class MainSection extends Component{
 			'width': dropTarget2.width,
 			'height': dropTarget2.height
 		}));
-		dragDropManager.registerDropTarget(dropTarget3);
-		dragDropManager.registerDropTarget(dropTarget2);
-		this.dropTargets = dragDropManager.getDropTargets();
+		this.dropTargets.push(dropTarget2);
 		var innerDropTarget = {
 			ele: "li",
 			options: {
@@ -83,13 +81,11 @@ export class MainSection extends Component{
 			}
 		};
 		var dropTargetComponents = this.dropTargets.map((dropTarget) => {
-			dropTarget.setRef(this.refs[dropTarget.getId() + "-target"]);
-			var ref = dropTarget.getId() + "-target";
 			return (<DropTarget
 							key={dropTarget.getId()}
 							manager={dragDropManager}
 							style={dropTarget.getBaseStyle()}
-							model={dropTarget}
+							{...dropTarget}
 							/>);
 		});
 
@@ -101,7 +97,6 @@ export class MainSection extends Component{
 			<div>
 				<Draggable
 				key={"0.0"}
-				dropTargets={this.dropTargets}
 				manager={dragDropManager}
 				width={300}
 				height={60}
@@ -111,7 +106,6 @@ export class MainSection extends Component{
 				</Draggable>
 				<Draggable
 				key={"0.1"}
-				dropTargets={this.dropTargets}
 				manager={dragDropManager}
 				width={100}
 				height={100}

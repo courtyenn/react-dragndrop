@@ -123,7 +123,6 @@
 			_this.handleMouseUp = _this.handleMouseUp.bind(_this);
 			_this.width = 0;
 			_this.height = 0;
-			_this.dropTargets = [];
 			_this.isOverTarget = false;
 			_this.hoveredDropTarget = null;
 
@@ -145,8 +144,6 @@
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.dropTargets = this.props.dropTargets;
-
 				if (this.props.manager) {
 					this.props.manager.registerDraggable(this);
 				}
@@ -195,7 +192,7 @@
 						var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this);
 						if (draggableisOverDropTarget) {
 							this.isOverTarget = true;
-							this.hoveredDropTarget = this.props.manager.getDropTargetBeingHovered();
+							this.hoveredDropTarget = this.props.manager.hoveredDropTarget;
 						} else {
 							this.isOverTarget = false;
 						}
@@ -19910,8 +19907,12 @@
 				this.wrapper = this.props.wrapper || 'div';
 				this.content = this.props.defaultContent || [];
 				this.style = this.props.style;
-				if (this.props.model) {
-					this.props.model.setRef(this);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				if (this.props.manager) {
+					this.props.manager.registerDropTarget(this);
 				}
 			}
 		}, {

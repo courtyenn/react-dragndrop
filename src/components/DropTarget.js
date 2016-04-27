@@ -12,13 +12,16 @@ export default class DropTarget extends Component{
 		this.wrapper = this.props.wrapper || 'div';
 		this.content = this.props.defaultContent || [];
 		this.style = this.props.style;
-		if(this.props.model){
-			this.props.model.setRef(this);
+	}
+
+	componentDidMount(){
+		if(this.props.manager){
+			this.props.manager.registerDropTarget(this);
 		}
 	}
 
 	render(){
-		let style = this.style;
+		var style = this.style;
 		if(this.props.style){
 			style = Object.assign({}, this.style, this.props.style);
 		}

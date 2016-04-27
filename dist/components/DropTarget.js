@@ -12,9 +12,6 @@ export default class DropTarget extends Component{
 		this.wrapper = this.props.wrapper || 'div';
 		this.content = this.props.defaultContent;
 		this.style = this.props.style;
-		if(this.props.model){
-			this.props.model.setRef(this);
-		}
 	}
 
 	render(){

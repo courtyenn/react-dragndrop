@@ -27,7 +27,13 @@ export default class DragAndDropManager{
 				x: draggable.currentPosition.x,
 				y: draggable.currentPosition.y
 			};
-			draggable.isOverTarget = boxBoundaryChecking(draggableDimensions, dropTarget);
+			var dropTargetDimensions = {
+				width: dropTarget.style.width,
+				height: dropTarget.style.height,
+				x: dropTarget.style.left,
+				y: dropTarget.style.top
+			};
+			draggable.isOverTarget = boxBoundaryChecking(draggableDimensions, dropTargetDimensions);
 			if(draggable.isOverTarget){
 				this.hoveredDropTarget = dropTarget;
 				break;
@@ -36,13 +42,9 @@ export default class DragAndDropManager{
 		return draggable.isOverTarget;
 	}
 
-	getDropTargetBeingHovered(){
-		return this.hoveredDropTarget;
-	}
-
 	releaseDraggableOnDropTarget(draggable){
 		if(draggable.isOverTarget){
-			var y = this.getDropTargetBeingHovered().getRef();
+			var dropTargetBeingHovered = this.hoveredDropTarget;
 			var content = '';
 			if(draggable.props.setContentOnDrop){
 				content = draggable.props.setContentOnDrop();
@@ -50,7 +52,7 @@ export default class DragAndDropManager{
 			else{
 				content = draggable.props.children.props.children;
 			}
-			y.appendToContent(content);
+			dropTargetBeingHovered.appendToContent(content);
 			draggable.hideDraggable();
 		}
 	}

@@ -115,7 +115,6 @@
 			_this.handleMouseUp = _this.handleMouseUp.bind(_this);
 			_this.width = 0;
 			_this.height = 0;
-			_this.dropTargets = [];
 			_this.isOverTarget = false;
 			_this.hoveredDropTarget = null;
 
@@ -137,8 +136,6 @@
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.dropTargets = this.props.dropTargets;
-
 				if (this.props.manager) {
 					this.props.manager.registerDraggable(this);
 				}
@@ -187,7 +184,7 @@
 						var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this);
 						if (draggableisOverDropTarget) {
 							this.isOverTarget = true;
-							this.hoveredDropTarget = this.props.manager.getDropTargetBeingHovered();
+							this.hoveredDropTarget = this.props.manager.hoveredDropTarget;
 						} else {
 							this.isOverTarget = false;
 						}
@@ -19902,8 +19899,12 @@
 				this.wrapper = this.props.wrapper || 'div';
 				this.content = this.props.defaultContent || [];
 				this.style = this.props.style;
-				if (this.props.model) {
-					this.props.model.setRef(this);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				if (this.props.manager) {
+					this.props.manager.registerDropTarget(this);
 				}
 			}
 		}, {
@@ -20024,7 +20025,13 @@
 							x: draggable.currentPosition.x,
 							y: draggable.currentPosition.y
 						};
-						draggable.isOverTarget = (0, _boxBoundaryCheckingEs2.default)(draggableDimensions, dropTarget);
+						var dropTargetDimensions = {
+							width: dropTarget.style.width,
+							height: dropTarget.style.height,
+							x: dropTarget.style.left,
+							y: dropTarget.style.top
+						};
+						draggable.isOverTarget = (0, _boxBoundaryCheckingEs2.default)(draggableDimensions, dropTargetDimensions);
 						if (draggable.isOverTarget) {
 							this.hoveredDropTarget = dropTarget;
 							break;
@@ -20048,22 +20055,17 @@
 				return draggable.isOverTarget;
 			}
 		}, {
-			key: 'getDropTargetBeingHovered',
-			value: function getDropTargetBeingHovered() {
-				return this.hoveredDropTarget;
-			}
-		}, {
 			key: 'releaseDraggableOnDropTarget',
 			value: function releaseDraggableOnDropTarget(draggable) {
 				if (draggable.isOverTarget) {
-					var y = this.getDropTargetBeingHovered().getRef();
+					var dropTargetBeingHovered = this.hoveredDropTarget;
 					var content = '';
 					if (draggable.props.setContentOnDrop) {
 						content = draggable.props.setContentOnDrop();
 					} else {
 						content = draggable.props.children.props.children;
 					}
-					y.appendToContent(content);
+					dropTargetBeingHovered.appendToContent(content);
 					draggable.hideDraggable();
 				}
 			}
@@ -20113,7 +20115,6 @@
 			this.y = y;
 			this.width = width;
 			this.height = height;
-			this.ref = null;
 			this.baseStyle = '';
 			this.hoverStyle = '';
 			this.draggableHoveringOverDropTargetStyle = '';
@@ -20135,16 +20136,6 @@
 			key: 'getId',
 			value: function getId() {
 				return this.id;
-			}
-		}, {
-			key: 'setRef',
-			value: function setRef(ref) {
-				this.ref = ref;
-			}
-		}, {
-			key: 'getRef',
-			value: function getRef() {
-				return this.ref;
 			}
 		}, {
 			key: 'setBaseStyle',
@@ -20229,6 +20220,8 @@
 		value: true
 	});
 	exports.MainSection = exports.LineItem = exports.List = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20356,8 +20349,6 @@
 		}, {
 			key: 'renderDropTargets',
 			value: function renderDropTargets() {
-				var _this4 = this;
-
 				var dropTarget3 = new _DropTargetEs2.default(100, 200, 450, 400, 250);
 				dropTarget3.setBaseStyle(Object.assign({}, _DropTargetStyles2.default.BaseStyle, {
 					'top': dropTarget3.y,
@@ -20373,9 +20364,7 @@
 					'width': dropTarget2.width,
 					'height': dropTarget2.height
 				}));
-				dragDropManager.registerDropTarget(dropTarget3);
-				dragDropManager.registerDropTarget(dropTarget2);
-				this.dropTargets = dragDropManager.getDropTargets();
+				this.dropTargets.push(dropTarget2);
 				var innerDropTarget = {
 					ele: "li",
 					options: {
@@ -20386,14 +20375,11 @@
 					}
 				};
 				var dropTargetComponents = this.dropTargets.map(function (dropTarget) {
-					dropTarget.setRef(_this4.refs[dropTarget.getId() + "-target"]);
-					var ref = dropTarget.getId() + "-target";
-					return _react2.default.createElement(_DropTarget2.default, {
+					return _react2.default.createElement(_DropTarget2.default, _extends({
 						key: dropTarget.getId(),
 						manager: dragDropManager,
-						style: dropTarget.getBaseStyle(),
-						model: dropTarget
-					});
+						style: dropTarget.getBaseStyle()
+					}, dropTarget));
 				});
 
 				return dropTargetComponents;
@@ -20408,7 +20394,6 @@
 						_Draggable2.default,
 						{
 							key: "0.0",
-							dropTargets: this.dropTargets,
 							manager: dragDropManager,
 							width: 300,
 							height: 60,
@@ -20424,7 +20409,6 @@
 						_Draggable2.default,
 						{
 							key: "0.1",
-							dropTargets: this.dropTargets,
 							manager: dragDropManager,
 							width: 100,
 							height: 100,

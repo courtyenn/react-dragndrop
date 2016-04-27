@@ -115,7 +115,6 @@
 			_this.handleMouseUp = _this.handleMouseUp.bind(_this);
 			_this.width = 0;
 			_this.height = 0;
-			_this.dropTargets = [];
 			_this.isOverTarget = false;
 			_this.hoveredDropTarget = null;
 
@@ -137,8 +136,6 @@
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.dropTargets = this.props.dropTargets;
-
 				if (this.props.manager) {
 					this.props.manager.registerDraggable(this);
 				}
@@ -187,7 +184,7 @@
 						var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this);
 						if (draggableisOverDropTarget) {
 							this.isOverTarget = true;
-							this.hoveredDropTarget = this.props.manager.getDropTargetBeingHovered();
+							this.hoveredDropTarget = this.props.manager.hoveredDropTarget;
 						} else {
 							this.isOverTarget = false;
 						}
@@ -19985,7 +19982,13 @@
 							x: draggable.currentPosition.x,
 							y: draggable.currentPosition.y
 						};
-						draggable.isOverTarget = (0, _boxBoundaryCheckingEs2.default)(draggableDimensions, dropTarget);
+						var dropTargetDimensions = {
+							width: dropTarget.style.width,
+							height: dropTarget.style.height,
+							x: dropTarget.style.left,
+							y: dropTarget.style.top
+						};
+						draggable.isOverTarget = (0, _boxBoundaryCheckingEs2.default)(draggableDimensions, dropTargetDimensions);
 						if (draggable.isOverTarget) {
 							this.hoveredDropTarget = dropTarget;
 							break;
@@ -20009,22 +20012,17 @@
 				return draggable.isOverTarget;
 			}
 		}, {
-			key: 'getDropTargetBeingHovered',
-			value: function getDropTargetBeingHovered() {
-				return this.hoveredDropTarget;
-			}
-		}, {
 			key: 'releaseDraggableOnDropTarget',
 			value: function releaseDraggableOnDropTarget(draggable) {
 				if (draggable.isOverTarget) {
-					var y = this.getDropTargetBeingHovered().getRef();
+					var dropTargetBeingHovered = this.hoveredDropTarget;
 					var content = '';
 					if (draggable.props.setContentOnDrop) {
 						content = draggable.props.setContentOnDrop();
 					} else {
 						content = draggable.props.children.props.children;
 					}
-					y.appendToContent(content);
+					dropTargetBeingHovered.appendToContent(content);
 					draggable.hideDraggable();
 				}
 			}
@@ -20074,7 +20072,6 @@
 			this.y = y;
 			this.width = width;
 			this.height = height;
-			this.ref = null;
 			this.baseStyle = '';
 			this.hoverStyle = '';
 			this.draggableHoveringOverDropTargetStyle = '';
@@ -20096,16 +20093,6 @@
 			key: 'getId',
 			value: function getId() {
 				return this.id;
-			}
-		}, {
-			key: 'setRef',
-			value: function setRef(ref) {
-				this.ref = ref;
-			}
-		}, {
-			key: 'getRef',
-			value: function getRef() {
-				return this.ref;
 			}
 		}, {
 			key: 'setBaseStyle',
