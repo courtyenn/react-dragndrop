@@ -230,6 +230,7 @@
 
 	exports.default = Draggable;
 
+
 	Draggable.prototype.localNextPosition = { x: 0, y: 0 };
 	Draggable.prototype.localOriginPosition = { x: 0, y: 0 };
 
@@ -8132,6 +8133,10 @@
 	  }
 	};
 
+	function registerNullComponentID() {
+	  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+	}
+
 	var ReactEmptyComponent = function (instantiate) {
 	  this._currentElement = null;
 	  this._rootNodeID = null;
@@ -8140,7 +8145,7 @@
 	assign(ReactEmptyComponent.prototype, {
 	  construct: function (element) {},
 	  mountComponent: function (rootID, transaction, context) {
-	    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+	    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
 	    this._rootNodeID = rootID;
 	    return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
 	  },
@@ -18863,7 +18868,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.7';
+	module.exports = '0.14.8';
 
 /***/ },
 /* 148 */
@@ -19884,13 +19889,13 @@
 
 	var _Draggable2 = _interopRequireDefault(_Draggable);
 
-	var _DragDropManagerEs = __webpack_require__(163);
+	var _DragDropManager = __webpack_require__(163);
 
-	var _DragDropManagerEs2 = _interopRequireDefault(_DragDropManagerEs);
+	var _DragDropManager2 = _interopRequireDefault(_DragDropManager);
 
-	var _DropTargetEs = __webpack_require__(165);
+	var _DropTarget = __webpack_require__(165);
 
-	var _DropTargetEs2 = _interopRequireDefault(_DropTargetEs);
+	var _DropTarget2 = _interopRequireDefault(_DropTarget);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19933,9 +19938,9 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _boxBoundaryCheckingEs = __webpack_require__(164);
+	var _boxBoundaryChecking = __webpack_require__(164);
 
-	var _boxBoundaryCheckingEs2 = _interopRequireDefault(_boxBoundaryCheckingEs);
+	var _boxBoundaryChecking2 = _interopRequireDefault(_boxBoundaryChecking);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19988,7 +19993,7 @@
 							x: dropTarget.style.left,
 							y: dropTarget.style.top
 						};
-						draggable.isOverTarget = (0, _boxBoundaryCheckingEs2.default)(draggableDimensions, dropTargetDimensions);
+						draggable.isOverTarget = (0, _boxBoundaryChecking2.default)(draggableDimensions, dropTargetDimensions);
 						if (draggable.isOverTarget) {
 							this.hoveredDropTarget = dropTarget;
 							break;

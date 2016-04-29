@@ -230,6 +230,7 @@
 
 	exports.default = Draggable;
 
+
 	Draggable.prototype.localNextPosition = { x: 0, y: 0 };
 	Draggable.prototype.localOriginPosition = { x: 0, y: 0 };
 
@@ -8132,6 +8133,10 @@
 	  }
 	};
 
+	function registerNullComponentID() {
+	  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+	}
+
 	var ReactEmptyComponent = function (instantiate) {
 	  this._currentElement = null;
 	  this._rootNodeID = null;
@@ -8140,7 +8145,7 @@
 	assign(ReactEmptyComponent.prototype, {
 	  construct: function (element) {},
 	  mountComponent: function (rootID, transaction, context) {
-	    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+	    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
 	    this._rootNodeID = rootID;
 	    return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
 	  },
@@ -18863,7 +18868,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.7';
+	module.exports = '0.14.8';
 
 /***/ },
 /* 148 */
@@ -19890,6 +19895,16 @@
 			_this.style = {};
 			_this.content = [];
 			_this.wrapper = "";
+			_this.propTypes = {
+				dimensions: _react2.default.PropTypes.shape({
+					x: _react2.default.PropTypes.number,
+					y: _react2.default.PropTypes.number,
+					width: _react2.default.PropTypes.number,
+					height: _react2.default.PropTypes.number
+				}).isRequired,
+				style: _react2.default.PropTypes.object,
+				wrapper: _react2.default.PropTypes.string
+			};
 			return _this;
 		}
 
@@ -19910,12 +19925,12 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var style = this.style;
+				var style = {};
 				if (this.props.style) {
 					style = Object.assign({}, this.style, this.props.style);
 				}
 
-				var dropTargetElement = _react2.default.createElement(this.wrapper, style, this.content);
+				var dropTargetElement = _react2.default.createElement(this.wrapper, null, this.content);
 
 				return _react2.default.createElement(
 					'div',
@@ -19943,9 +19958,9 @@
 				}
 			}
 		}, {
-			key: 'setHoverStyle',
-			value: function setHoverStyle(style) {
-				this.hoveredStyle = style;
+			key: 'setStyle',
+			value: function setStyle(style) {
+				this.style = style;
 			}
 		}]);
 
@@ -19976,9 +19991,9 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _boxBoundaryCheckingEs = __webpack_require__(164);
+	var _boxBoundaryChecking = __webpack_require__(164);
 
-	var _boxBoundaryCheckingEs2 = _interopRequireDefault(_boxBoundaryCheckingEs);
+	var _boxBoundaryChecking2 = _interopRequireDefault(_boxBoundaryChecking);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20031,7 +20046,7 @@
 							x: dropTarget.style.left,
 							y: dropTarget.style.top
 						};
-						draggable.isOverTarget = (0, _boxBoundaryCheckingEs2.default)(draggableDimensions, dropTargetDimensions);
+						draggable.isOverTarget = (0, _boxBoundaryChecking2.default)(draggableDimensions, dropTargetDimensions);
 						if (draggable.isOverTarget) {
 							this.hoveredDropTarget = dropTarget;
 							break;
@@ -20237,17 +20252,17 @@
 
 	var _DropTarget2 = _interopRequireDefault(_DropTarget);
 
-	var _IdGeneratorEs = __webpack_require__(168);
+	var _IdGenerator = __webpack_require__(168);
 
-	var _IdGeneratorEs2 = _interopRequireDefault(_IdGeneratorEs);
+	var _IdGenerator2 = _interopRequireDefault(_IdGenerator);
 
-	var _DropTargetEs = __webpack_require__(165);
+	var _DropTarget3 = __webpack_require__(165);
 
-	var _DropTargetEs2 = _interopRequireDefault(_DropTargetEs);
+	var _DropTarget4 = _interopRequireDefault(_DropTarget3);
 
-	var _DragDropManagerEs = __webpack_require__(163);
+	var _DragDropManager = __webpack_require__(163);
 
-	var _DragDropManagerEs2 = _interopRequireDefault(_DragDropManagerEs);
+	var _DragDropManager2 = _interopRequireDefault(_DragDropManager);
 
 	var _DropTargetStyles = __webpack_require__(169);
 
@@ -20262,7 +20277,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// const dragDropManager = new DragDropManager(); was breaking stuff
-	var dragDropManager = new _DragDropManagerEs2.default();
+	var dragDropManager = new _DragDropManager2.default();
 
 	var List = exports.List = function (_Component) {
 		_inherits(List, _Component);
@@ -20323,9 +20338,9 @@
 
 			var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(MainSection).call(this));
 
-			_this3.componentId = _IdGeneratorEs2.default.generateId();
+			_this3.componentId = _IdGenerator2.default.generateId();
 			_this3.dropTargets = [];
-			var x = _IdGeneratorEs2.default.generateId();
+			var x = _IdGenerator2.default.generateId();
 			console.log(dragDropManager);
 			_this3.style = {
 				"fontFamily": "sans-serif",
@@ -20349,7 +20364,7 @@
 		}, {
 			key: 'renderDropTargets',
 			value: function renderDropTargets() {
-				var dropTarget3 = new _DropTargetEs2.default(100, 200, 450, 400, 250);
+				var dropTarget3 = new _DropTarget4.default(100, 200, 450, 400, 250);
 				dropTarget3.setBaseStyle(Object.assign({}, _DropTargetStyles2.default.BaseStyle, {
 					'top': dropTarget3.y,
 					'left': dropTarget3.x,
@@ -20357,7 +20372,7 @@
 					'height': dropTarget3.height
 				}));
 				this.dropTargets.push(dropTarget3);
-				var dropTarget2 = new _DropTargetEs2.default(101, 200, 10, 400, 250);
+				var dropTarget2 = new _DropTarget4.default(101, 200, 10, 400, 250);
 				dropTarget2.setBaseStyle(Object.assign({}, _DropTargetStyles2.default.BaseStyle, {
 					'top': dropTarget2.y,
 					'left': dropTarget2.x,

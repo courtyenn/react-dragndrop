@@ -1,10 +1,10 @@
 var path = require('path');
 module.exports = {
     entry: {
-		"./dist/react-dragndrop": "./src/index",
+		"./dist/react-dragndrop": "./src/index.es6",
 		"./examples/simple/app": "./examples/simple/app.es6",
 		"./examples/small_game/app": "./examples/small_game/app.es6"
-	},
+    },
     module: {
 		debug: true,
 		devtool: "source-map",

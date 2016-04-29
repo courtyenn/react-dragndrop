@@ -1,10 +1,10 @@
 'use strict';
 import React, {Component} from 'react';
-import Draggable from '../../src/components/Draggable';
-import DropTarget from '../../src/components/DropTarget';
-import IdGenerator from '../../src/IdGenerator.es6.js';
-import DropTargetModel from '../../src/models/DropTarget.es6.js';
-import DragDropManager from '../../src/DragDropManager.es6.js';
+import Draggable from '../../src/components/Draggable.es6';
+import DropTarget from '../../src/components/DropTarget.es6';
+import IdGenerator from '../../src/IdGenerator.es6';
+import DropTargetModel from '../../src/models/DropTarget.es6';
+import DragDropManager from '../../src/DragDropManager.es6';
 import DropTargetStyles from '../../src/styles/DropTargetStyles';
 
 // const dragDropManager = new DragDropManager(); was breaking stuff

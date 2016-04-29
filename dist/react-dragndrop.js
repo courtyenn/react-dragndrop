@@ -238,6 +238,7 @@
 
 	exports.default = Draggable;
 
+
 	Draggable.prototype.localNextPosition = { x: 0, y: 0 };
 	Draggable.prototype.localOriginPosition = { x: 0, y: 0 };
 
@@ -8140,6 +8141,10 @@
 	  }
 	};
 
+	function registerNullComponentID() {
+	  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+	}
+
 	var ReactEmptyComponent = function (instantiate) {
 	  this._currentElement = null;
 	  this._rootNodeID = null;
@@ -8148,7 +8153,7 @@
 	assign(ReactEmptyComponent.prototype, {
 	  construct: function (element) {},
 	  mountComponent: function (rootID, transaction, context) {
-	    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+	    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
 	    this._rootNodeID = rootID;
 	    return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
 	  },
@@ -18871,7 +18876,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.7';
+	module.exports = '0.14.8';
 
 /***/ },
 /* 148 */
@@ -19898,6 +19903,16 @@
 			_this.style = {};
 			_this.content = [];
 			_this.wrapper = "";
+			_this.propTypes = {
+				dimensions: _react2.default.PropTypes.shape({
+					x: _react2.default.PropTypes.number,
+					y: _react2.default.PropTypes.number,
+					width: _react2.default.PropTypes.number,
+					height: _react2.default.PropTypes.number
+				}).isRequired,
+				style: _react2.default.PropTypes.object,
+				wrapper: _react2.default.PropTypes.string
+			};
 			return _this;
 		}
 
@@ -19918,12 +19933,12 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var style = this.style;
+				var style = {};
 				if (this.props.style) {
 					style = Object.assign({}, this.style, this.props.style);
 				}
 
-				var dropTargetElement = _react2.default.createElement(this.wrapper, style, this.content);
+				var dropTargetElement = _react2.default.createElement(this.wrapper, null, this.content);
 
 				return _react2.default.createElement(
 					'div',
@@ -19951,9 +19966,9 @@
 				}
 			}
 		}, {
-			key: 'setHoverStyle',
-			value: function setHoverStyle(style) {
-				this.hoveredStyle = style;
+			key: 'setStyle',
+			value: function setStyle(style) {
+				this.style = style;
 			}
 		}]);
 
