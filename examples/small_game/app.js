@@ -54,7 +54,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _mainEs = __webpack_require__(166);
+	var _mainEs = __webpack_require__(165);
 
 	var _mainEs2 = _interopRequireDefault(_mainEs);
 
@@ -19863,11 +19863,13 @@
 /* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -19892,73 +19894,85 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DropTarget).call(this));
 
 			_this.mouseIsOverTarget = false;
-			_this.style = {};
+			_this.style = {
+				position: "relative",
+				width: 400,
+				height: 400
+			};
 			_this.content = [];
 			_this.wrapper = "";
-			_this.propTypes = {
-				dimensions: _react2.default.PropTypes.shape({
-					x: _react2.default.PropTypes.number,
-					y: _react2.default.PropTypes.number,
-					width: _react2.default.PropTypes.number,
-					height: _react2.default.PropTypes.number
-				}).isRequired,
-				style: _react2.default.PropTypes.object,
-				wrapper: _react2.default.PropTypes.string
-			};
 			return _this;
 		}
 
 		_createClass(DropTarget, [{
-			key: 'componentWillMount',
+			key: "componentWillMount",
 			value: function componentWillMount() {
 				this.wrapper = this.props.wrapper || 'div';
 				this.content = this.props.defaultContent || [];
-				this.style = this.props.style;
+				if (this.props.dimensions) {
+					this.style.left = this.props.dimensions.x, this.style.top = this.props.dimensions.y, this.style.width = this.props.dimensions.width, this.style.height = this.props.dimensions.height;
+				}
 			}
 		}, {
-			key: 'componentDidMount',
+			key: "componentDidMount",
 			value: function componentDidMount() {
 				if (this.props.manager) {
 					this.props.manager.registerDropTarget(this);
 				}
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
-				var style = {};
+				var style,
+				    wrapper,
+				    dropTargetElement = {};
+
 				if (this.props.style) {
 					style = Object.assign({}, this.style, this.props.style);
 				}
 
-				var dropTargetElement = _react2.default.createElement(this.wrapper, null, this.content);
+				var type = _typeof(this.props.wrapper);
+				if (type === "string") {
+					var innards = _react2.default.createElement(this.wrapper, null, this.content);
+					dropTargetElement = _react2.default.createElement(
+						"div",
+						{ style: style },
+						innards
+					);
+				}
+				var content = this.content.length > 0 ? this.content : "helpful and friendly text just for you <3";
+				if (type === "object") {
+					wrapper = _react2.default.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
+					dropTargetElement = _react2.default.createElement(
+						"div",
+						{ style: style },
+						wrapper
+					);
+				}
 
-				return _react2.default.createElement(
-					'div',
-					{ style: style },
-					dropTargetElement
-				);
+				return dropTargetElement;
 			}
 		}, {
-			key: 'setContent',
+			key: "setContent",
 			value: function setContent(content) {
 				this.content = content;
 				this.setState({ content: this.content });
 			}
 		}, {
-			key: 'appendToContent',
+			key: "appendToContent",
 			value: function appendToContent(content) {
 				this.content.push(content);
 				this.setState({ content: this.content });
 			}
 		}, {
-			key: 'draggableHoveringOverDropTarget',
+			key: "draggableHoveringOverDropTarget",
 			value: function draggableHoveringOverDropTarget() {
 				if (this.props.handleDraggableHoveringOverDropTarget) {
 					this.props.handleDraggableHoveringOverDropTarget(this);
 				}
 			}
 		}, {
-			key: 'setStyle',
+			key: "setStyle",
 			value: function setStyle(style) {
 				this.style = style;
 			}
@@ -19968,6 +19982,18 @@
 	}(_react.Component);
 
 	exports.default = DropTarget;
+
+
+	DropTarget.propTypes = {
+		dimensions: _react2.default.PropTypes.shape({
+			x: _react2.default.PropTypes.number,
+			y: _react2.default.PropTypes.number,
+			width: _react2.default.PropTypes.number,
+			height: _react2.default.PropTypes.number
+		}).isRequired,
+		style: _react2.default.PropTypes.object,
+		wrapper: _react2.default.PropTypes.any
+	};
 
 /***/ },
 /* 161 */
@@ -20109,68 +20135,6 @@
 
 /***/ },
 /* 165 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var DropTarget = function () {
-		function DropTarget(id, x, y, width, height) {
-			_classCallCheck(this, DropTarget);
-
-			this.id = id;
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
-			this.baseStyle = '';
-			this.hoverStyle = '';
-			this.draggableHoveringOverDropTargetStyle = '';
-			this.wrapperElement = '';
-			this.title = '';
-		}
-
-		_createClass(DropTarget, [{
-			key: 'getCurrentPosition',
-			value: function getCurrentPosition() {
-				return { x: this.x, y: this.y };
-			}
-		}, {
-			key: 'getDimensions',
-			value: function getDimensions() {
-				return { width: this.width, height: this.height };
-			}
-		}, {
-			key: 'getId',
-			value: function getId() {
-				return this.id;
-			}
-		}, {
-			key: 'setBaseStyle',
-			value: function setBaseStyle(style) {
-				this.baseStyle = style;
-			}
-		}, {
-			key: 'getBaseStyle',
-			value: function getBaseStyle() {
-				return this.baseStyle;
-			}
-		}]);
-
-		return DropTarget;
-	}();
-
-	exports.default = DropTarget;
-
-/***/ },
-/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20185,11 +20149,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _LineItemEs = __webpack_require__(167);
+	var _LineItem = __webpack_require__(166);
 
-	var _DragDropManagerEs = __webpack_require__(163);
+	var _DragDropManager = __webpack_require__(163);
 
-	var _DragDropManagerEs2 = _interopRequireDefault(_DragDropManagerEs);
+	var _DragDropManager2 = _interopRequireDefault(_DragDropManager);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20211,11 +20175,11 @@
 		_createClass(App, [{
 			key: 'render',
 			value: function render() {
-				console.log(_LineItemEs.MainSection);
+				console.log(_LineItem.MainSection);
 				return _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(_LineItemEs.MainSection, null)
+					_react2.default.createElement(_LineItem.MainSection, null)
 				);
 			}
 		}]);
@@ -20226,7 +20190,7 @@
 	exports.default = App;
 
 /***/ },
-/* 167 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20252,19 +20216,15 @@
 
 	var _DropTarget2 = _interopRequireDefault(_DropTarget);
 
-	var _IdGenerator = __webpack_require__(168);
+	var _IdGenerator = __webpack_require__(167);
 
 	var _IdGenerator2 = _interopRequireDefault(_IdGenerator);
-
-	var _DropTarget3 = __webpack_require__(165);
-
-	var _DropTarget4 = _interopRequireDefault(_DropTarget3);
 
 	var _DragDropManager = __webpack_require__(163);
 
 	var _DragDropManager2 = _interopRequireDefault(_DragDropManager);
 
-	var _DropTargetStyles = __webpack_require__(169);
+	var _DropTargetStyles = __webpack_require__(168);
 
 	var _DropTargetStyles2 = _interopRequireDefault(_DropTargetStyles);
 
@@ -20294,7 +20254,11 @@
 				return _react2.default.createElement(
 					'div',
 					null,
-					this.props.title,
+					_react2.default.createElement(
+						'h2',
+						null,
+						this.props.title
+					),
 					_react2.default.createElement(
 						'ul',
 						null,
@@ -20364,36 +20328,31 @@
 		}, {
 			key: 'renderDropTargets',
 			value: function renderDropTargets() {
-				var dropTarget3 = new _DropTarget4.default(100, 200, 450, 400, 250);
-				dropTarget3.setBaseStyle(Object.assign({}, _DropTargetStyles2.default.BaseStyle, {
-					'top': dropTarget3.y,
-					'left': dropTarget3.x,
-					'width': dropTarget3.width,
-					'height': dropTarget3.height
-				}));
-				this.dropTargets.push(dropTarget3);
-				var dropTarget2 = new _DropTarget4.default(101, 200, 10, 400, 250);
-				dropTarget2.setBaseStyle(Object.assign({}, _DropTargetStyles2.default.BaseStyle, {
-					'top': dropTarget2.y,
-					'left': dropTarget2.x,
-					'width': dropTarget2.width,
-					'height': dropTarget2.height
-				}));
-				this.dropTargets.push(dropTarget2);
-				var innerDropTarget = {
-					ele: "li",
-					options: {
-						style: {
-							"backgroundColor": "blue",
-							"fontFamily": "sans-serif"
-						}
-					}
-				};
-				var dropTargetComponents = this.dropTargets.map(function (dropTarget) {
+				var list = _react2.default.createElement(List, { title: "hello world" });
+				this.dropTargets.push({
+					dimensions: {
+						x: 500,
+						y: 200,
+						width: 450,
+						height: 400
+					},
+					style: _DropTargetStyles2.default.BaseStyle,
+					wrapper: "ul"
+				});
+				this.dropTargets.push({
+					dimensions: {
+						x: 500,
+						y: 700,
+						width: 450,
+						height: 400
+					},
+					style: _DropTargetStyles2.default.BaseStyle,
+					wrapper: list
+				});
+				var dropTargetComponents = this.dropTargets.map(function (dropTarget, index) {
 					return _react2.default.createElement(_DropTarget2.default, _extends({
-						key: dropTarget.getId(),
-						manager: dragDropManager,
-						style: dropTarget.getBaseStyle()
+						key: "droptarget-" + index,
+						manager: dragDropManager
 					}, dropTarget));
 				});
 
@@ -20443,7 +20402,7 @@
 	}(_react.Component);
 
 /***/ },
-/* 168 */
+/* 167 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -20477,7 +20436,7 @@
 	exports.default = IdGenerator;
 
 /***/ },
-/* 169 */
+/* 168 */
 /***/ function(module, exports) {
 
 	"use strict";

@@ -1,6 +1,6 @@
 import React from 'react';
-import { MainSection, LineItem, List } from './LineItem.es6.js';
-import DragDropManager from '../../src/DragDropManager.es6.js'
+import { MainSection, LineItem, List } from './LineItem.es6';
+import DragDropManager from '../../src/DragDropManager.es6'
 
 export default class App extends React.Component {
 

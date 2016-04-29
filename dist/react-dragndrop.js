@@ -19871,11 +19871,13 @@
 /* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -19900,73 +19902,85 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DropTarget).call(this));
 
 			_this.mouseIsOverTarget = false;
-			_this.style = {};
+			_this.style = {
+				position: "relative",
+				width: 400,
+				height: 400
+			};
 			_this.content = [];
 			_this.wrapper = "";
-			_this.propTypes = {
-				dimensions: _react2.default.PropTypes.shape({
-					x: _react2.default.PropTypes.number,
-					y: _react2.default.PropTypes.number,
-					width: _react2.default.PropTypes.number,
-					height: _react2.default.PropTypes.number
-				}).isRequired,
-				style: _react2.default.PropTypes.object,
-				wrapper: _react2.default.PropTypes.string
-			};
 			return _this;
 		}
 
 		_createClass(DropTarget, [{
-			key: 'componentWillMount',
+			key: "componentWillMount",
 			value: function componentWillMount() {
 				this.wrapper = this.props.wrapper || 'div';
 				this.content = this.props.defaultContent || [];
-				this.style = this.props.style;
+				if (this.props.dimensions) {
+					this.style.left = this.props.dimensions.x, this.style.top = this.props.dimensions.y, this.style.width = this.props.dimensions.width, this.style.height = this.props.dimensions.height;
+				}
 			}
 		}, {
-			key: 'componentDidMount',
+			key: "componentDidMount",
 			value: function componentDidMount() {
 				if (this.props.manager) {
 					this.props.manager.registerDropTarget(this);
 				}
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
-				var style = {};
+				var style,
+				    wrapper,
+				    dropTargetElement = {};
+
 				if (this.props.style) {
 					style = Object.assign({}, this.style, this.props.style);
 				}
 
-				var dropTargetElement = _react2.default.createElement(this.wrapper, null, this.content);
+				var type = _typeof(this.props.wrapper);
+				if (type === "string") {
+					var innards = _react2.default.createElement(this.wrapper, null, this.content);
+					dropTargetElement = _react2.default.createElement(
+						"div",
+						{ style: style },
+						innards
+					);
+				}
+				var content = this.content.length > 0 ? this.content : "helpful and friendly text just for you <3";
+				if (type === "object") {
+					wrapper = _react2.default.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
+					dropTargetElement = _react2.default.createElement(
+						"div",
+						{ style: style },
+						wrapper
+					);
+				}
 
-				return _react2.default.createElement(
-					'div',
-					{ style: style },
-					dropTargetElement
-				);
+				return dropTargetElement;
 			}
 		}, {
-			key: 'setContent',
+			key: "setContent",
 			value: function setContent(content) {
 				this.content = content;
 				this.setState({ content: this.content });
 			}
 		}, {
-			key: 'appendToContent',
+			key: "appendToContent",
 			value: function appendToContent(content) {
 				this.content.push(content);
 				this.setState({ content: this.content });
 			}
 		}, {
-			key: 'draggableHoveringOverDropTarget',
+			key: "draggableHoveringOverDropTarget",
 			value: function draggableHoveringOverDropTarget() {
 				if (this.props.handleDraggableHoveringOverDropTarget) {
 					this.props.handleDraggableHoveringOverDropTarget(this);
 				}
 			}
 		}, {
-			key: 'setStyle',
+			key: "setStyle",
 			value: function setStyle(style) {
 				this.style = style;
 			}
@@ -19976,6 +19990,18 @@
 	}(_react.Component);
 
 	exports.default = DropTarget;
+
+
+	DropTarget.propTypes = {
+		dimensions: _react2.default.PropTypes.shape({
+			x: _react2.default.PropTypes.number,
+			y: _react2.default.PropTypes.number,
+			width: _react2.default.PropTypes.number,
+			height: _react2.default.PropTypes.number
+		}).isRequired,
+		style: _react2.default.PropTypes.object,
+		wrapper: _react2.default.PropTypes.any
+	};
 
 /***/ }
 /******/ ]);

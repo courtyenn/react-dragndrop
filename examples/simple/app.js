@@ -19893,10 +19893,6 @@
 
 	var _DragDropManager2 = _interopRequireDefault(_DragDropManager);
 
-	var _DropTarget = __webpack_require__(165);
-
-	var _DropTarget2 = _interopRequireDefault(_DropTarget);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20053,68 +20049,6 @@
 	function checkBoundaries(origin, target) {
 		return origin.x >= target.x && origin.x <= target.x + target.width && origin.y >= target.y && origin.y <= target.y + target.height || origin.x + origin.width >= target.x && origin.x + origin.width <= target.x + target.width && origin.y + origin.height >= target.y && origin.y + origin.height <= target.y + target.height;
 	}
-
-/***/ },
-/* 165 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var DropTarget = function () {
-		function DropTarget(id, x, y, width, height) {
-			_classCallCheck(this, DropTarget);
-
-			this.id = id;
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
-			this.baseStyle = '';
-			this.hoverStyle = '';
-			this.draggableHoveringOverDropTargetStyle = '';
-			this.wrapperElement = '';
-			this.title = '';
-		}
-
-		_createClass(DropTarget, [{
-			key: 'getCurrentPosition',
-			value: function getCurrentPosition() {
-				return { x: this.x, y: this.y };
-			}
-		}, {
-			key: 'getDimensions',
-			value: function getDimensions() {
-				return { width: this.width, height: this.height };
-			}
-		}, {
-			key: 'getId',
-			value: function getId() {
-				return this.id;
-			}
-		}, {
-			key: 'setBaseStyle',
-			value: function setBaseStyle(style) {
-				this.baseStyle = style;
-			}
-		}, {
-			key: 'getBaseStyle',
-			value: function getBaseStyle() {
-				return this.baseStyle;
-			}
-		}]);
-
-		return DropTarget;
-	}();
-
-	exports.default = DropTarget;
 
 /***/ }
 /******/ ]);

@@ -4,24 +4,23 @@ export default class DropTarget extends Component{
 	constructor(){
 		super();
 		this.mouseIsOverTarget = false;
-		this.style = {};
+		this.style = {
+			position: "relative",
+			width: 400,
+			height: 400
+		};
 		this.content = [];
 		this.wrapper = "";
-		this.propTypes = {
-			dimensions: React.PropTypes.shape({
-					x: React.PropTypes.number,
-					y: React.PropTypes.number,
-					width: React.PropTypes.number,
-					height: React.PropTypes.number,
-				}).isRequired,
-			style: React.PropTypes.object,
-			wrapper: React.PropTypes.string
-		};
 	}
 	componentWillMount(){
 		this.wrapper = this.props.wrapper || 'div';
 		this.content = this.props.defaultContent || [];
-		this.style = this.props.style;
+		if(this.props.dimensions){
+			this.style.left = this.props.dimensions.x,
+			this.style.top = this.props.dimensions.y,
+			this.style.width = this.props.dimensions.width,
+			this.style.height = this.props.dimensions.height
+		}
 	}
 
 	componentDidMount(){
@@ -31,17 +30,34 @@ export default class DropTarget extends Component{
 	}
 
 	render(){
-		var style = {};
+		var style,
+		wrapper,
+		dropTargetElement = {};
+
 		if(this.props.style){
 			style = Object.assign({}, this.style, this.props.style);
 		}
 
-		var dropTargetElement = React.createElement(this.wrapper, null, this.content);
+		var type = typeof this.props.wrapper;
+		if(type === "string"){
+			var innards = React.createElement(this.wrapper, null, this.content);
+			dropTargetElement = (
+				<div style={style}>
+					{innards}
+				</div>
+			);
+		}
+		var content = this.content.length > 0 ? this.content : "helpful and friendly text just for you <3";
+		if(type === "object"){
+			wrapper =  React.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
+			dropTargetElement = (
+			<div style={style}>
+				{wrapper}
+			</div>
+			);
+		}
 
-		return (
-		<div style={style}>
-			{dropTargetElement}
-		</div>);
+		return dropTargetElement;
 	}
 
 	setContent(content){
@@ -62,6 +78,16 @@ export default class DropTarget extends Component{
 
 	setStyle(style){
 		this.style = style;
-
 	}
 }
+
+DropTarget.propTypes = {
+dimensions: React.PropTypes.shape({
+		x: React.PropTypes.number,
+		y: React.PropTypes.number,
+		width: React.PropTypes.number,
+		height: React.PropTypes.number,
+	}).isRequired,
+	style: React.PropTypes.object,
+	wrapper: React.PropTypes.any
+};

@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import Draggable from '../../src/components/Draggable.es6';
 import DropTarget from '../../src/components/DropTarget.es6';
 import IdGenerator from '../../src/IdGenerator.es6';
-import DropTargetModel from '../../src/models/DropTarget.es6';
 import DragDropManager from '../../src/DragDropManager.es6';
 import DropTargetStyles from '../../src/styles/DropTargetStyles';
 
@@ -14,7 +13,7 @@ export class List extends Component{
 	render(){
 		return(
 			<div>
-			{this.props.title}
+				<h2>{this.props.title}</h2>
 				<ul>
 					{this.props.children}
 				</ul>
@@ -55,38 +54,35 @@ export class MainSection extends Component{
 	}
 
 	renderDropTargets(){
-	 	let dropTarget3 = new DropTargetModel(100, 200, 450, 400, 250);
-		dropTarget3.setBaseStyle(Object.assign({}, DropTargetStyles.BaseStyle, {
-			'top': dropTarget3.y,
-			'left': dropTarget3.x,
-			'width': dropTarget3.width,
-			'height': dropTarget3.height
-		}));
-		this.dropTargets.push(dropTarget3);
-		let dropTarget2 = new DropTargetModel(101, 200, 10, 400, 250);
-		dropTarget2.setBaseStyle(Object.assign({}, DropTargetStyles.BaseStyle, {
-			'top': dropTarget2.y,
-			'left': dropTarget2.x,
-			'width': dropTarget2.width,
-			'height': dropTarget2.height
-		}));
-		this.dropTargets.push(dropTarget2);
-		var innerDropTarget = {
-			ele: "li",
-			options: {
-				style: {
-				"backgroundColor": "blue",
-				"fontFamily": "sans-serif"
-				}
-			}
-		};
-		var dropTargetComponents = this.dropTargets.map((dropTarget) => {
-			return (<DropTarget
-							key={dropTarget.getId()}
+		var list = React.createElement(List, {title: "hello world"});
+		this.dropTargets.push({
+			dimensions: {
+				x: 500,
+				y: 200,
+				width: 450,
+				height: 400
+			},
+			style: DropTargetStyles.BaseStyle,
+			wrapper: "ul"
+		});
+		this.dropTargets.push({
+			dimensions: {
+				x: 500,
+				y: 700,
+				width: 450,
+				height: 400
+			},
+			style: DropTargetStyles.BaseStyle,
+			wrapper: list
+		});
+		var dropTargetComponents = this.dropTargets.map((dropTarget, index) => {
+			return (
+				<DropTarget
+							key={"droptarget-" + index}
 							manager={dragDropManager}
-							style={dropTarget.getBaseStyle()}
 							{...dropTarget}
-							/>);
+							/>
+						);
 		});
 
 		return dropTargetComponents;
