@@ -4,16 +4,16 @@ import DragDropManager from '../../src/DragDropManager.es6'
 
 export default class App extends React.Component {
 
-	constructor(){
-		super();
-	}
+    constructor(){
+        super();
+    }
 
-	render(){
-		console.log(MainSection);
-		return (
-			<div>
-				<MainSection></MainSection>
-			</div>
-		);
-	}
+    render(){
+        console.log(MainSection);
+        return (
+            <div>
+                <MainSection></MainSection>
+            </div>
+        );
+    }
 }

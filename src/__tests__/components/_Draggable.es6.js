@@ -8,17 +8,17 @@ import TestUtils from 'react-addons-test-utils';
 var waitsInProgress = [];
 
 var waitFor = (test, message, done, timeLeft) => {
-	timeLeft = timeLeft === undefined ? 100 : timeLeft;
-	waitsInProgress.push(setTimeout(() => {
-		if (timeLeft <= 0) {
-			fail(message);
-			done();
-		} else if (test()) {
-			done();
-		} else {
-			waitFor(test, message, done, timeLeft - 10);
-		}
-	}, 10));
+    timeLeft = timeLeft === undefined ? 100 : timeLeft;
+    waitsInProgress.push(setTimeout(() => {
+        if (timeLeft <= 0) {
+            fail(message);
+            done();
+        } else if (test()) {
+            done();
+        } else {
+            waitFor(test, message, done, timeLeft - 10);
+        }
+    }, 10));
 };
 
 /** end **/
@@ -28,21 +28,21 @@ waitFor.clear = () => waitsInProgress.map(clearTimeout); //optionally call this 
 const Draggable = require('../../components/Draggable.js').default;
 
 describe('Draggable', function() {
-	var ele = (<Draggable x={100} y={100} width={100} height={100}>Hello</Draggable>);
-	var draggable;
+    var ele = (<Draggable x={100} y={100} width={100} height={100}>Hello</Draggable>);
+    var draggable;
 
-	beforeEach(function() {
-		draggable = TestUtils.renderIntoDocument(ele);
-	});
+    beforeEach(function() {
+        draggable = TestUtils.renderIntoDocument(ele);
+    });
 
-	it('should contain the text passed into it', function(){
-		var draggableNode = ReactDOM.findDOMNode(draggable);
-		expect(draggableNode.textContent).toEqual('Hello');
-	});
+    it('should contain the text passed into it', function(){
+        var draggableNode = ReactDOM.findDOMNode(draggable);
+        expect(draggableNode.textContent).toEqual('Hello');
+    });
 
-	it('should toggle the clicked state on click', (done) => {
-		expect(draggable.clicked).toEqual(false);
-		TestUtils.Simulate.mouseDown(draggable);
-		waitFor(() => draggable.clicked === true, 'Clicked was not updated', done);
-	});
+    it('should toggle the clicked state on click', (done) => {
+        expect(draggable.clicked).toEqual(false);
+        TestUtils.Simulate.mouseDown(draggable);
+        waitFor(() => draggable.clicked === true, 'Clicked was not updated', done);
+    });
 });

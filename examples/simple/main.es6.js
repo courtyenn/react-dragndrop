@@ -3,15 +3,15 @@ import Draggable from '../../src/components/Draggable.es6';
 import DragDropManager from '../../src/DragDropManager.es6';
 
 export default class App extends React.Component {
-	constructor(){
-		super();
-	}
+    constructor(){
+        super();
+    }
 
-	render(){
-		return (
-			<div>
+    render(){
+        return (
+            <div>
 
-			</div>
-		);
-	}
+            </div>
+        );
+    }
 }
