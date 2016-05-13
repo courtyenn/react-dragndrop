@@ -2,20 +2,19 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    "./lib/react-dragndrop": "./src/index",
-    "./examples/small_game/index": "./examples/small_game/app"
+    './lib/react-dragndrop': './src/index'
   },
   module: {
     debug: true,
-    devtool: "source-map",
+    devtool: 'source-map',
     loaders: [
       {
         test: /\.js$/,
         exclude: [/node_modules/],
-        loader: "babel",
+        loader: 'babel',
         query: {
           plugins: ['transform-runtime'],
-          presets: ["es2015", "react"]
+          presets: ['es2015', 'react']
         }
       }
     ]
