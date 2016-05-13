@@ -1,7 +1,7 @@
 'use strict';
 
 // Checks a box boundary with another box boundary
-export default function checkBoundaries(origin, target){
+export function checkBoundaries(origin, target){
   return (origin.x >= target.x &&
     origin.x <= target.x + target.width &&
     origin.y >= target.y &&
@@ -11,4 +11,4 @@ export default function checkBoundaries(origin, target){
       origin.y + origin.height >= target.y &&
       origin.y + origin.height <= target.y + target.height);
 
-    }
+  }

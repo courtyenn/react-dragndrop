@@ -1,6 +1,6 @@
 import boxBoundaryChecking from './boxBoundaryChecking.es6';
 
-export default class DragAndDropManager{
+export default class DragDropManager {
   constructor(){
     this.draggables = [];
     this.dropTargets = [];
