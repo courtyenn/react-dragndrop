@@ -4,9 +4,8 @@
   "description": "First npm module and react component.",
   "main": "dist/react-dragndrop",
   "scripts": {
-    "compile": "babel -d lib/ src/",
     "webpack": "webpack",
-    "prepublish": "npm run compile"
+    "prepublish": "npm run webpack"
   },
   "repository": {
     "type": "git",
