@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    "./lib/index": "./src/index",
+    "./lib/react-dragndrop": "./src/index",
     "./examples/small_game/index": "./examples/small_game/app"
   },
   module: {
@@ -22,6 +22,9 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    library: 'react-dragndrop',
+    sourceMapFilename: '[name].map',
+    umdNamedDefine: true
   }
 };

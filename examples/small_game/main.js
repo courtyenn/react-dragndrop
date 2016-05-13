@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './List';
 import LineItem from './LineItem';
-import { DragDropManager, DropTarget, Draggable } from '../../lib/index';
+import { DragDropManager, DropTarget, Draggable } from '../../lib/react-dragndrop';
 import DropTargetStyles from './styles/DropTargetStyles';
 
 console.log(DragDropManager);
