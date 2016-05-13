@@ -1,8 +1,9 @@
 var path = require('path');
+
 module.exports = {
   entry: {
-    "./lib/index": "./src/index.es6",
-    "./examples/small_game/app": "./examples/small_game/app.es6"
+    "./lib/index": "./src/index",
+    "./examples/small_game/index": "./examples/small_game/app"
   },
   module: {
     debug: true,
@@ -10,20 +11,17 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/],
         loader: "babel",
         query: {
           plugins: ['transform-runtime'],
           presets: ["es2015", "react"]
-        },
-        include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'examples/small_game')
-        ]
+        }
       }
     ]
   },
   output: {
     filename: '[name].js',
+    libraryTarget: 'umd'
   }
 };

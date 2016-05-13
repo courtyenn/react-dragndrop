@@ -1,4 +1,4 @@
-import boxBoundaryChecking from './boxBoundaryChecking.es6';
+import { checkBoundaries } from './boxBoundaryChecking';
 
 export default class DragDropManager {
   constructor(){
@@ -33,7 +33,7 @@ export default class DragDropManager {
         x: dropTarget.style.left,
         y: dropTarget.style.top
       };
-      draggable.isOverTarget = boxBoundaryChecking(draggableDimensions, dropTargetDimensions);
+      draggable.isOverTarget = checkBoundaries(draggableDimensions, dropTargetDimensions);
       if(draggable.isOverTarget){
         this.hoveredDropTarget = dropTarget;
         break;

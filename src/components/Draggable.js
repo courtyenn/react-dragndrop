@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import DraggableStyles from '../styles/Draggable';
 
 export default class Draggable extends Component{
   constructor(){

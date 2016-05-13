@@ -1,14 +1,17 @@
 import React from 'react';
-import List from './List.es6';
-import LineItem from './LineItem.es6';
-import { DragDropManager } from '../../lib/index';
+import List from './List';
+import LineItem from './LineItem';
+import { DragDropManager, DropTarget, Draggable } from '../../lib/index';
+import DropTargetStyles from './styles/DropTargetStyles';
+
+console.log(DragDropManager);
+const dragDropManager = new DragDropManager();
 
 export default class MainSection extends React.Component{
     constructor(){
         super();
         this.dropTargets = [];
-        console.log(DragDropManager);
-        var dragDropManager = new DragDropManager();
+
 
         this.style = {
             "fontFamily": "sans-serif",
