@@ -51,7 +51,7 @@ export default class DropTarget extends Component{
         if(type === "object"){
             wrapper =  React.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
             dropTargetElement = (
-                <div style={style}>
+                <div style={style} refs={this.createRef}>
                     {wrapper}
                 </div>
             );
@@ -60,6 +60,10 @@ export default class DropTarget extends Component{
         return dropTargetElement;
     }
 
+    createRef(){
+
+    }
+    
     setContent(content){
         this.content = content;
         this.setState({content: this.content});
