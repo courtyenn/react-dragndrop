@@ -5,6 +5,9 @@ export default class DropTarget extends Component{
   constructor(){
     super();
     this.droppedStyle = {};
+    this.baseStyle = {
+      "zIndex": 1
+    };
     this.content = [];
     this.dimensions = {
       x: 0,
@@ -51,7 +54,10 @@ export default class DropTarget extends Component{
     dropTargetElement = {};
 
     if(this.props.style){
-      style = Object.assign({}, this.droppedStyle, this.props.style);
+      style = Object.assign({}, this.droppedStyle, this.baseStyle, this.props.style);
+    }
+    else {
+      style = Object.assign({}, this.droppedStyle, this.baseStyle);
     }
 
     var type = typeof this.props.wrapper;

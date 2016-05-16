@@ -4,8 +4,11 @@ import ReactDom from 'react-dom';
 export default class Draggable extends Component{
   constructor(){
     super();
+    this.baseStyle = {
+      "zIndex": 9999
+    };
     this.hoveringStyle = {};
-
+    this.domDraggableElement;
     var html = document.getElementsByTagName('html')[0];
     html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
 
@@ -32,16 +35,15 @@ export default class Draggable extends Component{
   }
 
   setInitialDimensions(ref){
-    this.domDraggableElement = ReactDom.findDOMNode(ref);
-    this.dimensions = {
-      x: this.domDraggableElement.offsetLeft,
-      y: this.domDraggableElement.offsetTop,
-      width: this.domDraggableElement.offsetWidth,
-      height: this.domDraggableElement.offsetHeight
-    };
-
-    //this.updateDimensions(this); //check if works with this
-
+    if(ref !== null){
+      this.domDraggableElement = ReactDom.findDOMNode(ref);
+      this.dimensions = {
+        x: this.domDraggableElement.offsetLeft,
+        y: this.domDraggableElement.offsetTop,
+        width: this.domDraggableElement.offsetWidth,
+        height: this.domDraggableElement.offsetHeight
+      };
+    }
   }
 
   componentDidMount(){
@@ -50,9 +52,9 @@ export default class Draggable extends Component{
     }
   }
 
-  componentWillUpdate(nextProps, nextState){
+  // componentWillUpdate(nextProps, nextState){
     // this.updateDimensions(nextState);
-  }
+  // }
 
   // updateDimensions(nextState){
   //   if(nextState && nextState.dimensions){
@@ -73,36 +75,42 @@ export default class Draggable extends Component{
 
   render(){
 
-    var draggableClone = React.Children.map(this.props.children, (child) => {
+    // var draggableClone = React.Children.map(this.props.children, (child) => {
       var childStyle = '';
       var styleOutput = '';
       var draggingStyle = '';
 
-      if(child && child.props && child.props.style){
-        childStyle = child.props.style;
-      }
+      // if(this.props.child && this.props.child.props.style){
+      //   childStyle = child.props.style;
+      // }
 
       if(this.dragging || this.clicked){
         draggingStyle = this.hoveringStyle;
       }
       if(this.props.style){
-        styleOutput = Object.assign({}, draggingStyle, this.props.style, childStyle)
+        styleOutput = Object.assign({}, draggingStyle, this.baseStyle, this.props.style)
       }
       else {
-        styleOutput = Object.assign({}, draggingStyle, childStyle)
+        styleOutput = Object.assign({}, draggingStyle, this.baseStyle)
       }
 
-      return React.createElement('div', {
-        style: styleOutput,
-        key: this.props.id,
-        onMouseDown: this.handleMouseDown,
-        onMouseUp: this.handleMouseUp
-      }, this.props.children);
-    });
+      // return React.createElement('div', {
+      //   style: styleOutput,
+      //   key: 'draggable-' + Math.random(),
+      //   onMouseDown: this.handleMouseDown,
+      //   onMouseUp: this.handleMouseUp,
+      //   ref: this.setInitialDimensions
+      // }, this.props.children);
+    // });
 
     return (
-      <div ref={this.setInitialDimensions}>
-        {draggableClone}
+      <div ref={this.setInitialDimensions}
+        style= {styleOutput}
+          key={'draggable-' + Math.random()}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
+        >
+        { this.props.children}
       </div>
     );
   }
@@ -134,7 +142,7 @@ export default class Draggable extends Component{
       this.hoveringStyle.left = dimensions.x;
       this.hoveringStyle.top = dimensions.y;
       this.hoveringStyle.position = 'absolute';
-      var newHoveringStyle = Object.assign({}, DraggableStyles.Clicking, this.hoveringStyle);
+      var newHoveringStyle = Object.assign({}, this.hoveringStyle);
 
       this.setState({
         hoveringStyle: newHoveringStyle
@@ -163,8 +171,8 @@ export default class Draggable extends Component{
   }
 
   hideDraggable(){
-    this.hoveringStyle = Object.assign({}, this.hoveringStyle, {visibility: 'hidden'});
-    this.setState({hoveringStyle: this.hoveringStyle});
+    this.baseStyle = Object.assign({}, this.baseStyle, {visibility: 'hidden'});
+    this.setState({baseStyle: this.baseStyle});
   }
 }
 
