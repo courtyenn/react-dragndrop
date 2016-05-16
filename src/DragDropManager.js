@@ -1,5 +1,6 @@
 import { checkBoundaries } from './boxBoundaryChecking';
 
+// refactor to be called singleton
 export default class DragDropManager {
   constructor(){
     this.draggables = [];
@@ -21,19 +22,7 @@ export default class DragDropManager {
 
   draggableIsOverDropTarget(draggable){
     for(var dropTarget of this.dropTargets){
-      var draggableDimensions = {
-        width: draggable.width,
-        height: draggable.height,
-        x: draggable.currentPosition.x,
-        y: draggable.currentPosition.y
-      };
-      var dropTargetDimensions = {
-        width: dropTarget.style.width,
-        height: dropTarget.style.height,
-        x: dropTarget.style.left,
-        y: dropTarget.style.top
-      };
-      draggable.isOverTarget = checkBoundaries(draggableDimensions, dropTargetDimensions);
+      draggable.isOverTarget = checkBoundaries(draggable.dimensions, dropTarget.dimensions);
       if(draggable.isOverTarget){
         this.hoveredDropTarget = dropTarget;
         break;

@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
+import ReactDom from 'react-dom';
 
 export default class Draggable extends Component{
   constructor(){
     super();
-    this.style = {
-      "position": "absolute",
-      "left": 0,
-      "top": 0
-    };
+    this.hoveringStyle = {};
 
     var html = document.getElementsByTagName('html')[0];
     html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
@@ -18,22 +15,33 @@ export default class Draggable extends Component{
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.width = 0;
-    this.height = 0;
+    // this.updateDimensions = this.updateDimensions.bind(this);
+    this.setInitialDimensions = this.setInitialDimensions.bind(this);
+
+    this.dimensions = {
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 100
+    };
+
     this.isOverTarget = false;
     this.hoveredDropTarget = null;
 
     this.setState = this.setState;
   }
 
-  componentWillMount(){
-    this.currentPosition = {
-      x: this.props.x,
-      y: this.props.y
+  setInitialDimensions(ref){
+    this.domDraggableElement = ReactDom.findDOMNode(ref);
+    this.dimensions = {
+      x: this.domDraggableElement.offsetLeft,
+      y: this.domDraggableElement.offsetTop,
+      width: this.domDraggableElement.offsetWidth,
+      height: this.domDraggableElement.offsetHeight
     };
-    this.width = this.props.width;
-    this.height = this.props.height;
-    this.style = Object.assign({}, this.style, {width: this.width, height: this.height});
+
+    //this.updateDimensions(this); //check if works with this
+
   }
 
   componentDidMount(){
@@ -42,18 +50,50 @@ export default class Draggable extends Component{
     }
   }
 
+  componentWillUpdate(nextProps, nextState){
+    // this.updateDimensions(nextState);
+  }
+
+  // updateDimensions(nextState){
+  //   if(nextState && nextState.dimensions){
+  //     this.hoveringStyle.left = nextState.dimensions.x;
+  //     this.hoveringStyle.top = nextState.dimensions.y;
+  //     this.hoveringStyle.width = nextState.dimensions.width;
+  //     this.hoveringStyle.height = nextState.dimensions.height;
+  //     this.hoveringStyle.position = 'absolute';
+  //
+  //     this.currentPosition = {
+  //       x: nextState.dimensions.x,
+  //       y: nextState.dimensions.y
+  //     };
+  //
+  //     this.setState({hoveringStyle: this.hoveringStyle});
+  //   }
+  // }
+
   render(){
-    let style = {
-      "left": this.currentPosition.x,
-      "top": this.currentPosition.y
-    };
+
     var draggableClone = React.Children.map(this.props.children, (child) => {
       var childStyle = '';
+      var styleOutput = '';
+      var draggingStyle = '';
+
       if(child && child.props && child.props.style){
         childStyle = child.props.style;
       }
+
+      if(this.dragging || this.clicked){
+        draggingStyle = this.hoveringStyle;
+      }
+      if(this.props.style){
+        styleOutput = Object.assign({}, draggingStyle, this.props.style, childStyle)
+      }
+      else {
+        styleOutput = Object.assign({}, draggingStyle, childStyle)
+      }
+
       return React.createElement('div', {
-        style: Object.assign({}, this.style, style, childStyle),
+        style: styleOutput,
         key: this.props.id,
         onMouseDown: this.handleMouseDown,
         onMouseUp: this.handleMouseUp
@@ -61,8 +101,8 @@ export default class Draggable extends Component{
     });
 
     return (
-      <div>
-      {draggableClone}
+      <div ref={this.setInitialDimensions}>
+        {draggableClone}
       </div>
     );
   }
@@ -73,10 +113,8 @@ export default class Draggable extends Component{
 
     if(this.clicked){
       this.dragging = true;
-      this.localNextPosition.x -= (this.width / 2);
-      this.localNextPosition.y -= (this.height / 2);
-      this.currentPosition = this.localNextPosition;
-
+      this.localNextPosition.x -= (this.dimensions.width / 2);
+      this.localNextPosition.y -= (this.dimensions.height / 2);
 
       if(this.props.manager){
         var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this);
@@ -88,9 +126,18 @@ export default class Draggable extends Component{
           this.isOverTarget = false;
         }
       }
+      var dimensions = Object.assign({}, this.dimensions, {
+        x: this.localNextPosition.x,
+        y: this.localNextPosition.y
+      });
+      this.dimensions = dimensions;
+      this.hoveringStyle.left = dimensions.x;
+      this.hoveringStyle.top = dimensions.y;
+      this.hoveringStyle.position = 'absolute';
+      var newHoveringStyle = Object.assign({}, DraggableStyles.Clicking, this.hoveringStyle);
 
       this.setState({
-        currentPosition: this.localNextPosition
+        hoveringStyle: newHoveringStyle
       });
     }
   }
@@ -116,10 +163,9 @@ export default class Draggable extends Component{
   }
 
   hideDraggable(){
-    this.style = Object.assign(this.style, {visibility: 'hidden'});
-    this.setState({style: this.style});
+    this.hoveringStyle = Object.assign({}, this.hoveringStyle, {visibility: 'hidden'});
+    this.setState({hoveringStyle: this.hoveringStyle});
   }
 }
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
-Draggable.prototype.localOriginPosition = {x: 0, y: 0};

@@ -1,16 +1,15 @@
 var DraggableStyle = {
   "Normal": {
     "backgroundColor": "gray",
-    "width": "300px",
-    "height":"60px",
+    "width": 300,
+    "height": 60,
     "textAlign": "center",
     "fontFamily": "sans-serif",
-    "cursor": "-webkit-grab"
+    "cursor": "-webkit-grab",
+    "margin": "20px 0"
   },
   "Clicking": {
     "backgroundColor":"pink",
-    "width": "300px",
-    "height":"60px",
     "textAlign": "center",
     "fontFamily": "sans-serif",
     "transform": "rotate(-2deg)",

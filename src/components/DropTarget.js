@@ -1,97 +1,99 @@
 import React, {Component} from 'react';
+import ReactDom from 'react-dom';
 
 export default class DropTarget extends Component{
-    constructor(){
-        super();
-        this.mouseIsOverTarget = false;
-        this.style = {
-            position: "relative",
-            width: 400,
-            height: 400
-        };
-        this.content = [];
-        this.wrapper = "";
+  constructor(){
+    super();
+    this.droppedStyle = {};
+    this.content = [];
+    this.dimensions = {
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 100
+    };
+    this.setInitialDimensions = this.setInitialDimensions.bind(this);
+  }
+
+  componentDidMount(){
+    if(this.props.manager){
+      this.props.manager.registerDropTarget(this);
     }
-    componentWillMount(){
-        this.wrapper = this.props.wrapper || 'div';
-        this.content = this.props.defaultContent || [];
-        if(this.props.dimensions){
-            this.style.left = this.props.dimensions.x,
-            this.style.top = this.props.dimensions.y,
-            this.style.width = this.props.dimensions.width,
-            this.style.height = this.props.dimensions.height
-        }
-    }
+  }
 
-    componentDidMount(){
-        if(this.props.manager){
-            this.props.manager.registerDropTarget(this);
-        }
-    }
+  setInitialDimensions(ref){
+    this.domDropTargetElement = ReactDom.findDOMNode(ref);
+    this.dimensions = {
+      x: this.domDropTargetElement.offsetLeft,
+      y: this.domDropTargetElement.offsetTop,
+      width: this.domDropTargetElement.offsetWidth,
+      height: this.domDropTargetElement.offsetHeight
+    };
 
-    render(){
-        var style,
-        wrapper,
-        dropTargetElement = {};
+    //this.updateDimensions(this); //check if works with this
 
-        if(this.props.style){
-            style = Object.assign({}, this.style, this.props.style);
-        }
+  }
 
-        var type = typeof this.props.wrapper;
-        if(type === "string"){
-            var innards = React.createElement(this.wrapper, null, this.content);
-            dropTargetElement = (
-                <div style={style}>
-                    {innards}
-                </div>
-            );
-        }
-        var content = this.content.length > 0 ? this.content : "helpful and friendly text just for you <3";
-        if(type === "object"){
-            wrapper =  React.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
-            dropTargetElement = (
-                <div style={style} refs={this.createRef}>
-                    {wrapper}
-                </div>
-            );
-        }
+  // componentWillUpdate(nextProps, nextState){
+    // this.updateDimensions(nextState);
+  // }
 
-        return dropTargetElement;
+  updateDimensions(nextState){
+    this.droppedStyle.left = nextState.dimensions.x;
+    this.droppedStyle.top = nextState.dimensions.y;
+    this.droppedStyle.width = nextState.dimensions.width;
+    this.droppedStyle.height = nextState.dimensions.height;
+  }
+
+  render(){
+    var style,
+    wrapper,
+    dropTargetElement = {};
+
+    if(this.props.style){
+      style = Object.assign({}, this.droppedStyle, this.props.style);
     }
 
-    createRef(){
+    var type = typeof this.props.wrapper;
+    if(type === "string"){
+      var innards = React.createElement(this.props.wrapper, null, this.content);
+      dropTargetElement = (
+        <div style={style}>
+          {innards}
+        </div>
+      );
+    }
+    var content = this.content.length > 0 ? this.content : "helpful and friendly text just for you <3";
+    if(type === "object"){
+      wrapper =  React.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
+      dropTargetElement = (
+        <div style={style} ref={this.setInitialDimensions}>
+          {wrapper}
+        </div>
+      );
+    }
 
-    }
-    
-    setContent(content){
-        this.content = content;
-        this.setState({content: this.content});
-    }
+    return dropTargetElement;
+  }
 
-    appendToContent(content){
-        this.content.push(content);
-        this.setState({content: this.content});
-    }
+  setContent(content){
+    this.content = content;
+    this.setState({content: this.content});
+  }
 
-    draggableHoveringOverDropTarget(){
-        if(this.props.handleDraggableHoveringOverDropTarget){
-            this.props.handleDraggableHoveringOverDropTarget(this);
-        }
-    }
+  appendToContent(content){
+    this.content.push(content);
+    this.setState({content: this.content});
+  }
 
-    setStyle(style){
-        this.style = style;
+  draggableHoveringOverDropTarget(){
+    if(this.props.handleDraggableHoveringOverDropTarget){
+      this.props.handleDraggableHoveringOverDropTarget(this);
     }
+  }
 }
 
 DropTarget.propTypes = {
-    dimensions: React.PropTypes.shape({
-        x: React.PropTypes.number,
-        y: React.PropTypes.number,
-        width: React.PropTypes.number,
-        height: React.PropTypes.number,
-    }).isRequired,
-    style: React.PropTypes.object,
-    wrapper: React.PropTypes.any
+  style: React.PropTypes.object,
+  wrapper: React.PropTypes.any
 };

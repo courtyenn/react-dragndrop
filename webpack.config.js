@@ -5,16 +5,19 @@ module.exports = {
     "./lib/react-dragndrop": "./src/index",
     "./examples/small_game/index": "./examples/small_game/app"
   },
+  debug: true,
+  devtool: "source-map",
   module: {
-    debug: true,
-    devtool: "source-map",
     loaders: [
       {
         test: /\.js$/,
         exclude: [/node_modules/],
         loader: "babel",
         query: {
-          plugins: ['transform-runtime'],
+          plugins: [['transform-runtime', {
+            "polyfill": false,
+            "regenerator": true
+          }]],
           presets: ["es2015", "react"]
         }
       }
