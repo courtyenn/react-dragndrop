@@ -18,9 +18,9 @@ export default class Draggable extends Component{
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
-    // this.updateDimensions = this.updateDimensions.bind(this);
     this.setInitialDimensions = this.setInitialDimensions.bind(this);
-
+    this.setStyle = this.setStyle.bind(this);
+    this.setClassName = this.setClassName.bind(this);
     this.dimensions = {
       x: 0,
       y: 0,
@@ -52,67 +52,53 @@ export default class Draggable extends Component{
     }
   }
 
-  // componentWillUpdate(nextProps, nextState){
-    // this.updateDimensions(nextState);
-  // }
-
-  // updateDimensions(nextState){
-  //   if(nextState && nextState.dimensions){
-  //     this.hoveringStyle.left = nextState.dimensions.x;
-  //     this.hoveringStyle.top = nextState.dimensions.y;
-  //     this.hoveringStyle.width = nextState.dimensions.width;
-  //     this.hoveringStyle.height = nextState.dimensions.height;
-  //     this.hoveringStyle.position = 'absolute';
-  //
-  //     this.currentPosition = {
-  //       x: nextState.dimensions.x,
-  //       y: nextState.dimensions.y
-  //     };
-  //
-  //     this.setState({hoveringStyle: this.hoveringStyle});
-  //   }
-  // }
-
   render(){
 
-    // var draggableClone = React.Children.map(this.props.children, (child) => {
-      var childStyle = '';
-      var styleOutput = '';
-      var draggingStyle = '';
-
-      // if(this.props.child && this.props.child.props.style){
-      //   childStyle = child.props.style;
-      // }
-
-      if(this.dragging || this.clicked){
-        draggingStyle = this.hoveringStyle;
-      }
-      if(this.props.style){
-        styleOutput = Object.assign({}, draggingStyle, this.baseStyle, this.props.style)
-      }
-      else {
-        styleOutput = Object.assign({}, draggingStyle, this.baseStyle)
-      }
-
-      // return React.createElement('div', {
-      //   style: styleOutput,
-      //   key: 'draggable-' + Math.random(),
-      //   onMouseDown: this.handleMouseDown,
-      //   onMouseUp: this.handleMouseUp,
-      //   ref: this.setInitialDimensions
-      // }, this.props.children);
-    // });
-
+    var styleOutput = this.setStyle();
+    var classOutput = this.setClassName();
     return (
       <div ref={this.setInitialDimensions}
-        style= {styleOutput}
-          key={'draggable-' + Math.random()}
-          onMouseDown={this.handleMouseDown}
-          onMouseUp={this.handleMouseUp}
+        style={styleOutput}
+        className={classOutput}
+        key={'draggable-' + Math.random()}
+        onMouseDown={this.handleMouseDown}
+        onMouseUp={this.handleMouseUp}
         >
         { this.props.children}
       </div>
     );
+  }
+
+  setStyle(){
+    var childStyle = '';
+    var styleOutput = '';
+    var clickedStyle = '';
+    var draggingStyle = '';
+
+    if(this.dragging && this.props.draggingStyle){
+      draggingStyle = this.props.draggingStyle;
+    }
+    if(this.clicked && this.props.clickedStyle){
+      clickedStyle = this.props.clickedStyle;
+    }
+    if(this.props.style){
+      styleOutput = Object.assign({}, draggingStyle, clickedStyle, this.baseStyle, this.props.style)
+    }
+    else {
+      styleOutput = Object.assign({}, draggingStyle, clickedStyle, this.baseStyle)
+    }
+    return styleOutput;
+  }
+
+  setClassName(){
+    var className = '';
+    if(this.clicked && this.props.clickedClassName){
+      className = this.props.clickedClassName;
+    }
+    else if(this.dragging && this.props.draggingClassName){
+      className = this.props.draggingClassName;
+    }
+    return className;
   }
 
   setMousePosition(ev){
@@ -139,21 +125,22 @@ export default class Draggable extends Component{
         y: this.localNextPosition.y
       });
       this.dimensions = dimensions;
-      this.hoveringStyle.left = dimensions.x;
-      this.hoveringStyle.top = dimensions.y;
-      this.hoveringStyle.position = 'absolute';
+      this.baseStyle.left = dimensions.x;
+      this.baseStyle.top = dimensions.y;
+      this.baseStyle.position = 'absolute';
       var newHoveringStyle = Object.assign({}, this.hoveringStyle);
 
       this.setState({
-        hoveringStyle: newHoveringStyle
+        baseStyle: newHoveringStyle
       });
     }
   }
 
   handleMouseDown(ev){
     this.clicked = true;
-    this.dragging = true;
-
+    this.setState({
+      clicked: true
+    });
     if(this.props.handleMouseDown){
       this.props.handleMouseDown(ev);
     }
@@ -162,6 +149,10 @@ export default class Draggable extends Component{
   handleMouseUp(ev){
     this.clicked = false;
     this.dragging = false;
+    this.setState({
+      clicked: false,
+      dragging: false
+    });
     if(this.props.handleMouseUp){
       this.props.handleMouseUp(ev);
     }

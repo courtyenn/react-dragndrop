@@ -8,8 +8,8 @@ var DraggableStyle = {
     "cursor": "-webkit-grab",
     "margin": "20px 0"
   },
-  "Clicking": {
-    "backgroundColor":"pink",
+  "Dragging": {
+    "backgroundColor":"whitesmoke",
     "textAlign": "center",
     "fontFamily": "sans-serif",
     "transform": "rotate(-2deg)",

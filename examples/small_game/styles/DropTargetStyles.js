@@ -6,6 +6,10 @@ var DropTargetStyles = {
     "height": 400,
     "width": 400,
     "left": 500
+  },
+  "Dropping": {
+    "backgroundColor": "pink",
+    "padding": "20px"
   }
 };
 

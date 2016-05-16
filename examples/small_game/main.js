@@ -22,7 +22,7 @@ export default class MainSection extends React.Component{
   }
 
   renderDropTargets(){
-    var list = React.createElement(List, {title: "hello world"});
+    var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping});
     var firstStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 0});
     var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 500});
 
@@ -52,12 +52,15 @@ export default class MainSection extends React.Component{
       <ul>
         <Draggable
           key={"0.0"}
-          manager={dragDropManager} style={DraggableStyles.Normal}>
+          manager={dragDropManager}
+          style={DraggableStyles.Normal}
+          draggingStyle={DraggableStyles.Dragging}>
           <LineItem key={"0.0.1"}>Edible</LineItem>
         </Draggable>
         <Draggable
           key={"0.1"}
-          manager={dragDropManager} style={DraggableStyles.Normal}>
+          manager={dragDropManager} style={DraggableStyles.Normal}
+          draggingStyle={DraggableStyles.Dragging}>
           <LineItem key={"0.0.2"}>Cuddly</LineItem>
         </Draggable>
       </ul>
