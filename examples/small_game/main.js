@@ -25,25 +25,26 @@ export default class MainSection extends React.Component{
     var list = React.createElement(List, {title: "hello world"});
     var firstStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 0});
     var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 500});
-    this.dropTargets.push({
-      style: firstStyle,
-      wrapper: "ul"
-    });
-    this.dropTargets.push({
-      style: secondStyle,
-      wrapper: list
-    });
-    var dropTargetComponents = this.dropTargets.map((dropTarget, index) => {
-      return (
-        <DropTarget
-          key={"droptarget-" + index}
-          manager={dragDropManager}
-          {...dropTarget}
-          />
-      );
-    });
 
-    return dropTargetComponents;
+    // var dropTargetComponents = this.dropTargets.map((dropTarget, index) => {
+    return (
+      <div>
+        <DropTarget
+          key={"droptarget-1"}
+          manager={dragDropManager}
+          style={firstStyle}
+          wrapper="ul"
+          />
+        <DropTarget
+          key={"droptarget-2"}
+          manager={dragDropManager}
+          style={secondStyle}
+          wrapper={list} />
+      </div>
+    );
+    // });
+
+    // return dropTargetComponents;
   }
 
   renderDroppables(){

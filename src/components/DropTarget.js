@@ -5,6 +5,7 @@ export default class DropTarget extends Component{
   constructor(){
     super();
     this.droppedStyle = {};
+    this.domDropTargetElement;
     this.baseStyle = {
       "zIndex": 1
     };
@@ -25,28 +26,28 @@ export default class DropTarget extends Component{
   }
 
   setInitialDimensions(ref){
-    this.domDropTargetElement = ReactDom.findDOMNode(ref);
-    this.dimensions = {
-      x: this.domDropTargetElement.offsetLeft,
-      y: this.domDropTargetElement.offsetTop,
-      width: this.domDropTargetElement.offsetWidth,
-      height: this.domDropTargetElement.offsetHeight
-    };
-
+    if(ref !== null){
+      this.domDropTargetElement = ReactDom.findDOMNode(ref);
+      this.dimensions = {
+        x: this.domDropTargetElement.offsetLeft,
+        y: this.domDropTargetElement.offsetTop,
+        width: this.domDropTargetElement.offsetWidth,
+        height: this.domDropTargetElement.offsetHeight
+      };
+    }
     //this.updateDimensions(this); //check if works with this
-
   }
 
   // componentWillUpdate(nextProps, nextState){
     // this.updateDimensions(nextState);
   // }
 
-  updateDimensions(nextState){
-    this.droppedStyle.left = nextState.dimensions.x;
-    this.droppedStyle.top = nextState.dimensions.y;
-    this.droppedStyle.width = nextState.dimensions.width;
-    this.droppedStyle.height = nextState.dimensions.height;
-  }
+  // updateDimensions(nextState){
+  //   this.baseStyle.left = nextState.dimensions.x;
+  //   this.baseStyle.top = nextState.dimensions.y;
+  //   this.baseStyle.width = nextState.dimensions.width;
+  //   this.baseStyle.height = nextState.dimensions.height;
+  // }
 
   render(){
     var style,
@@ -54,27 +55,43 @@ export default class DropTarget extends Component{
     dropTargetElement = {};
 
     if(this.props.style){
-      style = Object.assign({}, this.droppedStyle, this.baseStyle, this.props.style);
+      style = Object.assign({}, this.baseStyle, this.props.style);
     }
     else {
-      style = Object.assign({}, this.droppedStyle, this.baseStyle);
+      style = Object.assign({}, this.baseStyle);
     }
 
     var type = typeof this.props.wrapper;
-    if(type === "string"){
-      var innards = React.createElement(this.props.wrapper, null, this.content);
-      dropTargetElement = (
-        <div style={style}>
-          {innards}
-        </div>
-      );
-    }
     var content = this.content.length > 0 ? this.content : "helpful and friendly text just for you <3";
-    if(type === "object"){
+
+    if(type === "string"){
+      if(this.props.children){
+        var allTheProps = Object.assign({}, this.props, this.props.children.props, {style: style, ref: this.setInitialDimensions});
+        var innards = React.createElement(this.props.wrapper, allTheProps, content);
+        dropTargetElement = innards;
+      }
+      else {
+        var innards = React.createElement(this.props.wrapper, {style: style, ref: this.setInitialDimensions}, content);
+        dropTargetElement = innards;
+      }
+
+    }
+    else if(type === "object"){
+      // var allTheChildren = Object.assign({}, this.props.wrapper.props.children);
+      // var allTheProps = Object.assign({}, this.props.wrapper.props, {style: style, ref: this.setInitialDimensions.bind(this)});
       wrapper =  React.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
       dropTargetElement = (
         <div style={style} ref={this.setInitialDimensions}>
           {wrapper}
+        </div>
+      );
+      // wrapper =  React.createElement(this.props.wrapper.type, allTheProps, content);
+      // dropTargetElement = wrapper;
+    }
+    else {
+      dropTargetElement = (
+        <div style={style} ref={this.setInitialDimensions}>
+          {content}
         </div>
       );
     }
