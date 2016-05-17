@@ -21,6 +21,7 @@ export default class Draggable extends Component{
     this.setInitialDimensions = this.setInitialDimensions.bind(this);
     this.setStyle = this.setStyle.bind(this);
     this.setClassName = this.setClassName.bind(this);
+
     this.dimensions = {
       x: 0,
       y: 0,

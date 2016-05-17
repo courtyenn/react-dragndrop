@@ -12,7 +12,7 @@ var DraggableStyle = {
     "backgroundColor":"whitesmoke",
     "textAlign": "center",
     "fontFamily": "sans-serif",
-    "transform": "rotate(-2deg)",
+    "transform": "rotate(-30deg)",
     "cursor": "-webkit-grabbing",
     "position": "absolute"
   }

@@ -35,19 +35,7 @@ export default class DropTarget extends Component{
         height: this.domDropTargetElement.offsetHeight
       };
     }
-    //this.updateDimensions(this); //check if works with this
   }
-
-  // componentWillUpdate(nextProps, nextState){
-    // this.updateDimensions(nextState);
-  // }
-
-  // updateDimensions(nextState){
-  //   this.baseStyle.left = nextState.dimensions.x;
-  //   this.baseStyle.top = nextState.dimensions.y;
-  //   this.baseStyle.width = nextState.dimensions.width;
-  //   this.baseStyle.height = nextState.dimensions.height;
-  // }
 
   render(){
     var style,
@@ -77,16 +65,12 @@ export default class DropTarget extends Component{
 
     }
     else if(type === "object"){
-      // var allTheChildren = Object.assign({}, this.props.wrapper.props.children);
-      // var allTheProps = Object.assign({}, this.props.wrapper.props, {style: style, ref: this.setInitialDimensions.bind(this)});
       wrapper =  React.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
       dropTargetElement = (
         <div style={style} ref={this.setInitialDimensions}>
           {wrapper}
         </div>
       );
-      // wrapper =  React.createElement(this.props.wrapper.type, allTheProps, content);
-      // dropTargetElement = wrapper;
     }
     else {
       dropTargetElement = (

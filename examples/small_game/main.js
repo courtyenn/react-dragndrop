@@ -25,8 +25,7 @@ export default class MainSection extends React.Component{
     var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping});
     var firstStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 0});
     var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 500});
-
-    // var dropTargetComponents = this.dropTargets.map((dropTarget, index) => {
+    
     return (
       <div>
         <DropTarget
@@ -42,9 +41,6 @@ export default class MainSection extends React.Component{
           wrapper={list} />
       </div>
     );
-    // });
-
-    // return dropTargetComponents;
   }
 
   renderDroppables(){

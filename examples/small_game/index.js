@@ -19761,7 +19761,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var firstStyle = Object.assign({}, _DropTargetStyles2.default.BaseStyle, { top: 0 });
 	      var secondStyle = Object.assign({}, _DropTargetStyles2.default.BaseStyle, { top: 500 });
 	
-	      // var dropTargetComponents = this.dropTargets.map((dropTarget, index) => {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -19777,9 +19776,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          style: secondStyle,
 	          wrapper: list })
 	      );
-	      // });
-	
-	      // return dropTargetComponents;
 	    }
 	  }, {
 	    key: 'renderDroppables',
@@ -27490,7 +27486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    "backgroundColor": "whitesmoke",
 	    "textAlign": "center",
 	    "fontFamily": "sans-serif",
-	    "transform": "rotate(-2deg)",
+	    "transform": "rotate(-30deg)",
 	    "cursor": "-webkit-grabbing",
 	    "position": "absolute"
 	  }
