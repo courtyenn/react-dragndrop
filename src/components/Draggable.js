@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
+import DragDropManager from '../DragDropManager';
 
 export default class Draggable extends Component{
   constructor(){
@@ -48,9 +49,7 @@ export default class Draggable extends Component{
   }
 
   componentDidMount(){
-    if(this.props.manager){
       this.props.manager.registerDraggable(this);
-    }
   }
 
   render(){
@@ -169,3 +168,13 @@ export default class Draggable extends Component{
 }
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
+Draggable.propTypes = {
+  manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
+  draggingStyle: React.PropTypes.object,
+  clickedStyle: React.PropTypes.object,
+  style: React.PropTypes.object,
+  clickedClassName: React.PropTypes.string,
+  draggingClassName: React.PropTypes.string,
+  handleMouseUp: React.PropTypes.func,
+  handleMouseDown: React.PropTypes.func
+};

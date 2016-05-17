@@ -25,7 +25,7 @@ export default class MainSection extends React.Component{
     var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping});
     var firstStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 0});
     var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 500});
-    
+
     return (
       <div>
         <DropTarget

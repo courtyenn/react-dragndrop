@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
+import DragDropManager from '../DragDropManager';
 
 export default class DropTarget extends Component{
   constructor(){
@@ -20,9 +21,7 @@ export default class DropTarget extends Component{
   }
 
   componentDidMount(){
-    if(this.props.manager){
       this.props.manager.registerDropTarget(this);
-    }
   }
 
   setInitialDimensions(ref){
@@ -50,7 +49,7 @@ export default class DropTarget extends Component{
     }
 
     var type = typeof this.props.wrapper;
-    var content = this.content.length > 0 ? this.content : "helpful and friendly text just for you <3";
+    var content = this.content.length > 0 ? this.content : '';
 
     if(type === "string"){
       if(this.props.children){
@@ -62,7 +61,6 @@ export default class DropTarget extends Component{
         var innards = React.createElement(this.props.wrapper, {style: style, ref: this.setInitialDimensions}, content);
         dropTargetElement = innards;
       }
-
     }
     else if(type === "object"){
       wrapper =  React.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
@@ -101,6 +99,8 @@ export default class DropTarget extends Component{
 }
 
 DropTarget.propTypes = {
+  manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
   style: React.PropTypes.object,
-  wrapper: React.PropTypes.any
+  wrapper: React.PropTypes.any,
+  handleDraggableHoveringOverDropTarget: React.PropTypes.func
 };
