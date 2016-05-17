@@ -1,8 +1,8 @@
 {
   "name": "react-dragndrop",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "First npm module and react component.",
-  "main": "dist/react-dragndrop",
+  "main": "lib/react-dragndrop",
   "scripts": {
     "webpack": "webpack",
     "prepublish": "npm run webpack"
