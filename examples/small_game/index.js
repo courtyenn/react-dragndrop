@@ -19787,6 +19787,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _reactDragndrop.Draggable,
 	          {
 	            key: "0.0",
+	            manager: dragDropManager,
 	            style: _Draggable2.default.Normal,
 	            draggingStyle: _Draggable2.default.Dragging },
 	          _react2.default.createElement(
