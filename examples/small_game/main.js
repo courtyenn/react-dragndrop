@@ -25,7 +25,7 @@ export default class MainSection extends React.Component{
     var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping});
     var firstStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 0});
     var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 500});
-
+    var title = "Monnkey";
     return (
       <div>
         <DropTarget
@@ -39,6 +39,10 @@ export default class MainSection extends React.Component{
           manager={dragDropManager}
           style={secondStyle}
           wrapper={list} />
+          <List key={"List-droptarget-3"}
+          manager={dragDropManager}
+          style={thirdStyle} />
+
       </div>
     );
   }

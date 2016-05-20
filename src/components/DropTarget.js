@@ -71,6 +71,14 @@ export default class DropTarget extends Component{
       );
     }
     else {
+      var childToSetContentOn = null;
+      var allTheChildren = [];
+      this.props.children.forEach((child) => {
+        if(child.props.children === undefined){
+          childToSetContentOn = child;
+        }
+        allTheChildren.push();
+      });
       dropTargetElement = (
         <div style={style} ref={this.setInitialDimensions}>
           {content}
