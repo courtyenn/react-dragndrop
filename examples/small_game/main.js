@@ -38,6 +38,7 @@ export default class MainSection extends React.Component{
         <DropTarget
           key={"droptarget-2"}
           style={secondStyle}
+          manager={dragDropManager}
           wrapper={list} />
         <List key={"List-droptarget-3"}
           manager={dragDropManager}
