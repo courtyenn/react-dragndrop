@@ -22,9 +22,10 @@ export default class MainSection extends React.Component{
   }
 
   renderDropTargets(){
-    var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping});
+    var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping, manager: dragDropManager});
     var firstStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 0});
-    var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 500});
+    var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 400});
+    var thirdStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 1000});
     var title = "Monnkey";
     return (
       <div>
@@ -36,10 +37,9 @@ export default class MainSection extends React.Component{
           />
         <DropTarget
           key={"droptarget-2"}
-          manager={dragDropManager}
           style={secondStyle}
           wrapper={list} />
-          <List key={"List-droptarget-3"}
+        <List key={"List-droptarget-3"}
           manager={dragDropManager}
           style={thirdStyle} />
 

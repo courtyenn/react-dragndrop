@@ -6,8 +6,9 @@ export default class Draggable extends Component{
   constructor(){
     super();
     this.baseStyle = {
-      "zIndex": 9999
+      "zIndex": 999999
     };
+
     this.hoveringStyle = {};
     this.domDraggableElement;
     var html = document.getElementsByTagName('html')[0];
