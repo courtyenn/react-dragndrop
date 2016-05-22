@@ -6,7 +6,8 @@ var DraggableStyle = {
     "textAlign": "center",
     "fontFamily": "sans-serif",
     "cursor": "-webkit-grab",
-    "margin": "20px 0"
+    "margin": "20px 0",
+    "zIndex": 2
   },
   "Dragging": {
     "backgroundColor":"whitesmoke",
