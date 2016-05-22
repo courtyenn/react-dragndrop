@@ -75,7 +75,7 @@ export default class DropTarget extends Component{
       var allTheChildren = [];
       this.props.children.forEach((child, index) => {
         var keyProps = Object.assign({}, child.props, {key: index + "-droptarget-module"});
-        if(child.props.children === '' || child.props.children === undefined){
+        if(child.props.children === '' || typeof child.props.children === 'undefined'){
           allTheChildren.push(React.createElement(child.type, keyProps, content));
         }
         else {
