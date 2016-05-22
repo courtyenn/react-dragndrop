@@ -5,9 +5,7 @@ import DragDropManager from '../DragDropManager';
 export default class Draggable extends Component{
   constructor(){
     super();
-    this.baseStyle = {
-      "zIndex": 999999
-    };
+    this.baseStyle = {};
 
     this.hoveringStyle = {};
     this.domDraggableElement;
