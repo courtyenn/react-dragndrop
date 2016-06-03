@@ -18,6 +18,8 @@ export default class DropTarget extends Component{
       height: 100
     };
     this.setInitialDimensions = this.setInitialDimensions.bind(this);
+    this.droppedDraggable = this.droppedDraggable.bind(this);
+    this.draggableHoveringOverDropTarget = this.draggableHoveringOverDropTarget.bind(this);
   }
 
   componentDidMount(){
@@ -96,16 +98,24 @@ export default class DropTarget extends Component{
   setContent(content){
     this.content = content;
     this.setState({content: this.content});
+    this.droppedDraggable();
   }
 
   appendToContent(content){
     this.content.push(content);
     this.setState({content: this.content});
+    this.droppedDraggable();
   }
 
   draggableHoveringOverDropTarget(){
     if(this.props.handleDraggableHoveringOverDropTarget){
       this.props.handleDraggableHoveringOverDropTarget(this);
+    }
+  }
+
+  droppedDraggable(){
+    if(this.props.droppedDraggable){
+      this.props.droppedDraggable();
     }
   }
 }

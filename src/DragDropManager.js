@@ -25,6 +25,7 @@ export default class DragDropManager {
       draggable.isOverTarget = checkBoundaries(draggable.dimensions, dropTarget.dimensions);
       if(draggable.isOverTarget){
         this.hoveredDropTarget = dropTarget;
+        dropTarget.draggableHoveringOverDropTarget();
         break;
       }
     }
@@ -36,12 +37,13 @@ export default class DragDropManager {
       var dropTargetBeingHovered = this.hoveredDropTarget;
       var content = '';
       if(draggable.props.setContentOnDrop){
-        content = draggable.props.setContentOnDrop();
+        dropTargetBeingHovered.setContent(draggable.children);
       }
       else{
         content = draggable.props.children.props.children;
+        dropTargetBeingHovered.appendToContent(content);
       }
-      dropTargetBeingHovered.appendToContent(content);
+
       draggable.hideDraggable();
     }
   }
