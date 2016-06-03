@@ -63,7 +63,7 @@ export default class Draggable extends Component{
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
         >
-        { this.props.children}
+        {this.props.children}
       </div>
     );
   }
