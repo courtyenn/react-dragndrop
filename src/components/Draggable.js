@@ -114,6 +114,7 @@ export default class Draggable extends Component{
         if(draggableisOverDropTarget){
           this.isOverTarget = true;
           this.hoveredDropTarget = this.props.manager.hoveredDropTarget;
+          hoveredDropTarget.draggableHoveringOverDropTarget();
         }
         else {
           this.isOverTarget = false;
