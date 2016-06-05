@@ -40,7 +40,7 @@ export default class DragDropManager {
       if(draggable.props.droppedStyle){
         newStyle = Object.assign({}, draggable.props.droppedStyle, draggable.props.children.style);
       }
-      var content = React.createElement('div', {key: draggable.props.id + '-dropped-draggable', style: newStyle}, draggable.props.children);
+      var content = React.createElement('div', {key: draggable.id + '-dropped-draggable', style: newStyle}, draggable.props.children);
       if(draggable.props.setContentOnDrop){
         dropTargetBeingHovered.setContent(content);
       }

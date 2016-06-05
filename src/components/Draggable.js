@@ -15,7 +15,6 @@ export default class Draggable extends Component{
     this.currentPosition = {x: 0, y: 0};
     this.clicked = false;
     this.dragging = false;
-    this.id = this.props.id;
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
@@ -50,6 +49,7 @@ export default class Draggable extends Component{
 
   componentDidMount(){
       this.props.manager.registerDraggable(this);
+      this.id = this.props.id;
   }
 
   render(){
