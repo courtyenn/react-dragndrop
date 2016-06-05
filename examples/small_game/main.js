@@ -11,6 +11,12 @@ export default class MainSection extends React.Component{
   constructor(){
     super();
     this.dropTargets = [];
+    this.droppedContent = this.droppedContent.bind(this);
+    this.columns = [
+      ["Kitty", "Test"],
+      ["HELLO"],
+      []
+    ];
   }
   render(){
     return(
@@ -23,29 +29,53 @@ export default class MainSection extends React.Component{
 
   renderDropTargets(){
     var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping, manager: dragDropManager});
-    var firstStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 0});
-    var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 400});
-    var thirdStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 800});
+    var styles = [
+      Object.assign({}, DropTargetStyles.BaseStyle, {top: 0}),
+      Object.assign({}, DropTargetStyles.BaseStyle, {top: 400})
+    ];
+    var style2 = Object.assign({}, DropTargetStyles.BaseStyle, {top: 800});
     var title = "Monnkey";
+    var that = this;
+    var dropTargets = this.columns.map((items, index) => {
+    var dropHandler = function(drop, drag){
+      return that.droppedContent(drop, drag, index);
+    };
+    return (
+        <DropTarget
+        key={"droptarget-" + index}
+        style={styles[index]}
+        manager={dragDropManager}
+        handleDroppedDraggable={dropHandler}>
+        {items}
+        </DropTarget>
+    );
+  });
+  var dropHandler = function(drop, drag){
+    return that.droppedContent(drop, drag, 2);
+  };
+    dropTargets.push(
+      <List key={"List-droptarget-3"}
+      manager={dragDropManager}
+      style={style2}
+      handleDroppedDraggable={dropHandler}
+      title={title}>
+        {this.columns[2]}
+      </List>);
     return (
       <div>
-        <DropTarget
-          key={"droptarget-1"}
-          manager={dragDropManager}
-          style={firstStyle}
-          wrapper="ul"
-          />
-        <DropTarget
-          key={"droptarget-2"}
-          style={secondStyle}
-          manager={dragDropManager}
-          wrapper={list}
-          />
-        <List key={"List-droptarget-3"}
-          manager={dragDropManager}
-          style={thirdStyle} />
+        {dropTargets}
+
       </div>
     );
+  }
+
+  droppedContent(drop, drag, index){
+    console.log(drop, drag);
+    var newColumns = this.columns;
+    newColumns[index].push(drag);
+    this.setState({
+      columns: newColumns
+    });
   }
 
   renderDroppables(){

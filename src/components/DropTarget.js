@@ -53,46 +53,11 @@ export default class DropTarget extends Component{
     var type = typeof this.props.wrapper;
     var content = this.content.length > 0 ? this.content : '';
 
-    if(type === "string"){
-      if(this.props.children){
-        var allTheProps = Object.assign({}, this.props, this.props.children.props, {style: style, ref: this.setInitialDimensions});
-        var innards = React.createElement(this.props.wrapper, allTheProps, content);
-        dropTargetElement = innards;
-      }
-      else {
-        var innards = React.createElement(this.props.wrapper, {style: style, ref: this.setInitialDimensions}, content);
-        dropTargetElement = innards;
-      }
-    }
-    else if(type === "object"){
-      wrapper =  React.createElement(this.props.wrapper.type, this.props.wrapper.props, content);
-      dropTargetElement = (
+      return (
         <div style={style} ref={this.setInitialDimensions}>
-          {wrapper}
+          {this.props.children}
         </div>
       );
-    }
-    else {
-      var childToSetContentOn = null;
-      var allTheChildren = [];
-      this.props.children.forEach((child, index) => {
-        var keyProps = Object.assign({}, child.props, {key: index + "-droptarget-module"});
-        if(child.props.children === '' || typeof child.props.children === 'undefined' || child.props.children.length === 0){
-          allTheChildren.push(React.createElement(child.type, keyProps, content));
-        }
-        else {
-          allTheChildren.push(React.createElement(child.type, keyProps));
-        }
-
-      });
-      dropTargetElement = (
-        <div style={style} ref={this.setInitialDimensions}>
-          {allTheChildren}
-        </div>
-      );
-    }
-
-    return dropTargetElement;
   }
 
   setContent(content){
@@ -113,7 +78,7 @@ export default class DropTarget extends Component{
 
   droppedDraggable(draggable){
     if(this.props.handleDroppedDraggable){
-      this.props.handleDroppedDraggable(this, draggable);
+      this.props.handleDroppedDraggable(this, draggable.props.children);
     }
   }
 }
