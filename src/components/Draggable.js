@@ -15,6 +15,7 @@ export default class Draggable extends Component{
     this.currentPosition = {x: 0, y: 0};
     this.clicked = false;
     this.dragging = false;
+    this.id = this.props.id;
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
@@ -169,6 +170,7 @@ export default class Draggable extends Component{
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
 Draggable.propTypes = {
+  id: React.PropTypes.number,
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
   draggingStyle: React.PropTypes.object,
   clickedStyle: React.PropTypes.object,
