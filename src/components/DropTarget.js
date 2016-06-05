@@ -122,6 +122,6 @@ DropTarget.propTypes = {
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
   style: React.PropTypes.object,
   wrapper: React.PropTypes.any,
-  handleDraggableHoveringOverDropTarget: React.PropTypes.func
+  handleDraggableHoveringOverDropTarget: React.PropTypes.func,
   handleDroppedDraggable: React.PropTypes.func
 };
