@@ -178,5 +178,6 @@ Draggable.propTypes = {
   clickedClassName: React.PropTypes.string,
   draggingClassName: React.PropTypes.string,
   handleMouseUp: React.PropTypes.func,
-  handleMouseDown: React.PropTypes.func
+  handleMouseDown: React.PropTypes.func,
+  setContentOnDrop: React.PropTypes.boolean
 };
