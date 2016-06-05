@@ -43,7 +43,7 @@ export default class DragDropManager {
         content = draggable.props.children.props.children;
         dropTargetBeingHovered.appendToContent(content);
       }
-      dropTarget.droppedDraggable(draggable);
+      dropTargetBeingHovered.droppedDraggable(draggable);
       draggable.hideDraggable();
     }
   }
