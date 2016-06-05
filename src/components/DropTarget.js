@@ -112,8 +112,8 @@ export default class DropTarget extends Component{
   }
 
   droppedDraggable(draggable){
-    if(this.props.droppedDraggable){
-      this.props.droppedDraggable(this, draggable);
+    if(this.props.handleDroppedDraggable){
+      this.props.handleDroppedDraggable(this, draggable);
     }
   }
 }
@@ -123,4 +123,5 @@ DropTarget.propTypes = {
   style: React.PropTypes.object,
   wrapper: React.PropTypes.any,
   handleDraggableHoveringOverDropTarget: React.PropTypes.func
+  handleDroppedDraggable: React.PropTypes.func
 };

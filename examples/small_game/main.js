@@ -25,7 +25,7 @@ export default class MainSection extends React.Component{
     var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping, manager: dragDropManager});
     var firstStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 0});
     var secondStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 400});
-    var thirdStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 1000});
+    var thirdStyle = Object.assign({}, DropTargetStyles.BaseStyle, {top: 800});
     var title = "Monnkey";
     return (
       <div>
@@ -39,11 +39,11 @@ export default class MainSection extends React.Component{
           key={"droptarget-2"}
           style={secondStyle}
           manager={dragDropManager}
-          wrapper={list} />
+          wrapper={list}
+          />
         <List key={"List-droptarget-3"}
           manager={dragDropManager}
           style={thirdStyle} />
-
       </div>
     );
   }
@@ -55,6 +55,7 @@ export default class MainSection extends React.Component{
           key={"0.0"}
           manager={dragDropManager}
           style={DraggableStyles.Normal}
+          droppedStyle={DraggableStyles.Dropped}
           draggingStyle={DraggableStyles.Dragging}>
           <LineItem style={DraggableStyles.Normal} key={"0.0.1"}>Edible</LineItem>
         </Draggable>
@@ -62,6 +63,7 @@ export default class MainSection extends React.Component{
           key={"0.1"}
           manager={dragDropManager}
           style={DraggableStyles.Normal}
+          droppedStyle={DraggableStyles.Dropped}
           draggingStyle={DraggableStyles.Dragging}>
           <LineItem style={DraggableStyles.Normal} key={"0.0.2"}>Cuddly</LineItem>
         </Draggable>

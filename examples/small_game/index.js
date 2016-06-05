@@ -19714,17 +19714,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _List2 = _interopRequireDefault(_List);
 	
-	var _LineItem = __webpack_require__(245);
+	var _LineItem = __webpack_require__(246);
 	
 	var _LineItem2 = _interopRequireDefault(_LineItem);
 	
 	var _reactDragndrop = __webpack_require__(243);
 	
-	var _DropTargetStyles = __webpack_require__(246);
+	var _DropTargetStyles = __webpack_require__(247);
 	
 	var _DropTargetStyles2 = _interopRequireDefault(_DropTargetStyles);
 	
-	var _Draggable = __webpack_require__(247);
+	var _Draggable = __webpack_require__(245);
 	
 	var _Draggable2 = _interopRequireDefault(_Draggable);
 	
@@ -19760,7 +19760,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var list = _react2.default.createElement(_List2.default, { title: "hello world", style: _DropTargetStyles2.default.Dropping, manager: dragDropManager });
 	      var firstStyle = Object.assign({}, _DropTargetStyles2.default.BaseStyle, { top: 0 });
 	      var secondStyle = Object.assign({}, _DropTargetStyles2.default.BaseStyle, { top: 400 });
-	      var thirdStyle = Object.assign({}, _DropTargetStyles2.default.BaseStyle, { top: 1000 });
+	      var thirdStyle = Object.assign({}, _DropTargetStyles2.default.BaseStyle, { top: 800 });
 	      var title = "Monnkey";
 	      return _react2.default.createElement(
 	        'div',
@@ -19775,7 +19775,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          key: "droptarget-2",
 	          style: secondStyle,
 	          manager: dragDropManager,
-	          wrapper: list }),
+	          wrapper: list
+	        }),
 	        _react2.default.createElement(_List2.default, { key: "List-droptarget-3",
 	          manager: dragDropManager,
 	          style: thirdStyle })
@@ -19793,6 +19794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            key: "0.0",
 	            manager: dragDropManager,
 	            style: _Draggable2.default.Normal,
+	            droppedStyle: _Draggable2.default.Dropped,
 	            draggingStyle: _Draggable2.default.Dragging },
 	          _react2.default.createElement(
 	            _LineItem2.default,
@@ -19806,6 +19808,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            key: "0.1",
 	            manager: dragDropManager,
 	            style: _Draggable2.default.Normal,
+	            droppedStyle: _Draggable2.default.Dropped,
 	            draggingStyle: _Draggable2.default.Dragging },
 	          _react2.default.createElement(
 	            _LineItem2.default,
@@ -21339,6 +21342,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _reactDragndrop = __webpack_require__(243);
 	
+	var _Draggable = __webpack_require__(245);
+	
+	var _Draggable2 = _interopRequireDefault(_Draggable);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var List = function (_Component) {
@@ -21357,6 +21364,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                {
 	                    key: "testing",
 	                    manager: this.props.manager,
+	                    droppedStyle: _Draggable2.default.Dropped,
 	                    style: this.props.style },
 	                _react2.default.createElement(
 	                    'h2',
@@ -27363,9 +27371,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var $export=__webpack_require__(165);$export($export.S,'Object',{setPrototypeOf:__webpack_require__(238).set}); /***/}, /* 238 */ /***/function(module,exports,__webpack_require__){ // Works with __proto__ only. Old v8 can't work with null proto objects.
 	/* eslint-disable no-proto */var isObject=__webpack_require__(173),anObject=__webpack_require__(172);var check=function check(O,proto){anObject(O);if(!isObject(proto)&&proto!==null)throw TypeError(proto+": can't set as prototype!");};module.exports={set:Object.setPrototypeOf||('__proto__' in {}? // eslint-disable-line
 	function(test,buggy,set){try{set=__webpack_require__(168)(Function.call,__webpack_require__(230).f(Object.prototype,'__proto__').set,2);set(test,[]);buggy=!(test instanceof Array);}catch(e){buggy=true;}return function setPrototypeOf(O,proto){check(O,proto);if(buggy)O.__proto__=proto;else set(O,proto);return O;};}({},false):undefined),check:check}; /***/}, /* 239 */ /***/function(module,exports,__webpack_require__){module.exports={"default":__webpack_require__(240),__esModule:true}; /***/}, /* 240 */ /***/function(module,exports,__webpack_require__){__webpack_require__(241);var $Object=__webpack_require__(167).Object;module.exports=function create(P,D){return $Object.create(P,D);}; /***/}, /* 241 */ /***/function(module,exports,__webpack_require__){var $export=__webpack_require__(165); // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	$export($export.S,'Object',{create:__webpack_require__(194)}); /***/},,,,,,, /* 242 */ /* 243 */ /* 244 */ /* 245 */ /* 246 */ /* 247 */ /* 248 */ /***/function(module,exports,__webpack_require__){'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _classCallCheck2=__webpack_require__(160);var _classCallCheck3=_interopRequireDefault(_classCallCheck2);var _createClass2=__webpack_require__(161);var _createClass3=_interopRequireDefault(_createClass2);var _boxBoundaryChecking=__webpack_require__(249);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};} // refactor to be called singleton
-	var DragDropManager=function(){function DragDropManager(){(0,_classCallCheck3.default)(this,DragDropManager);this.draggables=[];this.dropTargets=[];this.hoveredDropTarget=null;}(0,_createClass3.default)(DragDropManager,[{key:'registerDraggable',value:function registerDraggable(model){this.draggables.push(model);}},{key:'registerDropTarget',value:function registerDropTarget(model){this.dropTargets.push(model);}},{key:'getDropTargets',value:function getDropTargets(){return this.dropTargets;}},{key:'draggableIsOverDropTarget',value:function draggableIsOverDropTarget(draggable){var _iteratorNormalCompletion=true;var _didIteratorError=false;var _iteratorError=undefined;try{for(var _iterator=this.dropTargets[Symbol.iterator](),_step;!(_iteratorNormalCompletion=(_step=_iterator.next()).done);_iteratorNormalCompletion=true){var dropTarget=_step.value;draggable.isOverTarget=(0,_boxBoundaryChecking.checkBoundaries)(draggable.dimensions,dropTarget.dimensions);if(draggable.isOverTarget){this.hoveredDropTarget=dropTarget;dropTarget.draggableHoveringOverDropTarget();break;}}}catch(err){_didIteratorError=true;_iteratorError=err;}finally {try{if(!_iteratorNormalCompletion&&_iterator.return){_iterator.return();}}finally {if(_didIteratorError){throw _iteratorError;}}}return draggable.isOverTarget;}},{key:'releaseDraggableOnDropTarget',value:function releaseDraggableOnDropTarget(draggable){if(draggable.isOverTarget){var dropTargetBeingHovered=this.hoveredDropTarget;var content=draggable.props.children;if(draggable.props.setContentOnDrop){dropTargetBeingHovered.setContent(content);}else {dropTargetBeingHovered.appendToContent(content);}dropTargetBeingHovered.droppedDraggable(draggable);draggable.hideDraggable();}}}]);return DragDropManager;}();exports.default=DragDropManager; /***/}, /* 249 */ /***/function(module,exports){'use strict'; // Checks a box boundary with another box boundary
-	Object.defineProperty(exports,"__esModule",{value:true});exports.checkBoundaries=checkBoundaries;function checkBoundaries(origin,target){return origin.x>=target.x&&origin.x<=target.x+target.width&&origin.y>=target.y&&origin.y<=target.y+target.height||origin.x+origin.width>=target.x&&origin.x+origin.width<=target.x+target.width&&origin.y+origin.height>=target.y&&origin.y+origin.height<=target.y+target.height;} /***/}, /* 250 */ /***/function(module,exports,__webpack_require__){'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _classCallCheck2=__webpack_require__(160);var _classCallCheck3=_interopRequireDefault(_classCallCheck2);var _createClass2=__webpack_require__(161);var _createClass3=_interopRequireDefault(_createClass2);var _possibleConstructorReturn2=__webpack_require__(180);var _possibleConstructorReturn3=_interopRequireDefault(_possibleConstructorReturn2);var _inherits2=__webpack_require__(234);var _inherits3=_interopRequireDefault(_inherits2);var _react=__webpack_require__(1);var _react2=_interopRequireDefault(_react);var _reactDom=__webpack_require__(158);var _reactDom2=_interopRequireDefault(_reactDom);var _DragDropManager=__webpack_require__(248);var _DragDropManager2=_interopRequireDefault(_DragDropManager);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var Draggable=function(_Component){(0,_inherits3.default)(Draggable,_Component);function Draggable(){(0,_classCallCheck3.default)(this,Draggable);var _this=(0,_possibleConstructorReturn3.default)(this,Object.getPrototypeOf(Draggable).call(this));_this.baseStyle={};_this.hoveringStyle={};_this.domDraggableElement;var html=document.getElementsByTagName('html')[0];html.addEventListener('mousemove',_this.setMousePosition.bind(_this),false);_this.currentPosition={x:0,y:0};_this.clicked=false;_this.dragging=false;_this.handleMouseDown=_this.handleMouseDown.bind(_this);_this.handleMouseUp=_this.handleMouseUp.bind(_this);_this.setInitialDimensions=_this.setInitialDimensions.bind(_this);_this.setStyle=_this.setStyle.bind(_this);_this.setClassName=_this.setClassName.bind(_this);_this.dimensions={x:0,y:0,width:100,height:100};_this.isOverTarget=false;_this.hoveredDropTarget=null;_this.setState=_this.setState;return _this;}(0,_createClass3.default)(Draggable,[{key:'setInitialDimensions',value:function setInitialDimensions(ref){if(ref!==null){this.domDraggableElement=_reactDom2.default.findDOMNode(ref);this.dimensions={x:this.domDraggableElement.offsetLeft,y:this.domDraggableElement.offsetTop,width:this.domDraggableElement.offsetWidth,height:this.domDraggableElement.offsetHeight};}}},{key:'componentDidMount',value:function componentDidMount(){this.props.manager.registerDraggable(this);}},{key:'render',value:function render(){var styleOutput=this.setStyle();var classOutput=this.setClassName();return _react2.default.createElement('div',{ref:this.setInitialDimensions,style:styleOutput,className:classOutput,key:'draggable-'+Math.random(),onMouseDown:this.handleMouseDown,onMouseUp:this.handleMouseUp},this.props.children);}},{key:'setStyle',value:function setStyle(){var childStyle='';var styleOutput='';var clickedStyle='';var draggingStyle='';if(this.dragging&&this.props.draggingStyle){draggingStyle=this.props.draggingStyle;}if(this.clicked&&this.props.clickedStyle){clickedStyle=this.props.clickedStyle;}if(this.props.style){styleOutput=Object.assign({},draggingStyle,clickedStyle,this.baseStyle,this.props.style);}else {styleOutput=Object.assign({},draggingStyle,clickedStyle,this.baseStyle);}return styleOutput;}},{key:'setClassName',value:function setClassName(){var className='';if(this.clicked&&this.props.clickedClassName){className=this.props.clickedClassName;}else if(this.dragging&&this.props.draggingClassName){className=this.props.draggingClassName;}return className;}},{key:'setMousePosition',value:function setMousePosition(ev){this.localNextPosition.x=ev.clientX;this.localNextPosition.y=ev.clientY;if(this.clicked){this.dragging=true;this.localNextPosition.x-=this.dimensions.width/2;this.localNextPosition.y-=this.dimensions.height/2;if(this.props.manager){var draggableisOverDropTarget=this.props.manager.draggableIsOverDropTarget(this);if(draggableisOverDropTarget){this.isOverTarget=true;this.hoveredDropTarget=this.props.manager.hoveredDropTarget;this.hoveredDropTarget.draggableHoveringOverDropTarget();}else {this.isOverTarget=false;}}var dimensions=Object.assign({},this.dimensions,{x:this.localNextPosition.x,y:this.localNextPosition.y});this.dimensions=dimensions;this.baseStyle.left=dimensions.x;this.baseStyle.top=dimensions.y;this.baseStyle.position='absolute';var newHoveringStyle=Object.assign({},this.hoveringStyle);this.setState({baseStyle:newHoveringStyle});}}},{key:'handleMouseDown',value:function handleMouseDown(ev){this.clicked=true;this.setState({clicked:true});if(this.props.handleMouseDown){this.props.handleMouseDown(ev);}}},{key:'handleMouseUp',value:function handleMouseUp(ev){this.clicked=false;this.dragging=false;this.setState({clicked:false,dragging:false});if(this.props.handleMouseUp){this.props.handleMouseUp(ev);}if(this.props.manager){this.props.manager.releaseDraggableOnDropTarget(this);}}},{key:'hideDraggable',value:function hideDraggable(){this.baseStyle=Object.assign({},this.baseStyle,{visibility:'hidden'});this.setState({baseStyle:this.baseStyle});}}]);return Draggable;}(_react.Component);exports.default=Draggable;Draggable.prototype.localNextPosition={x:0,y:0};Draggable.propTypes={manager:_react2.default.PropTypes.instanceOf(_DragDropManager2.default).isRequired,draggingStyle:_react2.default.PropTypes.object,clickedStyle:_react2.default.PropTypes.object,style:_react2.default.PropTypes.object,clickedClassName:_react2.default.PropTypes.string,draggingClassName:_react2.default.PropTypes.string,handleMouseUp:_react2.default.PropTypes.func,handleMouseDown:_react2.default.PropTypes.func}; /***/}, /* 251 */ /***/function(module,exports,__webpack_require__){'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _typeof2=__webpack_require__(181);var _typeof3=_interopRequireDefault(_typeof2);var _classCallCheck2=__webpack_require__(160);var _classCallCheck3=_interopRequireDefault(_classCallCheck2);var _createClass2=__webpack_require__(161);var _createClass3=_interopRequireDefault(_createClass2);var _possibleConstructorReturn2=__webpack_require__(180);var _possibleConstructorReturn3=_interopRequireDefault(_possibleConstructorReturn2);var _inherits2=__webpack_require__(234);var _inherits3=_interopRequireDefault(_inherits2);var _react=__webpack_require__(1);var _react2=_interopRequireDefault(_react);var _reactDom=__webpack_require__(158);var _reactDom2=_interopRequireDefault(_reactDom);var _DragDropManager=__webpack_require__(248);var _DragDropManager2=_interopRequireDefault(_DragDropManager);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var DropTarget=function(_Component){(0,_inherits3.default)(DropTarget,_Component);function DropTarget(){(0,_classCallCheck3.default)(this,DropTarget);var _this=(0,_possibleConstructorReturn3.default)(this,Object.getPrototypeOf(DropTarget).call(this));_this.droppedStyle={};_this.domDropTargetElement;_this.baseStyle={"zIndex":1};_this.content=[];_this.dimensions={x:0,y:0,width:100,height:100};_this.setInitialDimensions=_this.setInitialDimensions.bind(_this);_this.droppedDraggable=_this.droppedDraggable.bind(_this);_this.draggableHoveringOverDropTarget=_this.draggableHoveringOverDropTarget.bind(_this);return _this;}(0,_createClass3.default)(DropTarget,[{key:'componentDidMount',value:function componentDidMount(){this.props.manager.registerDropTarget(this);}},{key:'setInitialDimensions',value:function setInitialDimensions(ref){if(ref!==null){this.domDropTargetElement=_reactDom2.default.findDOMNode(ref);this.dimensions={x:this.domDropTargetElement.offsetLeft,y:this.domDropTargetElement.offsetTop,width:this.domDropTargetElement.offsetWidth,height:this.domDropTargetElement.offsetHeight};}}},{key:'render',value:function render(){var style,wrapper,dropTargetElement={};if(this.props.style){style=Object.assign({},this.baseStyle,this.props.style);}else {style=Object.assign({},this.baseStyle);}var type=(0,_typeof3.default)(this.props.wrapper);var content=this.content.length>0?this.content:'';if(type==="string"){if(this.props.children){var allTheProps=Object.assign({},this.props,this.props.children.props,{style:style,ref:this.setInitialDimensions});var innards=_react2.default.createElement(this.props.wrapper,allTheProps,content);dropTargetElement=innards;}else {var innards=_react2.default.createElement(this.props.wrapper,{style:style,ref:this.setInitialDimensions},content);dropTargetElement=innards;}}else if(type==="object"){wrapper=_react2.default.createElement(this.props.wrapper.type,this.props.wrapper.props,content);dropTargetElement=_react2.default.createElement('div',{style:style,ref:this.setInitialDimensions},wrapper);}else {var childToSetContentOn=null;var allTheChildren=[];this.props.children.forEach(function(child,index){var keyProps=Object.assign({},child.props,{key:index+"-droptarget-module"});if(child.props.children===''||typeof child.props.children==='undefined'||child.props.children.length===0){allTheChildren.push(_react2.default.createElement(child.type,keyProps,content));}else {allTheChildren.push(_react2.default.createElement(child.type,keyProps));}});dropTargetElement=_react2.default.createElement('div',{style:style,ref:this.setInitialDimensions},allTheChildren);}return dropTargetElement;}},{key:'setContent',value:function setContent(content){this.content=content;this.setState({content:this.content});}},{key:'appendToContent',value:function appendToContent(content){this.content.push(content);this.setState({content:this.content});}},{key:'draggableHoveringOverDropTarget',value:function draggableHoveringOverDropTarget(){if(this.props.handleDraggableHoveringOverDropTarget){this.props.handleDraggableHoveringOverDropTarget(this);}}},{key:'droppedDraggable',value:function droppedDraggable(draggable){if(this.props.droppedDraggable){this.props.droppedDraggable(this,draggable);}}}]);return DropTarget;}(_react.Component);exports.default=DropTarget;DropTarget.propTypes={manager:_react2.default.PropTypes.instanceOf(_DragDropManager2.default).isRequired,style:_react2.default.PropTypes.object,wrapper:_react2.default.PropTypes.any,handleDraggableHoveringOverDropTarget:_react2.default.PropTypes.func}; /***/} /******/]));});; //# sourceMappingURL=react-dragndrop.map
+	$export($export.S,'Object',{create:__webpack_require__(194)}); /***/},,,,,,, /* 242 */ /* 243 */ /* 244 */ /* 245 */ /* 246 */ /* 247 */ /* 248 */ /***/function(module,exports,__webpack_require__){'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _classCallCheck2=__webpack_require__(160);var _classCallCheck3=_interopRequireDefault(_classCallCheck2);var _createClass2=__webpack_require__(161);var _createClass3=_interopRequireDefault(_createClass2);var _react=__webpack_require__(1);var _react2=_interopRequireDefault(_react);var _boxBoundaryChecking=__webpack_require__(249);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};} // refactor to be called singleton
+	var DragDropManager=function(){function DragDropManager(){(0,_classCallCheck3.default)(this,DragDropManager);this.draggables=[];this.dropTargets=[];this.hoveredDropTarget=null;}(0,_createClass3.default)(DragDropManager,[{key:'registerDraggable',value:function registerDraggable(model){this.draggables.push(model);}},{key:'registerDropTarget',value:function registerDropTarget(model){this.dropTargets.push(model);}},{key:'getDropTargets',value:function getDropTargets(){return this.dropTargets;}},{key:'draggableIsOverDropTarget',value:function draggableIsOverDropTarget(draggable){var _iteratorNormalCompletion=true;var _didIteratorError=false;var _iteratorError=undefined;try{for(var _iterator=this.dropTargets[Symbol.iterator](),_step;!(_iteratorNormalCompletion=(_step=_iterator.next()).done);_iteratorNormalCompletion=true){var dropTarget=_step.value;draggable.isOverTarget=(0,_boxBoundaryChecking.checkBoundaries)(draggable.dimensions,dropTarget.dimensions);if(draggable.isOverTarget){this.hoveredDropTarget=dropTarget;dropTarget.draggableHoveringOverDropTarget();break;}}}catch(err){_didIteratorError=true;_iteratorError=err;}finally {try{if(!_iteratorNormalCompletion&&_iterator.return){_iterator.return();}}finally {if(_didIteratorError){throw _iteratorError;}}}return draggable.isOverTarget;}},{key:'releaseDraggableOnDropTarget',value:function releaseDraggableOnDropTarget(draggable){if(draggable.isOverTarget){var dropTargetBeingHovered=this.hoveredDropTarget;var newStyle={};if(draggable.props.droppedStyle){newStyle=Object.assign({},draggable.props.droppedStyle,draggable.props.children.style);}var content=_react2.default.createElement('div',{style:newStyle},draggable.props.children);if(draggable.props.setContentOnDrop){dropTargetBeingHovered.setContent(content);}else {dropTargetBeingHovered.appendToContent(content);}dropTargetBeingHovered.droppedDraggable(draggable);draggable.hideDraggable();}}}]);return DragDropManager;}();exports.default=DragDropManager; /***/}, /* 249 */ /***/function(module,exports){'use strict'; // Checks a box boundary with another box boundary
+	Object.defineProperty(exports,"__esModule",{value:true});exports.checkBoundaries=checkBoundaries;function checkBoundaries(origin,target){return origin.x>=target.x&&origin.x<=target.x+target.width&&origin.y>=target.y&&origin.y<=target.y+target.height||origin.x+origin.width>=target.x&&origin.x+origin.width<=target.x+target.width&&origin.y+origin.height>=target.y&&origin.y+origin.height<=target.y+target.height;} /***/}, /* 250 */ /***/function(module,exports,__webpack_require__){'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _classCallCheck2=__webpack_require__(160);var _classCallCheck3=_interopRequireDefault(_classCallCheck2);var _createClass2=__webpack_require__(161);var _createClass3=_interopRequireDefault(_createClass2);var _possibleConstructorReturn2=__webpack_require__(180);var _possibleConstructorReturn3=_interopRequireDefault(_possibleConstructorReturn2);var _inherits2=__webpack_require__(234);var _inherits3=_interopRequireDefault(_inherits2);var _react=__webpack_require__(1);var _react2=_interopRequireDefault(_react);var _reactDom=__webpack_require__(158);var _reactDom2=_interopRequireDefault(_reactDom);var _DragDropManager=__webpack_require__(248);var _DragDropManager2=_interopRequireDefault(_DragDropManager);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var Draggable=function(_Component){(0,_inherits3.default)(Draggable,_Component);function Draggable(){(0,_classCallCheck3.default)(this,Draggable);var _this=(0,_possibleConstructorReturn3.default)(this,Object.getPrototypeOf(Draggable).call(this));_this.baseStyle={};_this.hoveringStyle={};_this.domDraggableElement;var html=document.getElementsByTagName('html')[0];html.addEventListener('mousemove',_this.setMousePosition.bind(_this),false);_this.currentPosition={x:0,y:0};_this.clicked=false;_this.dragging=false;_this.handleMouseDown=_this.handleMouseDown.bind(_this);_this.handleMouseUp=_this.handleMouseUp.bind(_this);_this.setInitialDimensions=_this.setInitialDimensions.bind(_this);_this.setStyle=_this.setStyle.bind(_this);_this.setClassName=_this.setClassName.bind(_this);_this.dimensions={x:0,y:0,width:100,height:100};_this.isOverTarget=false;_this.hoveredDropTarget=null;_this.setState=_this.setState;return _this;}(0,_createClass3.default)(Draggable,[{key:'setInitialDimensions',value:function setInitialDimensions(ref){if(ref!==null){this.domDraggableElement=_reactDom2.default.findDOMNode(ref);this.dimensions={x:this.domDraggableElement.offsetLeft,y:this.domDraggableElement.offsetTop,width:this.domDraggableElement.offsetWidth,height:this.domDraggableElement.offsetHeight};}}},{key:'componentDidMount',value:function componentDidMount(){this.props.manager.registerDraggable(this);}},{key:'render',value:function render(){var styleOutput=this.setStyle();var classOutput=this.setClassName();return _react2.default.createElement('div',{ref:this.setInitialDimensions,style:styleOutput,className:classOutput,key:'draggable-'+Math.random(),onMouseDown:this.handleMouseDown,onMouseUp:this.handleMouseUp},this.props.children);}},{key:'setStyle',value:function setStyle(){var childStyle='';var styleOutput='';var clickedStyle='';var draggingStyle='';if(this.dragging&&this.props.draggingStyle){draggingStyle=this.props.draggingStyle;}if(this.clicked&&this.props.clickedStyle){clickedStyle=this.props.clickedStyle;}if(this.props.style){styleOutput=Object.assign({},draggingStyle,clickedStyle,this.baseStyle,this.props.style);}else {styleOutput=Object.assign({},draggingStyle,clickedStyle,this.baseStyle);}return styleOutput;}},{key:'setClassName',value:function setClassName(){var className='';if(this.clicked&&this.props.clickedClassName){className=this.props.clickedClassName;}else if(this.dragging&&this.props.draggingClassName){className=this.props.draggingClassName;}return className;}},{key:'setMousePosition',value:function setMousePosition(ev){this.localNextPosition.x=ev.clientX;this.localNextPosition.y=ev.clientY;if(this.clicked){this.dragging=true;this.localNextPosition.x-=this.dimensions.width/2;this.localNextPosition.y-=this.dimensions.height/2;if(this.props.manager){var draggableisOverDropTarget=this.props.manager.draggableIsOverDropTarget(this);if(draggableisOverDropTarget){this.isOverTarget=true;this.hoveredDropTarget=this.props.manager.hoveredDropTarget;this.hoveredDropTarget.draggableHoveringOverDropTarget();}else {this.isOverTarget=false;}}var dimensions=Object.assign({},this.dimensions,{x:this.localNextPosition.x,y:this.localNextPosition.y});this.dimensions=dimensions;this.baseStyle.left=dimensions.x;this.baseStyle.top=dimensions.y;this.baseStyle.position='absolute';var newHoveringStyle=Object.assign({},this.hoveringStyle);this.setState({baseStyle:newHoveringStyle});}}},{key:'handleMouseDown',value:function handleMouseDown(ev){this.clicked=true;this.setState({clicked:true});if(this.props.handleMouseDown){this.props.handleMouseDown(ev);}}},{key:'handleMouseUp',value:function handleMouseUp(ev){this.clicked=false;this.dragging=false;this.setState({clicked:false,dragging:false});if(this.props.handleMouseUp){this.props.handleMouseUp(ev);}if(this.props.manager){this.props.manager.releaseDraggableOnDropTarget(this);}}},{key:'hideDraggable',value:function hideDraggable(){this.baseStyle=Object.assign({},this.baseStyle,{visibility:'hidden'});this.setState({baseStyle:this.baseStyle});}}]);return Draggable;}(_react.Component);exports.default=Draggable;Draggable.prototype.localNextPosition={x:0,y:0};Draggable.propTypes={manager:_react2.default.PropTypes.instanceOf(_DragDropManager2.default).isRequired,draggingStyle:_react2.default.PropTypes.object,clickedStyle:_react2.default.PropTypes.object,style:_react2.default.PropTypes.object,clickedClassName:_react2.default.PropTypes.string,draggingClassName:_react2.default.PropTypes.string,handleMouseUp:_react2.default.PropTypes.func,handleMouseDown:_react2.default.PropTypes.func}; /***/}, /* 251 */ /***/function(module,exports,__webpack_require__){'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _typeof2=__webpack_require__(181);var _typeof3=_interopRequireDefault(_typeof2);var _classCallCheck2=__webpack_require__(160);var _classCallCheck3=_interopRequireDefault(_classCallCheck2);var _createClass2=__webpack_require__(161);var _createClass3=_interopRequireDefault(_createClass2);var _possibleConstructorReturn2=__webpack_require__(180);var _possibleConstructorReturn3=_interopRequireDefault(_possibleConstructorReturn2);var _inherits2=__webpack_require__(234);var _inherits3=_interopRequireDefault(_inherits2);var _react=__webpack_require__(1);var _react2=_interopRequireDefault(_react);var _reactDom=__webpack_require__(158);var _reactDom2=_interopRequireDefault(_reactDom);var _DragDropManager=__webpack_require__(248);var _DragDropManager2=_interopRequireDefault(_DragDropManager);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var DropTarget=function(_Component){(0,_inherits3.default)(DropTarget,_Component);function DropTarget(){(0,_classCallCheck3.default)(this,DropTarget);var _this=(0,_possibleConstructorReturn3.default)(this,Object.getPrototypeOf(DropTarget).call(this));_this.droppedStyle={};_this.domDropTargetElement;_this.baseStyle={"zIndex":1};_this.content=[];_this.dimensions={x:0,y:0,width:100,height:100};_this.setInitialDimensions=_this.setInitialDimensions.bind(_this);_this.droppedDraggable=_this.droppedDraggable.bind(_this);_this.draggableHoveringOverDropTarget=_this.draggableHoveringOverDropTarget.bind(_this);return _this;}(0,_createClass3.default)(DropTarget,[{key:'componentDidMount',value:function componentDidMount(){this.props.manager.registerDropTarget(this);}},{key:'setInitialDimensions',value:function setInitialDimensions(ref){if(ref!==null){this.domDropTargetElement=_reactDom2.default.findDOMNode(ref);this.dimensions={x:this.domDropTargetElement.offsetLeft,y:this.domDropTargetElement.offsetTop,width:this.domDropTargetElement.offsetWidth,height:this.domDropTargetElement.offsetHeight};}}},{key:'render',value:function render(){var style,wrapper,dropTargetElement={};if(this.props.style){style=Object.assign({},this.baseStyle,this.props.style);}else {style=Object.assign({},this.baseStyle);}var type=(0,_typeof3.default)(this.props.wrapper);var content=this.content.length>0?this.content:'';if(type==="string"){if(this.props.children){var allTheProps=Object.assign({},this.props,this.props.children.props,{style:style,ref:this.setInitialDimensions});var innards=_react2.default.createElement(this.props.wrapper,allTheProps,content);dropTargetElement=innards;}else {var innards=_react2.default.createElement(this.props.wrapper,{style:style,ref:this.setInitialDimensions},content);dropTargetElement=innards;}}else if(type==="object"){wrapper=_react2.default.createElement(this.props.wrapper.type,this.props.wrapper.props,content);dropTargetElement=_react2.default.createElement('div',{style:style,ref:this.setInitialDimensions},wrapper);}else {var childToSetContentOn=null;var allTheChildren=[];this.props.children.forEach(function(child,index){var keyProps=Object.assign({},child.props,{key:index+"-droptarget-module"},style);if(child.props.children===''||typeof child.props.children==='undefined'||child.props.children.length===0){allTheChildren.push(_react2.default.createElement(child.type,keyProps,content));}else {allTheChildren.push(_react2.default.createElement(child.type,keyProps));}});dropTargetElement=_react2.default.createElement('div',{style:style,ref:this.setInitialDimensions},allTheChildren);}return dropTargetElement;}},{key:'setContent',value:function setContent(content){this.content=content;this.setState({content:this.content});}},{key:'appendToContent',value:function appendToContent(content){this.content.push(content);this.setState({content:this.content});}},{key:'draggableHoveringOverDropTarget',value:function draggableHoveringOverDropTarget(){if(this.props.handleDraggableHoveringOverDropTarget){this.props.handleDraggableHoveringOverDropTarget(this);}}},{key:'droppedDraggable',value:function droppedDraggable(draggable){if(this.props.handleDroppedDraggable){this.props.handleDroppedDraggable(this,draggable);}}}]);return DropTarget;}(_react.Component);exports.default=DropTarget;DropTarget.propTypes={manager:_react2.default.PropTypes.instanceOf(_DragDropManager2.default).isRequired,style:_react2.default.PropTypes.object,droppedStyle:_react2.default.PropTypes.object,droppedClassName:_react2.default.PropTypes.string,wrapper:_react2.default.PropTypes.any,handleDraggableHoveringOverDropTarget:_react2.default.PropTypes.func,handleDroppedDraggable:_react2.default.PropTypes.func}; /***/} /******/]));});; //# sourceMappingURL=react-dragndrop.map
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(244)(module)))
 
 /***/ },
@@ -27386,6 +27394,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 245 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var DraggableStyle = {
+	  "Normal": {
+	    "backgroundColor": "gray",
+	    "width": 300,
+	    "height": 60,
+	    "textAlign": "center",
+	    "fontFamily": "sans-serif",
+	    "cursor": "-webkit-grab",
+	    "margin": "20px 0",
+	    "zIndex": 2
+	  },
+	  "Dragging": {
+	    "backgroundColor": "whitesmoke",
+	    "textAlign": "center",
+	    "fontFamily": "sans-serif",
+	    "transform": "rotate(-30deg)",
+	    "cursor": "-webkit-grabbing",
+	    "position": "absolute"
+	  },
+	  "Dropped": {
+	    "backgroundColor": "seagreen",
+	    "width": 300,
+	    "height": 60,
+	    "textAlign": "center",
+	    "fontFamily": "sans-serif",
+	    "cursor": "-webkit-grab",
+	    "margin": "20px 0",
+	    "zIndex": 2
+	  }
+	};
+	
+	module.exports = DraggableStyle;
+
+/***/ },
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27429,7 +27476,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'li',
-	                { style: this.props.style },
+	                null,
 	                this.props.children
 	            );
 	        }
@@ -27440,7 +27487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = LineItem;
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -27457,20 +27504,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  "Dropping": {
 	    "backgroundColor": "pink",
 	    "padding": "20px"
-	  }
-	};
-	
-	module.exports = DropTargetStyles;
-
-/***/ },
-/* 247 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var DraggableStyle = {
-	  "Normal": {
-	    "backgroundColor": "gray",
+	  },
+	  "Dropped": {
+	    "backgroundColor": "seagreen",
 	    "width": 300,
 	    "height": 60,
 	    "textAlign": "center",
@@ -27478,18 +27514,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    "cursor": "-webkit-grab",
 	    "margin": "20px 0",
 	    "zIndex": 2
-	  },
-	  "Dragging": {
-	    "backgroundColor": "whitesmoke",
-	    "textAlign": "center",
-	    "fontFamily": "sans-serif",
-	    "transform": "rotate(-30deg)",
-	    "cursor": "-webkit-grabbing",
-	    "position": "absolute"
 	  }
 	};
 	
-	module.exports = DraggableStyle;
+	module.exports = DropTargetStyles;
 
 /***/ }
 /******/ ])

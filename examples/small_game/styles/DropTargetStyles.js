@@ -10,6 +10,16 @@ var DropTargetStyles = {
   "Dropping": {
     "backgroundColor": "pink",
     "padding": "20px"
+  },
+  "Dropped": {
+    "backgroundColor": "seagreen",
+    "width": 300,
+    "height": 60,
+    "textAlign": "center",
+    "fontFamily": "sans-serif",
+    "cursor": "-webkit-grab",
+    "margin": "20px 0",
+    "zIndex": 2
   }
 };
 

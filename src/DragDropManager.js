@@ -1,3 +1,4 @@
+import React from 'react';
 import { checkBoundaries } from './boxBoundaryChecking';
 
 // refactor to be called singleton
@@ -35,7 +36,11 @@ export default class DragDropManager {
   releaseDraggableOnDropTarget(draggable){
     if(draggable.isOverTarget){
       var dropTargetBeingHovered = this.hoveredDropTarget;
-      var content = draggable.props.children;
+      var newStyle = {};
+      if(draggable.props.droppedStyle){
+        newStyle = Object.assign({}, draggable.props.droppedStyle, draggable.props.children.style);
+      }
+      var content = React.createElement('div', {style: newStyle}, draggable.props.children);
       if(draggable.props.setContentOnDrop){
         dropTargetBeingHovered.setContent(content);
       }
