@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 export default class LineItem extends Component{
     render(){
         return(
-            <li>{this.props.children}</li>
+            <li style={this.props.style}>{this.props.children}</li>
         );
     }
 }

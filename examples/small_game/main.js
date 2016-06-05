@@ -56,13 +56,14 @@ export default class MainSection extends React.Component{
           manager={dragDropManager}
           style={DraggableStyles.Normal}
           draggingStyle={DraggableStyles.Dragging}>
-          <LineItem key={"0.0.1"}>Edible</LineItem>
+          <LineItem style={DraggableStyles.Normal} key={"0.0.1"}>Edible</LineItem>
         </Draggable>
         <Draggable
           key={"0.1"}
-          manager={dragDropManager} style={DraggableStyles.Normal}
+          manager={dragDropManager}
+          style={DraggableStyles.Normal}
           draggingStyle={DraggableStyles.Dragging}>
-          <LineItem key={"0.0.2"}>Cuddly</LineItem>
+          <LineItem style={DraggableStyles.Normal} key={"0.0.2"}>Cuddly</LineItem>
         </Draggable>
       </ul>
     );
