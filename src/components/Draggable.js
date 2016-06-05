@@ -170,7 +170,7 @@ export default class Draggable extends Component{
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
 Draggable.propTypes = {
-  id: React.PropTypes.number,
+  id: React.PropTypes.string,
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
   draggingStyle: React.PropTypes.object,
   clickedStyle: React.PropTypes.object,
