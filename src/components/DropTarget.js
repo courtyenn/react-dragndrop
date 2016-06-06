@@ -60,16 +60,6 @@ export default class DropTarget extends Component{
       );
   }
 
-  setContent(content){
-    this.content = content;
-    this.setState({content: this.content});
-  }
-
-  appendToContent(content){
-    this.content.push(content);
-    this.setState({content: this.content});
-  }
-
   draggableHoveringOverDropTarget(){
     if(this.props.handleDraggableHoveringOverDropTarget){
       this.props.handleDraggableHoveringOverDropTarget(this);
@@ -78,7 +68,7 @@ export default class DropTarget extends Component{
 
   droppedDraggable(draggable){
     if(this.props.handleDroppedDraggable){
-      this.props.handleDroppedDraggable(this, draggable.props.children);
+      this.props.handleDroppedDraggable(this, draggable);
     }
   }
 }
