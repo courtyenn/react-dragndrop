@@ -10,7 +10,6 @@ export default class DropTarget extends Component{
     this.baseStyle = {
       "zIndex": 1
     };
-    this.content = [];
     this.dimensions = {
       x: 0,
       y: 0,
@@ -51,23 +50,12 @@ export default class DropTarget extends Component{
     }
 
     var type = typeof this.props.wrapper;
-    var content = this.content.length > 0 ? this.content : '';
 
       return (
         <div style={style} ref={this.setInitialDimensions}>
           {this.props.children}
         </div>
       );
-  }
-
-  setContent(content){
-    this.content = content;
-    this.setState({content: this.content});
-  }
-
-  appendToContent(content){
-    this.content.push(content);
-    this.setState({content: this.content});
   }
 
   draggableHoveringOverDropTarget(){

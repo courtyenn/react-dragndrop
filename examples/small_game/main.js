@@ -73,7 +73,7 @@ export default class MainSection extends React.Component{
   droppedContent(drop, drag, index){
     console.log(drop, drag);
     var newColumns = this.columns;
-    newColumns[index].push(drag);
+    newColumns[index].push(drag.props.children);
     this.setState({
       columns: newColumns
     });
@@ -82,8 +82,9 @@ export default class MainSection extends React.Component{
   renderDroppables(){
 
     var drags = this.choices.map((choice, index) => {
+      var that = this;
       var hideHandler = function(drag){
-        return this.hideDraggable(index);
+        return that.hideDraggable(index);
       }
       return (
         <Draggable
@@ -91,7 +92,7 @@ export default class MainSection extends React.Component{
           manager={dragDropManager}
           style={DraggableStyles.Normal}
           droppedStyle={DraggableStyles.Dropped}
-          handleHideDraggable={this.hideDraggable}
+          handleHideDraggable={hideHandler}
           draggingStyle={DraggableStyles.Dragging}>
           <LineItem style={DraggableStyles.Normal} key={"0.0.1"+choice}>{choice}</LineItem>
         </Draggable>

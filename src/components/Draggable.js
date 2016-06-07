@@ -9,8 +9,8 @@ export default class Draggable extends Component{
 
     this.hoveringStyle = {};
     this.domDraggableElement;
-    var html = document.getElementsByTagName('html')[0];
-    html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
+    this.html = document.getElementsByTagName('html')[0];
+    this.html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
 
     this.currentPosition = {x: 0, y: 0};
     this.clicked = false;
@@ -74,6 +74,7 @@ export default class Draggable extends Component{
     var styleOutput = '';
     var clickedStyle = '';
     var draggingStyle = '';
+    var baseStyle = this.state ? this.state.baseStyle : '';
 
     if(this.dragging && this.props.draggingStyle){
       draggingStyle = this.props.draggingStyle;
@@ -82,10 +83,10 @@ export default class Draggable extends Component{
       clickedStyle = this.props.clickedStyle;
     }
     if(this.props.style){
-      styleOutput = Object.assign({}, draggingStyle, clickedStyle, this.baseStyle, this.props.style)
+      styleOutput = Object.assign({}, draggingStyle, clickedStyle, baseStyle, this.props.style)
     }
     else {
-      styleOutput = Object.assign({}, draggingStyle, clickedStyle, this.baseStyle)
+      styleOutput = Object.assign({}, draggingStyle, clickedStyle, baseStyle)
     }
     return styleOutput;
   }
@@ -126,10 +127,12 @@ export default class Draggable extends Component{
         y: this.localNextPosition.y
       });
       this.dimensions = dimensions;
-      this.baseStyle.left = dimensions.x;
-      this.baseStyle.top = dimensions.y;
-      this.baseStyle.position = 'absolute';
-      var newHoveringStyle = Object.assign({}, this.hoveringStyle);
+      var styling = {
+        left: dimensions.x,
+        top: dimensions.y,
+        position: 'absolute'
+      };
+      var newHoveringStyle = Object.assign({}, this.hoveringStyle, styling);
 
       this.setState({
         baseStyle: newHoveringStyle
@@ -150,9 +153,11 @@ export default class Draggable extends Component{
   handleMouseUp(ev){
     this.clicked = false;
     this.dragging = false;
+    this.html.removeEventListener('mousemove', this.setMousePosition.bind(this), false);
     this.setState({
       clicked: false,
-      dragging: false
+      dragging: false,
+      baseStyle: {}
     });
     if(this.props.handleMouseUp){
       this.props.handleMouseUp(ev);
@@ -163,9 +168,6 @@ export default class Draggable extends Component{
   }
 
   hideDraggable(){
-    this.setState({
-      baseStyle: {}
-    });
     if(this.props.handleHideDraggable){
       this.props.handleHideDraggable();
     }

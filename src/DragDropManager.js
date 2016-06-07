@@ -40,13 +40,6 @@ export default class DragDropManager {
       if(draggable.props.droppedStyle){
         newStyle = Object.assign({}, draggable.props.droppedStyle, draggable.props.children.style);
       }
-      var content = draggable.props.children;
-      if(draggable.props.setContentOnDrop){
-        dropTargetBeingHovered.setContent(content);
-      }
-      else{
-        dropTargetBeingHovered.appendToContent(content);
-      }
       dropTargetBeingHovered.droppedDraggable(draggable);
       draggable.hideDraggable();
     }
