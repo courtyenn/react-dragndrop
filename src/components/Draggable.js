@@ -105,7 +105,7 @@ export default class Draggable extends Component{
     this.localNextPosition.x = (ev.clientX);
     this.localNextPosition.y = (ev.clientY);
 
-    if(this.clicked && this.dragging){
+    if(this.clicked){
       this.dragging = true;
       this.localNextPosition.x -= (this.dimensions.width / 2);
       this.localNextPosition.y -= (this.dimensions.height / 2);
