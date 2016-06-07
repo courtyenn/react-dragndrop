@@ -152,7 +152,8 @@ export default class Draggable extends Component{
     this.dragging = false;
     this.setState({
       clicked: false,
-      dragging: false
+      dragging: false,
+      baseStyle: {}
     });
     if(this.props.handleMouseUp){
       this.props.handleMouseUp(ev);

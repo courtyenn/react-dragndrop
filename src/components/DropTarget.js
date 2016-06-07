@@ -78,7 +78,7 @@ export default class DropTarget extends Component{
 
   droppedDraggable(draggable){
     if(this.props.handleDroppedDraggable){
-      this.props.handleDroppedDraggable(this, draggable.props.children);
+      this.props.handleDroppedDraggable(this, draggable);
     }
   }
 }

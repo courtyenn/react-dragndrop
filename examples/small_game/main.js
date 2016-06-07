@@ -66,7 +66,6 @@ export default class MainSection extends React.Component{
     return (
       <div>
         {dropTargets}
-
       </div>
     );
   }
