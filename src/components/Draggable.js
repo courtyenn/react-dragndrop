@@ -60,7 +60,7 @@ export default class Draggable extends Component{
       <div ref={this.setInitialDimensions}
         style={styleOutput}
         className={classOutput}
-        key={'draggable-' + Math.random()}
+        key={this.props.id}
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
         >

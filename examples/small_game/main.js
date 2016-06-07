@@ -11,7 +11,9 @@ export default class MainSection extends React.Component{
   constructor(){
     super();
     this.dropTargets = [];
+    this.choices = ["edible", "hello"];
     this.droppedContent = this.droppedContent.bind(this);
+    this.hideDraggable = this.hideDraggable.bind(this);
     this.columns = [
       ["Kitty", "Test"],
       ["HELLO"],
@@ -79,25 +81,35 @@ export default class MainSection extends React.Component{
   }
 
   renderDroppables(){
+
+    var drags = this.choices.map((choice, index) => {
+      var hideHandler = function(drag){
+        return this.hideDraggable(index);
+      }
+      return (
+        <Draggable
+          key={"0.0." + choice}
+          manager={dragDropManager}
+          style={DraggableStyles.Normal}
+          droppedStyle={DraggableStyles.Dropped}
+          handleHideDraggable={this.hideDraggable}
+          draggingStyle={DraggableStyles.Dragging}>
+          <LineItem style={DraggableStyles.Normal} key={"0.0.1"+choice}>{choice}</LineItem>
+        </Draggable>
+      );
+    })
     return (
       <ul>
-        <Draggable
-          key={"0.0"}
-          manager={dragDropManager}
-          style={DraggableStyles.Normal}
-          droppedStyle={DraggableStyles.Dropped}
-          draggingStyle={DraggableStyles.Dragging}>
-          <LineItem style={DraggableStyles.Normal} key={"0.0.1"}>Edible</LineItem>
-        </Draggable>
-        <Draggable
-          key={"0.1"}
-          manager={dragDropManager}
-          style={DraggableStyles.Normal}
-          droppedStyle={DraggableStyles.Dropped}
-          draggingStyle={DraggableStyles.Dragging}>
-          <LineItem style={DraggableStyles.Normal} key={"0.0.2"}>Cuddly</LineItem>
-        </Draggable>
+        {drags}
       </ul>
     );
+  }
+
+  hideDraggable(index) {
+    var drags = this.choices;
+    drags.splice(index, 1);
+    this.setState({
+      choices: drags
+    });
   }
 }

@@ -1,5 +1,6 @@
 # react-dragndrop (ES2015)
-===================
+===================================================
+
 This module provides a Draggable and DropTarget component. This library has a simplistic interface that allows users to listen to drop, drag, and release events. That way, the logic stays within the library, and your app can extend it.
 
 ## Draggable
@@ -13,16 +14,25 @@ Example:
       <Draggable>I want this dragged!</Draggable>
 
 #### PropTypes:
-id: React.PropTypes.string,
+id: React.PropTypes.string.isRequired,
+
 manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
+
 draggingStyle: React.PropTypes.object,
+
 clickedStyle: React.PropTypes.object,
+
 style: React.PropTypes.object,
+
 clickedClassName: React.PropTypes.string,
+
 draggingClassName: React.PropTypes.string,
+
 handleMouseUp: React.PropTypes.func,
+
 handleMouseDown: React.PropTypes.func,
-setContentOnDrop: React.PropTypes.boolean
+
+handleHideDraggable: React.PropTypes.func
 
 ## DropTarget
 This component allows multiple different types of children. It allows object, JSX, or a simple string to be nested within. I've used it in multiple ways in the 'small_game' example.
@@ -36,7 +46,11 @@ Example:
 #### PropTypes:
 
 manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
+
 style: React.PropTypes.object,
+
 wrapper: React.PropTypes.any,
+
 handleDraggableHoveringOverDropTarget: React.PropTypes.func,
+
 handleDroppedDraggable: React.PropTypes.func
