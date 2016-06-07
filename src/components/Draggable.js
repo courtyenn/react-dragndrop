@@ -163,14 +163,15 @@ export default class Draggable extends Component{
   }
 
   hideDraggable(){
-    this.baseStyle = Object.assign({}, this.baseStyle, {visibility: 'hidden'});
-    this.setState({baseStyle: this.baseStyle});
+    if(this.props.handleHideDraggable){
+      this.props.handleHideDraggable();
+    }
   }
 }
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
 Draggable.propTypes = {
-  id: React.PropTypes.string,
+  id: React.PropTypes.string.isRequired,
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
   draggingStyle: React.PropTypes.object,
   clickedStyle: React.PropTypes.object,
@@ -178,5 +179,6 @@ Draggable.propTypes = {
   clickedClassName: React.PropTypes.string,
   draggingClassName: React.PropTypes.string,
   handleMouseUp: React.PropTypes.func,
-  handleMouseDown: React.PropTypes.func
+  handleMouseDown: React.PropTypes.func,
+  handleHideDraggable: React.PropTypes.func
 };
