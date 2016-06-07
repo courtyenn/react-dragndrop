@@ -105,7 +105,7 @@ export default class Draggable extends Component{
     this.localNextPosition.x = (ev.clientX);
     this.localNextPosition.y = (ev.clientY);
 
-    if(this.clicked){
+    if(this.clicked && this.dragging){
       this.dragging = true;
       this.localNextPosition.x -= (this.dimensions.width / 2);
       this.localNextPosition.y -= (this.dimensions.height / 2);
@@ -152,8 +152,7 @@ export default class Draggable extends Component{
     this.dragging = false;
     this.setState({
       clicked: false,
-      dragging: false,
-      baseStyle: {}
+      dragging: false
     });
     if(this.props.handleMouseUp){
       this.props.handleMouseUp(ev);
@@ -164,6 +163,9 @@ export default class Draggable extends Component{
   }
 
   hideDraggable(){
+    this.setState({
+      baseStyle: {}
+    });
     if(this.props.handleHideDraggable){
       this.props.handleHideDraggable();
     }
