@@ -3,9 +3,9 @@ var DropTargetStyles = {
     "position": "absolute",
     "backgroundColor": "rgb(200, 230, 255)",
     "zIndex": "1",
-    "height": 400,
-    "width": 400,
-    "left": 500
+    "height": 100,
+    "width": 200,
+    "left": 350
   },
   "Dropping": {
     "backgroundColor": "pink",
@@ -20,6 +20,14 @@ var DropTargetStyles = {
     "cursor": "-webkit-grab",
     "margin": "20px 0",
     "zIndex": 2
+  },
+  "Styled": {
+    "position": "absolute",
+    "width": 200,
+    "minHeight": 100,
+    "left": 350,
+    "backgroundColor": "pink",
+    "top": 600
   }
 };
 

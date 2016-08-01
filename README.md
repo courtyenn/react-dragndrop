@@ -28,11 +28,13 @@ clickedClassName: React.PropTypes.string,
 
 draggingClassName: React.PropTypes.string,
 
+droppedClassName: React.PropTypes.string,
+
 handleMouseUp: React.PropTypes.func,
 
 handleMouseDown: React.PropTypes.func,
 
-handleHideDraggable: React.PropTypes.func
+handleDropOverDropTarget: React.PropTypes.func,
 
 ## DropTarget
 This component allows multiple different types of children. It allows object, JSX, or a simple string to be nested within. I've used it in multiple ways in the 'small_game' example.

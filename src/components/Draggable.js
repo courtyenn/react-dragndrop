@@ -53,7 +53,6 @@ export default class Draggable extends Component{
   }
 
   render(){
-
     var styleOutput = this.setStyle();
     var classOutput = this.setClassName();
     return (
@@ -62,8 +61,7 @@ export default class Draggable extends Component{
         className={classOutput}
         key={this.props.id}
         onMouseDown={this.handleMouseDown}
-        onMouseUp={this.handleMouseUp}
-        >
+        onMouseUp={this.handleMouseUp}>
         {this.props.children}
       </div>
     );
@@ -93,11 +91,17 @@ export default class Draggable extends Component{
 
   setClassName(){
     var className = '';
+    if(this.clicked && this.props.baseClassName){
+      className = this.props.baseClassName;
+    }
     if(this.clicked && this.props.clickedClassName){
       className = this.props.clickedClassName;
     }
     else if(this.dragging && this.props.draggingClassName){
       className = this.props.draggingClassName;
+    }
+    else if(this.dropped && this.props.droppedClassName){
+      className = this.props.droppedClassName;
     }
     return className;
   }
@@ -112,7 +116,7 @@ export default class Draggable extends Component{
       this.localNextPosition.y -= (this.dimensions.height / 2);
 
       if(this.props.manager){
-        var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this);
+        var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this, ev);
         if(draggableisOverDropTarget){
           this.isOverTarget = true;
           this.hoveredDropTarget = this.props.manager.hoveredDropTarget;
@@ -166,24 +170,20 @@ export default class Draggable extends Component{
       this.props.manager.releaseDraggableOnDropTarget(this);
     }
   }
-
-  hideDraggable(){
-    if(this.props.handleHideDraggable){
-      this.props.handleHideDraggable();
-    }
-  }
 }
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
 Draggable.propTypes = {
-  id: React.PropTypes.string.isRequired,
+  id: React.PropTypes.string,
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
   draggingStyle: React.PropTypes.object,
   clickedStyle: React.PropTypes.object,
   style: React.PropTypes.object,
+  baseClassName: React.PropTypes.string,
   clickedClassName: React.PropTypes.string,
   draggingClassName: React.PropTypes.string,
+  droppedClassName: React.PropTypes.string,
   handleMouseUp: React.PropTypes.func,
   handleMouseDown: React.PropTypes.func,
-  handleHideDraggable: React.PropTypes.func
+  handleDrop: React.PropTypes.func
 };

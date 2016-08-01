@@ -9,6 +9,7 @@ export default class List extends Component{
             key={"testing"}
             manager={this.props.manager}
             droppedStyle={DraggableStyles.Dropped}
+            handleDroppedDraggable={this.props.handleDrop}
             style={this.props.style}>
                 <h2>{this.props.title}</h2>
                 <ul>

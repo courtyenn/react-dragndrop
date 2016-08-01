@@ -1,5 +1,5 @@
 import React from 'react';
-import { checkBoundaries } from './boxBoundaryChecking';
+import { checkBoundaries } from './mouseBoundaryChecking';
 
 // refactor to be called singleton
 export default class DragDropManager {
@@ -21,9 +21,9 @@ export default class DragDropManager {
     return this.dropTargets;
   }
 
-  draggableIsOverDropTarget(draggable){
+  draggableIsOverDropTarget(draggable, ev){
     for(var dropTarget of this.dropTargets){
-      draggable.isOverTarget = checkBoundaries(draggable.dimensions, dropTarget.dimensions);
+      draggable.isOverTarget = checkBoundaries(ev, dropTarget.dimensions);
       if(draggable.isOverTarget){
         this.hoveredDropTarget = dropTarget;
         dropTarget.draggableHoveringOverDropTarget();
@@ -36,12 +36,10 @@ export default class DragDropManager {
   releaseDraggableOnDropTarget(draggable){
     if(draggable.isOverTarget){
       var dropTargetBeingHovered = this.hoveredDropTarget;
-      var newStyle = {};
-      if(draggable.props.droppedStyle){
-        newStyle = Object.assign({}, draggable.props.droppedStyle, draggable.props.children.style);
-      }
       dropTargetBeingHovered.droppedDraggable(draggable);
-      draggable.hideDraggable();
+      if(draggable.props.handleDrop){
+        draggable.props.handleDrop();
+      }
     }
   }
 }

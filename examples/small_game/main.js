@@ -15,12 +15,13 @@ export default class MainSection extends React.Component{
     this.droppedContent = this.droppedContent.bind(this);
     this.hideDraggable = this.hideDraggable.bind(this);
     this.columns = [
-      ["Kitty", "Test"],
-      ["HELLO"],
-      []
+      ["1. A List Of Stuff", " 2. No Erase"],
+      ["Drop Here With Style"],
+      ["Testing"]
     ];
   }
   render(){
+
     return(
       <div>
         {this.renderDropTargets()}
@@ -30,39 +31,30 @@ export default class MainSection extends React.Component{
   }
 
   renderDropTargets(){
-    var list = React.createElement(List, {title: "hello world", style: DropTargetStyles.Dropping, manager: dragDropManager});
+
     var styles = [
       Object.assign({}, DropTargetStyles.BaseStyle, {top: 0}),
-      Object.assign({}, DropTargetStyles.BaseStyle, {top: 400})
+      Object.assign({}, DropTargetStyles.BaseStyle, {top: 200}),
+      Object.assign({}, DropTargetStyles.Styled, {top: 300})
     ];
-    var style2 = Object.assign({}, DropTargetStyles.BaseStyle, {top: 800});
-    var title = "Monnkey";
+
+    var title = "I am a semantic list with a h2";
     var that = this;
     var dropTargets = this.columns.map((items, index) => {
     var dropHandler = function(drop, drag){
       return that.droppedContent(drop, drag, index);
     };
-    return (
+      return (
         <DropTarget
-        key={"droptarget-" + index}
-        style={styles[index]}
-        manager={dragDropManager}
-        handleDroppedDraggable={dropHandler}>
-        {items}
+          key={"droptarget-" + index}
+          style={styles[index]}
+          manager={dragDropManager}
+          handleDroppedDraggable={dropHandler}>
+          {items}
         </DropTarget>
-    );
+      );
   });
-  var dropHandler = function(drop, drag){
-    return that.droppedContent(drop, drag, 2);
-  };
-    dropTargets.push(
-      <List key={"List-droptarget-3"}
-      manager={dragDropManager}
-      style={style2}
-      handleDroppedDraggable={dropHandler}
-      title={title}>
-        {this.columns[2]}
-      </List>);
+
     return (
       <div>
         {dropTargets}
@@ -71,7 +63,6 @@ export default class MainSection extends React.Component{
   }
 
   droppedContent(drop, drag, index){
-    console.log(drop, drag);
     var newColumns = this.columns;
     newColumns[index].push(drag.props.children);
     this.setState({
@@ -83,17 +74,16 @@ export default class MainSection extends React.Component{
 
     var drags = this.choices.map((choice, index) => {
       var that = this;
-      var hideHandler = function(drag){
-        return that.hideDraggable(index);
-      }
       return (
         <Draggable
+          id={index + '.0'}
           key={"0.0." + choice}
           manager={dragDropManager}
           style={DraggableStyles.Normal}
           droppedStyle={DraggableStyles.Dropped}
-          handleHideDraggable={hideHandler}
-          draggingStyle={DraggableStyles.Dragging}>
+          draggingStyle={DraggableStyles.Dragging}
+          droppedClassName="draggable"
+          handleDrop={this.hideDraggable.bind(this, index)}>
           <LineItem style={DraggableStyles.Normal} key={"0.0.1"+choice}>{choice}</LineItem>
         </Draggable>
       );
