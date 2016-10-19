@@ -7,9 +7,7 @@ export default class DropTarget extends Component{
     super();
     this.droppedStyle = {};
     this.domDropTargetElement;
-    this.baseStyle = {
-      "zIndex": 1
-    };
+    this.baseClass = "";
     this.dimensions = {
       x: 0,
       y: 0,
@@ -38,21 +36,23 @@ export default class DropTarget extends Component{
   }
 
   render(){
-    var style,
+    var style = "",
+    classes = "",
     wrapper,
     dropTargetElement = {};
 
     if(this.props.style){
-      style = Object.assign({}, this.baseStyle, this.props.style);
+      style = this.props.style;
     }
-    else {
-      style = Object.assign({}, this.baseStyle);
+
+    if(this.props.className){
+      classes = this.props.className;
     }
 
     var type = typeof this.props.wrapper;
 
       return (
-        <div style={style} ref={this.setInitialDimensions}>
+        <div style={style} ref={this.setInitialDimensions} className={classes}>
           {this.props.children}
         </div>
       );
