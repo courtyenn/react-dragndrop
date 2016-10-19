@@ -29,14 +29,14 @@ export default class DropTarget extends Component{
       this.dimensions = {
         x: this.domDropTargetElement.offsetLeft,
         y: this.domDropTargetElement.offsetTop,
-        width: this.domDropTargetElement.offsetWidth,
-        height: this.domDropTargetElement.offsetHeight
+        width: this.domDropTargetElement.clientWidth,
+        height: this.domDropTargetElement.clientHeight
       };
     }
   }
 
   render(){
-    var style = "",
+    var style = null,
     classes = "",
     wrapper,
     dropTargetElement = {};
