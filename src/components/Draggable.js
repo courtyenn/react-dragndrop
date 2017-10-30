@@ -113,7 +113,7 @@ export default class Draggable extends Component{
     if(this.clicked){
       this.dragging = true;
       this.localNextPosition.x -= (this.dimensions.width / 2);
-      this.localNextPosition.y -= (this.dimensions.height / 2);
+      this.localNextPosition.y -= (this.dimensions.height / 2) + window.scrollY;
 
       if(this.props.manager){
         var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this, ev);
