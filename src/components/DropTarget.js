@@ -23,6 +23,10 @@ export default class DropTarget extends Component{
       this.props.manager.registerDropTarget(this);
   }
 
+  componentWillUpdate(){
+    this.setInitialDimensions(this);
+  }
+
   setInitialDimensions(ref){
     if(ref !== null){
       this.domDropTargetElement = ReactDom.findDOMNode(ref);
