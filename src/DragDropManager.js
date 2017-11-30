@@ -23,7 +23,8 @@ export default class DragDropManager {
 
   draggableIsOverDropTarget(draggable, ev){
     for(var dropTarget of this.dropTargets){
-      draggable.isOverTarget = checkBoundaries(ev, dropTarget.dimensions);
+      let box = dropTarget.domDropTargetElement;
+      draggable.isOverTarget = checkBoundaries(ev, {x: box.offsetLeft, y: box.offsetTop, width: box.offsetWidth, height: box.offsetHeight});
       if(draggable.isOverTarget){
         this.hoveredDropTarget = dropTarget;
         dropTarget.draggableHoveringOverDropTarget();
