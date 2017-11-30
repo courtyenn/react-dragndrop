@@ -1,6 +1,6 @@
 {
   "name": "react-dragndrop",
-  "version": "1.0.55",
+  "version": "1.1.0",
   "description": "First npm module and react component.",
   "main": "lib/react-dragndrop",
   "scripts": {
