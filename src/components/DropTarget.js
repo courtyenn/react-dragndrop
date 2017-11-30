@@ -14,12 +14,19 @@ export default class DropTarget extends Component{
       width: 100,
       height: 100
     };
+    this.setInitialDimensions = this.setInitialDimensions.bind(this);
     this.droppedDraggable = this.droppedDraggable.bind(this);
     this.draggableHoveringOverDropTarget = this.draggableHoveringOverDropTarget.bind(this);
   }
 
   componentDidMount(){
       this.props.manager.registerDropTarget(this);
+  }
+
+  setInitialDimensions(ref){
+    if(ref !== null){
+      this.domDropTargetElement = ReactDom.findDOMNode(ref);
+    }
   }
 
   render(){
@@ -39,7 +46,7 @@ export default class DropTarget extends Component{
     var type = typeof this.props.wrapper;
 
       return (
-        <div style={style} className={classes}>
+        <div style={style} ref={this.setInitialDimensions} className={classes}>
           {this.props.children}
         </div>
       );
