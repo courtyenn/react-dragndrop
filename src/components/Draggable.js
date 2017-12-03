@@ -68,7 +68,7 @@ export default class Draggable extends Component {
         key={this.props.id}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleMouseDown}
-        onTouchEnd={this.handleMouseUp}
+        onTouchEnd={this.handleTouchEnd}
         onMouseUp={this.handleMouseUp}>
         {this.props.children}
       </div>
@@ -126,10 +126,10 @@ export default class Draggable extends Component {
     this.dragDraggable(ev);
   }
 
-  setTouchPosition(ev){
+  setTouchPosition(ev) {
     let touches = ev.changedTouches;
     let lastEvent = null;
-    for(var i = 0; i < touches.length; i++){
+    for (var i = 0; i < touches.length; i++) {
       this.localNextPosition.x = (touches[i].clientX);
       this.localNextPosition.y = (touches[i].clientY);
       lastEvent = touches[i];
@@ -185,7 +185,7 @@ export default class Draggable extends Component {
 
   handleTouchDown(ev) {
     var touches = evt.changedTouches.slice(0);
-    for ( var i = 0; i < touches.length; i++){
+    for (var i = 0; i < touches.length; i++) {
       this.ongoingTouches.push(Object.assign({}, touches[i]));
     }
     this.clicked = true;
@@ -198,15 +198,18 @@ export default class Draggable extends Component {
   }
 
   handleTouchEnd(ev) {
+    let touches = ev.changedTouches;
+    for (var i = 0; i < touches.length; i++) {
+      var idx = this.ongoingTouchIndexById(touches[i].identifier);
+      if (idx >= 0) {
+        this.ongoingTouches.splice(idx, 1);
+      }
+    }
     this.html.removeEventListener('touchmove', this.setTouchPosition.bind(this), false);
     this.endDrag();
   }
 
   handleMouseUp(ev) {
-    let touches = ev.changedTouches;
-    for(var i = 0; i < touches.length; i++){
-
-    }
     this.html.removeEventListener('mousemove', this.setMousePosition.bind(this), false);
     this.endDrag();
   }
@@ -225,6 +228,17 @@ export default class Draggable extends Component {
     if (this.props.manager) {
       this.props.manager.releaseDraggableOnDropTarget(this);
     }
+  }
+
+  ongoingTouchIndexById(idToFind) {
+    for (var i = 0; i < this.ongoingTouches.length; i++) {
+      var id = this.ongoingTouches[i].identifier;
+
+      if (id == idToFind) {
+        return i;
+      }
+    }
+    return -1;    // not found
   }
 }
 
