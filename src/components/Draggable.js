@@ -68,15 +68,15 @@ export default class Draggable extends Component {
     );
   }
 
-  setStyle() {
+  setStyle(theStyle) {
     var childStyle = '';
     var styleOutput = '';
     var clickedStyle = '';
     var draggingStyle = '';
     var baseStyle = this.state ? this.state.baseStyle : '';
 
-    if (this.dropped) {
-      styleOutput = {display: 'none'};
+    if (theStyle) {
+      styleOutput = theStyle;
     }
     else {
       if (this.dragging && this.props.draggingStyle) {
@@ -182,6 +182,7 @@ Draggable.prototype.localNextPosition = { x: 0, y: 0 };
 Draggable.propTypes = {
   id: React.PropTypes.string,
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
+  droppedStyle: React.PropTypes.object,
   draggingStyle: React.PropTypes.object,
   clickedStyle: React.PropTypes.object,
   style: React.PropTypes.object,

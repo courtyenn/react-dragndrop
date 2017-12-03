@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import DragDropManager from '../DragDropManager';
 
-export default class DropTarget extends Component{
-  constructor(){
+export default class DropTarget extends Component {
+  constructor() {
     super();
     this.droppedStyle = {};
     this.domDropTargetElement;
@@ -19,47 +19,47 @@ export default class DropTarget extends Component{
     this.draggableHoveringOverDropTarget = this.draggableHoveringOverDropTarget.bind(this);
   }
 
-  componentDidMount(){
-      this.props.manager.registerDropTarget(this);
+  componentDidMount() {
+    this.props.manager.registerDropTarget(this);
   }
 
-  setInitialDimensions(ref){
-    if(ref !== null){
+  setInitialDimensions(ref) {
+    if (ref !== null) {
       this.domDropTargetElement = ReactDom.findDOMNode(ref);
     }
   }
 
-  render(){
+  render() {
     var style = null,
-    classes = "",
-    wrapper,
-    dropTargetElement = {};
+      classes = "",
+      wrapper,
+      dropTargetElement = {};
 
-    if(this.props.style){
+    if (this.props.style) {
       style = this.props.style;
     }
 
-    if(this.props.className){
+    if (this.props.className) {
       classes = this.props.className;
     }
 
     var type = typeof this.props.wrapper;
 
-      return (
-        <div style={style} ref={this.setInitialDimensions} className={classes}>
-          {this.props.children}
-        </div>
-      );
+    return (
+      <div style={style} ref={this.setInitialDimensions} className={classes}>
+        {this.props.children}
+      </div>
+    );
   }
 
-  draggableHoveringOverDropTarget(){
-    if(this.props.handleDraggableHoveringOverDropTarget){
+  draggableHoveringOverDropTarget() {
+    if (this.props.handleDraggableHoveringOverDropTarget) {
       this.props.handleDraggableHoveringOverDropTarget(this);
     }
   }
 
-  droppedDraggable(draggable){
-    if(this.props.handleDroppedDraggable){
+  droppedDraggable(draggable) {
+    if (this.props.handleDroppedDraggable) {
       this.props.handleDroppedDraggable(this, draggable);
     }
   }
