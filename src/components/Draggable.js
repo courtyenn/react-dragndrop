@@ -11,15 +11,17 @@ export default class Draggable extends Component {
     this.domDraggableElement;
     this.html = document.getElementsByTagName('html')[0];
     this.html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
-    this.html.addEventListener('touchmove', this.setMousePosition.bind(this), false);
+    this.html.addEventListener('touchmove', this.setTouchPosition.bind(this), false);
 
     this.currentPosition = { x: 0, y: 0 };
     this.clicked = false;
     this.dragging = false;
     this.dropped = false;
+    this.ongoingTouches = [];
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleTouchDown = this.handleTouchDown.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.endDrag = this.endDrag.bind(this);
     this.setInitialDimensions = this.setInitialDimensions.bind(this);
@@ -121,12 +123,28 @@ export default class Draggable extends Component {
     this.localNextPosition.x = (ev.clientX);
     this.localNextPosition.y = (ev.clientY);
 
+    this.dragDraggable(ev);
+  }
+
+  setTouchPosition(ev){
+    let touches = ev.changedTouches;
+    let lastEvent = null;
+    for(var i = 0; i < touches.length; i++){
+      this.localNextPosition.x = (touches[i].clientX);
+      this.localNextPosition.y = (touches[i].clientY);
+      lastEvent = touches[i];
+    }
+
+    this.dragDraggable(lastEvent);
+  }
+
+  dragDraggable(ev) {
     if (this.clicked) {
       this.dragging = true;
       this.localNextPosition.x -= (this.dimensions.width / 2);
       this.localNextPosition.y = (this.localNextPosition.y + window.scrollY) - (this.dimensions.height / 2);
 
-      if (this.props.manager) {
+      if (this.props.manager && ev) {
         var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this, ev);
         if (draggableisOverDropTarget) {
           this.isOverTarget = true;
@@ -165,12 +183,30 @@ export default class Draggable extends Component {
     }
   }
 
+  handleTouchDown(ev) {
+    var touches = evt.changedTouches.slice(0);
+    for ( var i = 0; i < touches.length; i++){
+      this.ongoingTouches.push(Object.assign({}, touches[i]));
+    }
+    this.clicked = true;
+    this.setState({
+      clicked: true
+    });
+    if (this.props.handleMouseDown) {
+      this.props.handleMouseDown(ev);
+    }
+  }
+
   handleTouchEnd(ev) {
-    this.html.removeEventListener('touchmove', this.setMousePosition.bind(this), false);
+    this.html.removeEventListener('touchmove', this.setTouchPosition.bind(this), false);
     this.endDrag();
   }
 
   handleMouseUp(ev) {
+    let touches = ev.changedTouches;
+    for(var i = 0; i < touches.length; i++){
+
+    }
     this.html.removeEventListener('mousemove', this.setMousePosition.bind(this), false);
     this.endDrag();
   }

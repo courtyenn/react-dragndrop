@@ -5,14 +5,14 @@ module.exports = {
     "./lib/react-dragndrop": "./src/index",
     "./examples/small_game/index": "./examples/small_game/app"
   },
-  debug: true,
   devtool: "source-map",
+  target: "web",
   module: {
     loaders: [
       {
         test: /\.js$/,
         exclude: [/node_modules/],
-        loader: "babel",
+        loader: "babel-loader",
         query: {
           plugins: [['transform-runtime', {
             "polyfill": false,
