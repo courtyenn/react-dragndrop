@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import DragDropManager from '../DragDropManager';
 
-export default class Draggable extends Component{
-  constructor(){
+export default class Draggable extends Component {
+  constructor() {
     super();
     this.baseStyle = {};
 
@@ -12,9 +12,10 @@ export default class Draggable extends Component{
     this.html = document.getElementsByTagName('html')[0];
     this.html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
 
-    this.currentPosition = {x: 0, y: 0};
+    this.currentPosition = { x: 0, y: 0 };
     this.clicked = false;
     this.dragging = false;
+    this.dropped = false;
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
@@ -35,8 +36,8 @@ export default class Draggable extends Component{
     this.setState = this.setState;
   }
 
-  setInitialDimensions(ref){
-    if(ref !== null){
+  setInitialDimensions(ref) {
+    if (ref !== null) {
       this.domDraggableElement = ReactDom.findDOMNode(ref);
       this.dimensions = {
         x: this.domDraggableElement.offsetLeft,
@@ -47,12 +48,12 @@ export default class Draggable extends Component{
     }
   }
 
-  componentDidMount(){
-      this.props.manager.registerDraggable(this);
-      this.id = this.props.id;
+  componentDidMount() {
+    this.props.manager.registerDraggable(this);
+    this.id = this.props.id;
   }
 
-  render(){
+  render() {
     var styleOutput = this.setStyle();
     var classOutput = this.setClassName();
     return (
@@ -67,57 +68,62 @@ export default class Draggable extends Component{
     );
   }
 
-  setStyle(){
+  setStyle() {
     var childStyle = '';
     var styleOutput = '';
     var clickedStyle = '';
     var draggingStyle = '';
     var baseStyle = this.state ? this.state.baseStyle : '';
 
-    if(this.dragging && this.props.draggingStyle){
-      draggingStyle = this.props.draggingStyle;
-    }
-    if(this.clicked && this.props.clickedStyle){
-      clickedStyle = this.props.clickedStyle;
-    }
-    if(this.props.style){
-      styleOutput = Object.assign({}, draggingStyle, clickedStyle, baseStyle, this.props.style)
+    if (this.dropped) {
+      styleOutput = {display: 'none'};
     }
     else {
-      styleOutput = Object.assign({}, draggingStyle, clickedStyle, baseStyle)
+      if (this.dragging && this.props.draggingStyle) {
+        draggingStyle = this.props.draggingStyle;
+      }
+      if (this.clicked && this.props.clickedStyle) {
+        clickedStyle = this.props.clickedStyle;
+      }
+      if (this.props.style) {
+        styleOutput = Object.assign({}, draggingStyle, clickedStyle, baseStyle, this.props.style)
+      }
+      else {
+        styleOutput = Object.assign({}, draggingStyle, clickedStyle, baseStyle)
+      }
     }
     return styleOutput;
   }
 
-  setClassName(){
+  setClassName() {
     var className = '';
-    if(this.clicked && this.props.baseClassName){
+    if (this.clicked && this.props.baseClassName) {
       className = this.props.baseClassName;
     }
-    if(this.clicked && this.props.clickedClassName){
+    if (this.clicked && this.props.clickedClassName) {
       className = this.props.clickedClassName;
     }
-    else if(this.dragging && this.props.draggingClassName){
+    else if (this.dragging && this.props.draggingClassName) {
       className = this.props.draggingClassName;
     }
-    else if(this.dropped && this.props.droppedClassName){
+    else if (this.dropped && this.props.droppedClassName) {
       className = this.props.droppedClassName;
     }
     return className;
   }
 
-  setMousePosition(ev){
+  setMousePosition(ev) {
     this.localNextPosition.x = (ev.clientX);
     this.localNextPosition.y = (ev.clientY);
 
-    if(this.clicked){
+    if (this.clicked) {
       this.dragging = true;
       this.localNextPosition.x -= (this.dimensions.width / 2);
       this.localNextPosition.y = (this.localNextPosition.y + window.scrollY) - (this.dimensions.height / 2);
 
-      if(this.props.manager){
+      if (this.props.manager) {
         var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this, ev);
-        if(draggableisOverDropTarget){
+        if (draggableisOverDropTarget) {
           this.isOverTarget = true;
           this.hoveredDropTarget = this.props.manager.hoveredDropTarget;
           this.hoveredDropTarget.draggableHoveringOverDropTarget();
@@ -144,17 +150,17 @@ export default class Draggable extends Component{
     }
   }
 
-  handleMouseDown(ev){
+  handleMouseDown(ev) {
     this.clicked = true;
     this.setState({
       clicked: true
     });
-    if(this.props.handleMouseDown){
+    if (this.props.handleMouseDown) {
       this.props.handleMouseDown(ev);
     }
   }
 
-  handleMouseUp(ev){
+  handleMouseUp(ev) {
     this.clicked = false;
     this.dragging = false;
     this.html.removeEventListener('mousemove', this.setMousePosition.bind(this), false);
@@ -163,16 +169,16 @@ export default class Draggable extends Component{
       dragging: false,
       baseStyle: {}
     });
-    if(this.props.handleMouseUp){
+    if (this.props.handleMouseUp) {
       this.props.handleMouseUp(ev);
     }
-    if(this.props.manager){
+    if (this.props.manager) {
       this.props.manager.releaseDraggableOnDropTarget(this);
     }
   }
 }
 
-Draggable.prototype.localNextPosition = {x: 0, y: 0};
+Draggable.prototype.localNextPosition = { x: 0, y: 0 };
 Draggable.propTypes = {
   id: React.PropTypes.string,
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,

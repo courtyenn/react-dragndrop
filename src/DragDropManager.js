@@ -38,6 +38,7 @@ export default class DragDropManager {
     if(draggable.isOverTarget){
       var dropTargetBeingHovered = this.hoveredDropTarget;
       dropTargetBeingHovered.droppedDraggable(draggable);
+      draggable.dropped = true;
       if(draggable.props.handleDrop){
         draggable.props.handleDrop();
       }
