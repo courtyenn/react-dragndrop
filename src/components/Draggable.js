@@ -11,6 +11,7 @@ export default class Draggable extends Component {
     this.domDraggableElement;
     this.html = document.getElementsByTagName('html')[0];
     this.html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
+    this.html.addEventListener('touchmove', this.setMousePosition.bind(this), false);
 
     this.currentPosition = { x: 0, y: 0 };
     this.clicked = false;
@@ -19,6 +20,8 @@ export default class Draggable extends Component {
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.endDrag = this.endDrag.bind(this);
     this.setInitialDimensions = this.setInitialDimensions.bind(this);
     this.setStyle = this.setStyle.bind(this);
     this.setClassName = this.setClassName.bind(this);
@@ -62,6 +65,8 @@ export default class Draggable extends Component {
         className={classOutput}
         key={this.props.id}
         onMouseDown={this.handleMouseDown}
+        onTouchStart={this.handleMouseDown}
+        onTouchEnd={this.handleMouseUp}
         onMouseUp={this.handleMouseUp}>
         {this.props.children}
       </div>
@@ -160,10 +165,19 @@ export default class Draggable extends Component {
     }
   }
 
+  handleTouchEnd(ev) {
+    this.html.removeEventListener('touchmove', this.setMousePosition.bind(this), false);
+    this.endDrag();
+  }
+
   handleMouseUp(ev) {
+    this.html.removeEventListener('mousemove', this.setMousePosition.bind(this), false);
+    this.endDrag();
+  }
+
+  endDrag() {
     this.clicked = false;
     this.dragging = false;
-    this.html.removeEventListener('mousemove', this.setMousePosition.bind(this), false);
     this.setState({
       clicked: false,
       dragging: false,
