@@ -127,6 +127,7 @@ export default class Draggable extends Component {
   }
 
   setTouchPosition(ev) {
+    ev.preventDefault();
     let touches = ev.changedTouches;
     let lastEvent = null;
     for (var i = 0; i < touches.length; i++) {
