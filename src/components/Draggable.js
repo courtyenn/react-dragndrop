@@ -103,18 +103,15 @@ export default class Draggable extends Component {
   }
 
   setClassName() {
-    var className = '';
-    if (this.clicked && this.props.baseClassName) {
-      className = this.props.baseClassName;
-    }
+    var className = this.props.baseClassName;
     if (this.clicked && this.props.clickedClassName) {
-      className = this.props.clickedClassName;
+      className += this.props.clickedClassName;
     }
     else if (this.dragging && this.props.draggingClassName) {
-      className = this.props.draggingClassName;
+      className += this.props.draggingClassName;
     }
     else if (this.dropped && this.props.droppedClassName) {
-      className = this.props.droppedClassName;
+      className += this.props.droppedClassName;
     }
     return className;
   }
