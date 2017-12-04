@@ -11,7 +11,7 @@ export default class Draggable extends Component {
     this.domDraggableElement;
     this.html = document.getElementsByTagName('html')[0];
     this.html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
-    this.html.addEventListener('touchmove', this.setTouchPosition.bind(this), false);
+    this.html.addEventListener('touchmove', this.setTouchPosition.bind(this), {useCapture: false, passive: false});
 
     this.currentPosition = { x: 0, y: 0 };
     this.clicked = false;
@@ -127,16 +127,18 @@ export default class Draggable extends Component {
   }
 
   setTouchPosition(ev) {
-    ev.preventDefault();
-    let touches = ev.changedTouches;
-    let lastEvent = null;
-    for (var i = 0; i < touches.length; i++) {
-      this.localNextPosition.x = (touches[i].clientX);
-      this.localNextPosition.y = (touches[i].clientY);
-      lastEvent = touches[i];
-    }
+    if (this.clicked) {
+      ev.preventDefault();
+      let touches = ev.changedTouches;
+      let lastEvent = null;
+      for (var i = 0; i < touches.length; i++) {
+        this.localNextPosition.x = (touches[i].clientX);
+        this.localNextPosition.y = (touches[i].clientY);
+        lastEvent = touches[i];
+      }
 
-    this.dragDraggable(lastEvent);
+      this.dragDraggable(lastEvent);
+    }
   }
 
   dragDraggable(ev) {
