@@ -1,58 +1,54 @@
 # react-dragndrop (ES2015)
-===================================================
 
-This module provides a Draggable and DropTarget component. This library has a simplistic interface that allows users to listen to drop, drag, and release events. That way, the logic stays within the library, and your app can extend it.
+Simplistic library with minimal boilerplate code to get started. This library comes with 2 React components: `<Draggable>` and `<DropTarget>`. In order for these two components to talk to each other, an instance of `DragDropManager` must be created with the following code:
+
+    import {DragDropManager, Draggable, DropTarget} from 'react-dragndrop'
+    let manager = new DragDropManager()
+
+    render(){
+        return (
+          <div>
+            <Draggable manager={manager}>Drag me!</Draggable>
+            <DropTarget manager={manager}>Here!</DropTarget>
+          </div>
+          )
+    }
+
 
 ## Draggable
-This component allows multiple types of style for the user's customization. Currently, only styles are supported, but in the future, class names will be too.
-
-#### Note:
-This component currently wraps everything in a div when it is dropped inside a DropTarget.
+Whatever it is you want dragged, nest it inside of the Draggable component. This wrapper allows for customization for every stage of the Draggable life cycle. Base style, clicked style, dragging style. Once the Draggable is actually dropped in the DropTarget, it is up to the user to style the component at that point.
 
 Example:
 
-      <Draggable>I want this dragged!</Draggable>
+      <Draggable manager={manager}>I want this dragged!</Draggable>
 
 #### PropTypes:
-id: React.PropTypes.string.isRequired,
-
-manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
-
-draggingStyle: React.PropTypes.object,
-
-clickedStyle: React.PropTypes.object,
-
-style: React.PropTypes.object,
-
-clickedClassName: React.PropTypes.string,
-
-draggingClassName: React.PropTypes.string,
-
-droppedClassName: React.PropTypes.string,
-
-handleMouseUp: React.PropTypes.func,
-
-handleMouseDown: React.PropTypes.func,
-
-handleDropOverDropTarget: React.PropTypes.func,
+  manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
+  id: React.PropTypes.string,
+  draggingStyle: React.PropTypes.object,
+  clickedStyle: React.PropTypes.object,
+  style: React.PropTypes.object,
+  baseClassName: React.PropTypes.string,
+  clickedClassName: React.PropTypes.string,
+  draggingClassName: React.PropTypes.string,
+  droppedClassName: React.PropTypes.string,
+  handleMouseUp: React.PropTypes.func,
+  handleMouseDown: React.PropTypes.func,
+  handleDrop: React.PropTypes.func
 
 ## DropTarget
-This component allows multiple different types of children. It allows object, JSX, or a simple string to be nested within. I've used it in multiple ways in the 'small_game' example.
+This component allows multiple different types of children. It allows object, JSX, or a simple string to be nested within.
 
 This component is how you listen to events.
 
 Example:
 
-      <DropTarget>This text will be appended to, by default. It can be customized to set content by passing in the appropriate prop.</DropTarget>
+      <DropTarget manager={manager}>This text will be appended to with the Draggable text</DropTarget>
 
 #### PropTypes:
 
 manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
-
 style: React.PropTypes.object,
-
 wrapper: React.PropTypes.any,
-
 handleDraggableHoveringOverDropTarget: React.PropTypes.func,
-
 handleDroppedDraggable: React.PropTypes.func

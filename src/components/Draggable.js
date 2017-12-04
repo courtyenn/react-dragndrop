@@ -246,7 +246,6 @@ Draggable.prototype.localNextPosition = { x: 0, y: 0 };
 Draggable.propTypes = {
   id: React.PropTypes.string,
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
-  droppedStyle: React.PropTypes.object,
   draggingStyle: React.PropTypes.object,
   clickedStyle: React.PropTypes.object,
   style: React.PropTypes.object,
