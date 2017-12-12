@@ -68,6 +68,7 @@ export default class DropTarget extends Component {
 DropTarget.propTypes = {
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
   style: React.PropTypes.object,
+  className: React.PropTypes.string,
   wrapper: React.PropTypes.any,
   handleDraggableHoveringOverDropTarget: React.PropTypes.func,
   handleDroppedDraggable: React.PropTypes.func
