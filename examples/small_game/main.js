@@ -107,7 +107,7 @@ export default class MainSection extends React.Component{
       key={"0.1.retain-space"}
       manager={dragDropManager}
       style={DraggableStyles.Normal}
-      retainSpaceStyle={DraggableStyles.Ghost}
+      retainSpaceClassName={'testing'}
       retainSpace={true}>
       whatevs
     </Draggable>

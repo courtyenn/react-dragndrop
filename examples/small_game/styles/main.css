@@ -7,3 +7,15 @@ html {
   height: 80px;
   background: seagreen;
 }
+.testing {
+  box-sizing: border-box;
+  background: transparent;
+  width: 300;
+  height: 60;
+  text-align: center;
+  font-family: sans-serif;
+  cursor: -webkit-grab;
+  margin: 20px 0;
+  z-index: 2;
+  border: 4px dashed gray;
+}
