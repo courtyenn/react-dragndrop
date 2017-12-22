@@ -60,7 +60,7 @@ export default class Draggable extends Component {
   render() {
     let styleOutput = this.setStyle();
     let classOutput = this.setClassName();
-
+    let ghostElement, ghostStyle;
     if (this.props.retainSpace) {
 
       if (this.dragging) {
