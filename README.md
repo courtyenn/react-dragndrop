@@ -24,16 +24,27 @@ Example:
 
 #### PropTypes:
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
+
   id: React.PropTypes.string,
+
   draggingStyle: React.PropTypes.object,
+
   clickedStyle: React.PropTypes.object,
+
   style: React.PropTypes.object,
+
   baseClassName: React.PropTypes.string,
+
   clickedClassName: React.PropTypes.string,
+
   draggingClassName: React.PropTypes.string,
+
   droppedClassName: React.PropTypes.string,
+
   handleMouseUp: React.PropTypes.func,
+
   handleMouseDown: React.PropTypes.func,
+
   handleDrop: React.PropTypes.func
 
 ## DropTarget
@@ -48,7 +59,11 @@ Example:
 #### PropTypes:
 
 manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
+
 style: React.PropTypes.object,
+
 wrapper: React.PropTypes.any,
+
 handleDraggableHoveringOverDropTarget: React.PropTypes.func,
+
 handleDroppedDraggable: React.PropTypes.func

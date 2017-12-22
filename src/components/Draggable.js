@@ -11,7 +11,7 @@ export default class Draggable extends Component {
     this.domDraggableElement;
     this.html = document.getElementsByTagName('html')[0];
     this.html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
-    this.html.addEventListener('touchmove', this.setTouchPosition.bind(this), {useCapture: false, passive: false});
+    this.html.addEventListener('touchmove', this.setTouchPosition.bind(this), { useCapture: false, passive: false });
 
     this.currentPosition = { x: 0, y: 0 };
     this.clicked = false;
@@ -38,7 +38,6 @@ export default class Draggable extends Component {
     this.isOverTarget = false;
     this.hoveredDropTarget = null;
 
-    this.setState = this.setState;
   }
 
   setInitialDimensions(ref) {
@@ -59,20 +58,48 @@ export default class Draggable extends Component {
   }
 
   render() {
-    var styleOutput = this.setStyle();
-    var classOutput = this.setClassName();
-    return (
-      <div ref={this.setInitialDimensions}
-        style={styleOutput}
-        className={classOutput}
-        key={this.props.id}
-        onMouseDown={this.handleMouseDown}
-        onTouchStart={this.handleMouseDown}
-        onTouchEnd={this.handleTouchEnd}
-        onMouseUp={this.handleMouseUp}>
-        {this.props.children}
-      </div>
-    );
+    let styleOutput = this.setStyle();
+    let classOutput = this.setClassName();
+
+    if (this.props.ghostElement) {
+
+      if (this.dragging) {
+        ghostStyle = this.props.retainSpaceStyle;
+        ghostElement = (<div className={this.props.retainSpaceClassName} style={ghostStyle}></div>);
+      }
+      else {
+        ghostElement = (<div className={this.props.retainSpaceClassName} style={{ display: 'none' }}></div>);
+      }
+      return (
+        <div>
+          <div ref={this.setInitialDimensions}
+            style={styleOutput}
+            className={classOutput}
+            key={this.props.id}
+            onMouseDown={this.handleMouseDown}
+            onTouchStart={this.handleMouseDown}
+            onTouchEnd={this.handleTouchEnd}
+            onMouseUp={this.handleMouseUp}>
+            {this.props.children}
+          </div>
+          {ghostElement}
+        </div>
+      );
+    }
+    else {
+      return (
+        <div ref={this.setInitialDimensions}
+          style={styleOutput}
+          className={classOutput}
+          key={this.props.id}
+          onMouseDown={this.handleMouseDown}
+          onTouchStart={this.handleMouseDown}
+          onTouchEnd={this.handleTouchEnd}
+          onMouseUp={this.handleMouseUp}>
+          {this.props.children}
+        </div>
+      );
+    }
   }
 
   setStyle(theStyle) {
@@ -246,6 +273,9 @@ Draggable.prototype.localNextPosition = { x: 0, y: 0 };
 Draggable.propTypes = {
   id: React.PropTypes.string,
   manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
+  retainSpace: React.PropTypes.bool,
+  retainSpaceStyle: React.PropTypes.object,
+  retainSpaceClassName: React.PropTypes.string,
   draggingStyle: React.PropTypes.object,
   clickedStyle: React.PropTypes.object,
   style: React.PropTypes.object,

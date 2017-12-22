@@ -88,6 +88,30 @@ export default class MainSection extends React.Component{
         </Draggable>
       );
     })
+
+    drags.push(
+      <Draggable
+      id={'retain-space'}
+      key={"0.0.retain-space"}
+      manager={dragDropManager}
+      style={DraggableStyles.Normal}
+      retainSpaceStyle={DraggableStyles.Ghost}
+      retainSpace={true}>
+      Lalalalalalalala retain space plez
+    </Draggable>
+    );
+
+    drags.push(
+      <Draggable
+      id={'retain-space2'}
+      key={"0.1.retain-space"}
+      manager={dragDropManager}
+      style={DraggableStyles.Normal}
+      retainSpaceStyle={DraggableStyles.Ghost}
+      retainSpace={true}>
+      whatevs
+    </Draggable>
+    );
     return (
       <ul>
         {drags}
