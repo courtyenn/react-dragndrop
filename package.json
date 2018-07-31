@@ -5,7 +5,7 @@
   "main": "lib/react-dragndrop",
   "scripts": {
     "webpack": "webpack",
-    "prepublish": "npm run webpack"
+    "prepare": "npm run webpack"
   },
   "repository": {
     "type": "git",
