@@ -233,15 +233,15 @@ export default class Draggable extends Component {
       }
     }
     this.html.removeEventListener('touchmove', this.setTouchPosition.bind(this), false);
-    this.endDrag();
+    this.endDrag(ev);
   }
 
   handleMouseUp(ev) {
     this.html.removeEventListener('mousemove', this.setMousePosition.bind(this), false);
-    this.endDrag();
+    this.endDrag(ev);
   }
 
-  endDrag() {
+  endDrag(ev) {
     this.clicked = false;
     this.dragging = false;
     this.setState({
