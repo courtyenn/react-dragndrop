@@ -1,7 +1,7 @@
-# ********\*\*\********* DEPRECATED ********\*\*\*********
+# \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* DEPRECATED \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 
 This project is no longer maintained. Please refer to the many libraries out there for React.
-Thank you to all who have starred and used it. 💜
+Thank you to all who have starred and used it. 💜 -- courtyen
 
 See other dragging libraries here:
 https://www.npmjs.com/search?q=react%20drag%20and%20drop
