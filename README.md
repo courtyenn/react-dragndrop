@@ -1,3 +1,11 @@
+# ********\*\*\********* DEPRECATED ********\*\*\*********
+
+This project is no longer maintained. Please refer to the many libraries out there for React.
+Thank you to all who have starred and used it. 💜
+
+See other dragging libraries here:
+https://www.npmjs.com/search?q=react%20drag%20and%20drop
+
 # react-dragndrop (ES2015)
 
 Simplistic library with minimal boilerplate code to get started. This library comes with 2 React components: `<Draggable>` and `<DropTarget>`. In order for these two components to talk to each other, an instance of `DragDropManager` must be created with the following code:
@@ -14,8 +22,8 @@ Simplistic library with minimal boilerplate code to get started. This library co
           )
     }
 
-
 ## Draggable
+
 Whatever it is you want dragged, nest it inside of the Draggable component. This wrapper allows for customization for every stage of the Draggable life cycle. Base style, clicked style, dragging style. Once the Draggable is actually dropped in the DropTarget, it is up to the user to style the component at that point.
 
 Example:
@@ -23,31 +31,33 @@ Example:
       <Draggable manager={manager}>I want this dragged!</Draggable>
 
 #### PropTypes:
-  manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
 
-  id: React.PropTypes.string,
+manager: React.PropTypes.instanceOf(DragDropManager).isRequired,
 
-  draggingStyle: React.PropTypes.object,
+id: React.PropTypes.string,
 
-  clickedStyle: React.PropTypes.object,
+draggingStyle: React.PropTypes.object,
 
-  style: React.PropTypes.object,
+clickedStyle: React.PropTypes.object,
 
-  baseClassName: React.PropTypes.string,
+style: React.PropTypes.object,
 
-  clickedClassName: React.PropTypes.string,
+baseClassName: React.PropTypes.string,
 
-  draggingClassName: React.PropTypes.string,
+clickedClassName: React.PropTypes.string,
 
-  droppedClassName: React.PropTypes.string,
+draggingClassName: React.PropTypes.string,
 
-  handleMouseUp: React.PropTypes.func,
+droppedClassName: React.PropTypes.string,
 
-  handleMouseDown: React.PropTypes.func,
+handleMouseUp: React.PropTypes.func,
 
-  handleDrop: React.PropTypes.func
+handleMouseDown: React.PropTypes.func,
+
+handleDrop: React.PropTypes.func
 
 ## DropTarget
+
 This component allows multiple different types of children. It allows object, JSX, or a simple string to be nested within.
 
 This component is how you listen to events.
